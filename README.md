@@ -3,7 +3,6 @@ Our final project proposal is "Gator-Dater". A dating app for SFSU students, in 
 dating interests (commonly known as "matches"). The user will get to interact with their match via a text based chat, and will go in
 knowing basic information such as name, age, major (all of which is used to match them in the first place). The goal of our app is
 to make our fellow SFSU students feel a little less cold this winter.
-
 # UI Mockup
 ### Welcome Page
 ![Welcome Screen- State 1](https://user-images.githubusercontent.com/45413260/68815034-26a81280-062f-11ea-8b06-9059da1ea8e3.png)
@@ -39,15 +38,10 @@ major. Might show more information depending on further implementation (perhaps 
 2. MongoDB (Storage) - For storing all the users information (other than their login information)
 3. Amazon Web Service Elastic Compute Cloud (AWS EC2) - To serve our application
 4. Websocket - For real time chat interactions (front end)
-5. React + Redux -
-5. Microserver architecture
+5. React + Redux - for building UI 
+5. Microserver architecture (Back End) - for some services to run multiple instances
 6. Gateway - All front end requests hit gateway first for authorization
 7. Redis - For caching values (such as the user login info, so they won't have to continually log back in)
-8. Backend components must be dockerized
-9. Kafka for at least 1 conveyer
-10. Distributed messaging with kafka or redis?
-
-Microserver architecture back end with some services running multiple instances
-Backend components must be dockerized and running in Docker swarm mode
-Kafka for at least 1 conveyer
-Distributed messaging can be done with either kafka or redis
+8. Docker - Backend components dockerized and to run in Docker swarm mode
+9. Kafka - for at least 1 conveyer
+10. Distributed messaging with kafka or redis
