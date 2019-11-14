@@ -29,6 +29,11 @@ major. Might show more information depending on further implementation (perhaps 
 2. Leads to the Register Page
 3. Logs the user out (if they want to log out, for some reason)
 4. A chat with their specified match. Currently supports mostly text, and maybe images.
+### Main Page (no matches)
+![Landing Page (no matches)- State 1](https://user-images.githubusercontent.com/45413260/68815929-afc04900-0631-11ea-8182-49316fa3cdea.png)
+1. Generic no matches in case none are found
+2. Leads to the Register Page
+3. Logs the user out (if they want to log out, for some reason)
 # Architecture
 1. Express (Back End) - Back end with get/post endpoints
 2. MongoDB (Storage) - For storing all the users information (other than their login information)
