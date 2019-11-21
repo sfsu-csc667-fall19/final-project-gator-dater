@@ -1,0 +1,23 @@
+{
+  "name": "final-project-gator-dater",
+  "version": "1.0.0",
+  "description": "Our final project proposal is \"Gator-Dater\". A dating app for SFSU students, in which students register and see people who match their\r dating interests (commonly known as \"matches\"). The user will get to interact with their match via a text based chat, and will go in\r knowing basic information such as name, age, major (all of which is used to match them in the first place). The goal of our app is\r to make our fellow SFSU students feel a little less cold this winter.\r # UI Mockup\r ### Welcome Page\r ![Welcome Screen- State 1](https://user-images.githubusercontent.com/45413260/68815034-26a81280-062f-11ea-8b06-9059da1ea8e3.png)\r 1. Leads to the the Register Page, where the user signs up for an account and provides basic dating information\r 2. Leads to the Register Page, same as 1\r 3. Leads to the Login Page for returning users\r ### Register Page\r ![Register- State 1](https://user-images.githubusercontent.com/45413260/68815038-2c055d00-062f-11ea-9d34-c22220405f31.png)\r 1. Register button that saves the users information for matching purposes, and also for when they login next time\r 2. Leads to the same page they are currently on (Register Page)\r 3. Leads to the Login Page for returning users\r 4. This is where the user creates their account and provides basic dating information we will use to match them\r ### Login Page\r ![Log In- State 1](https://user-images.githubusercontent.com/45413260/68815049-31fb3e00-062f-11ea-9100-3dfdfba38273.png)\r 1. Logs the user in by using the user credentials provided in 4\r 2. Leads to the Register Page\r 3. Leads to the same page they are currently on (Login Page)\r 4. Username and password used to log the user in\r ### Main Page\r ![Landing Page- State 1](https://user-images.githubusercontent.com/45413260/68815052-36bff200-062f-11ea-947a-0f10b03ef83c.png)\r 1. Based on the preferential dating information provided by the user, we will show them a match. Shows their name, age, gender, and\r major. Might show more information depending on further implementation (perhaps an about me)\r 2. Leads to the Register Page\r 3. Logs the user out (if they want to log out, for some reason)\r 4. A chat with their specified match. Currently supports mostly text, and maybe images.\r ### Main Page (no matches)\r ![Landing Page (no matches)- State 1](https://user-images.githubusercontent.com/45413260/68815929-afc04900-0631-11ea-8182-49316fa3cdea.png)\r 1. Generic no matches in case none are found\r 2. Leads to the Register Page\r 3. Logs the user out (if they want to log out, for some reason)\r # Architecture\r 1. Express (Back End) - Back end with get/post endpoints\r 2. MongoDB (Storage) - For storing all the users information (other than their login information)\r 3. Amazon Web Service Elastic Compute Cloud (AWS EC2) - To serve our application\r 4. Websocket - For real time chat interactions (front end)\r 5. React + Redux - for building UI \r 5. Microserver architecture (Back End) - for some services to run multiple instances\r 6. Gateway - All front end requests hit gateway first for authorization\r 7. Redis - For caching values (such as the user login info, so they won't have to continually log back in)\r 8. Docker - Backend components dockerized and to run in Docker swarm mode\r 9. Kafka - for at least 1 conveyer\r 10. Distributed messaging with kafka or redis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfsu-csc667-fall19/final-project-gator-dater.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sfsu-csc667-fall19/final-project-gator-dater/issues"
+  },
+  "homepage": "https://github.com/sfsu-csc667-fall19/final-project-gator-dater#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.2.0"
+  }
+}
