@@ -35,6 +35,20 @@ exports.createUser = function (req, res) {
 
 };
 
+exports.login = function (req, res) {
+  Users.findOne({ username: req.body.username }, function (err, user) {
+    if(!user) {
+      res.send('Username does not exist.');
+    }
+    else {
+      if(user.password !== req.body.password) {
+        res.send('Password is incorrect.');
+      }
+      // Set isLoggedIn to true
+    }
+  })
+}
+
 exports.uploadPic = function (req, res) {
     res.send(req.files);
 }
