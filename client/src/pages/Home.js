@@ -2,13 +2,13 @@
 import React, { useState }from 'react';
 import './css/Home.css';
 import img from './img/bg.jpg';
+import { Redirect}  from "react-router-dom";
 import { Button} from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert} from 'reactstrap';
 
 const Home = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [greeting, setGreeting] = useState('');
   const [age, setAge] = useState('');  
   const [email, setEmail] = useState('');  
   const [collegeyear, setCollegeYear] = useState(''); 
@@ -19,6 +19,8 @@ const Home = () => {
   const [loginBox, setLoginBox] = useState(false);
   const [createBox, setCreateBox] = useState(false);
   const [fadeIn, setFadeIn] = useState(true);
+
+  const [isLoggedIn, setisLogdedIn] = useState(false);
   
 
 
@@ -26,35 +28,36 @@ const Home = () => {
     backgroundImage: 'url(' + img + ')',
   };
 
-  const hide ={
-      display: greeting,
-  }
-
-
     const goLogin = () => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
         setUsername('');
         setPassword('');
-        setGreeting('none');
+        document.getElementById("greeting").style.display ="none";
       }
     
-      const goCreate =() =>{
+    const goCreate =() =>{
         setLoginBox(false);
         setFadeIn(false);
         setCreateBox(true);
         setUsername('');
         setPassword('');
-        setGreeting('none');
+        document.getElementById("greeting").style.display ="none";
       }
 
-      const goHome = () => {
+    const goHome = () => {
         setCreateBox(false);
         setLoginBox(false);
         setFadeIn(true);
-        setGreeting('inline');
+        document.getElementById("greeting").style.display ="inline";
       }
+
+    const goProfile =() =>{
+        setisLogdedIn(true);
+      }
+
+    if (isLoggedIn) { return <Redirect to="/profile" /> }
 
 
       const Log = ()=>{      
@@ -75,7 +78,7 @@ const Home = () => {
 
                 <Row form>
                     <Col md={6}>
-                    <Button onClick = {goHome} variant="warning" block>Submit</Button>
+                    <Button onClick = {goProfile} variant="warning" block>Submit</Button>
                     </Col>
                     <Col md={6}>
                     <Button onClick = {goHome} variant="warning" block>Not now</Button>
@@ -194,7 +197,7 @@ const Home = () => {
             
        
          
-            <Fade in={fadeIn} id="greeting" style={hide}>     
+            <Fade in={fadeIn} id="greeting">     
                 <h1>Gator.Dater</h1>
                 <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br/>
                 Our goal is to make our fellow SFSU students feel a little less cold this winter.</p> 
