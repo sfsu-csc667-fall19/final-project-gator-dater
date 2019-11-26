@@ -1,7 +1,10 @@
 
-import React, { useState }from 'react';
+import React, { useState, Component } from 'react';
+import SnowStorm from 'react-snowstorm';
 import './css/Home.css';
 import img from './img/bg.jpg';
+import img2 from './img/Snowglobe2.jpg'
+import img3 from './img/Snowglobe1.jpg'
 import { Button} from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert} from 'reactstrap';
 import NavBar from './NavBar';
@@ -24,7 +27,7 @@ const Home = () => {
 
 
   const bgGround = {
-    backgroundImage: 'url(' + img + ')',
+    backgroundImage: 'url(' + img2 + ')',
   };
 
   const hide ={
@@ -175,40 +178,42 @@ const Home = () => {
 
   return (
     <div style={bgGround} id="bg">
+
     <NavBar />
-    <Container >
-        <Row>   
-           
-            {loginBox && (  
-            <Col sm="12" md={{ size: 6, offset: 4 }}>
-                <div className="iBox" >{Log()}</div> 
-            </Col>
-            )}
-
-
-
-            {createBox && (  
-            <Col sm="12" md={{ size: 6, offset: 3}}>
-                <div className="cBox">{Create()}</div> 
-            </Col>
-            )}
-           
+    <SnowStorm />
+        <Container>
+            <Row>   
             
-       
-         
-            <Fade in={fadeIn} id="greeting" style={hide}>     
-                <h1>Gator.Dater</h1>
-                <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br/>
-                Our goal is to make our fellow SFSU students feel a little less cold this winter.</p> 
+                {loginBox && (  
+                <Col sm="12" md={{ size: 6, offset: 4 }}>
+                    <div className="iBox" >{Log()}</div> 
+                </Col>
+                )}
+
+
+
+                {createBox && (  
+                <Col sm="12" md={{ size: 6, offset: 3}}>
+                    <div className="cBox">{Create()}</div> 
+                </Col>
+                )}
+            
                 
-                <ButtonToolbar>   
-                    <Button onClick={goLogin}  variant="outline-warning">Get started  </Button>  &nbsp;&nbsp;
-                    <Button  onClick={goCreate} variant="outline-warning" >Sign up</Button>
-                </ButtonToolbar>
-            </Fade>
-         
-        </Row>
-    </Container>
+        
+            
+                <Fade in={fadeIn} id="greeting" style={hide}>     
+                    <h1>Gator.Dater</h1>
+                    <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br/>
+                    Our goal is to make our fellow SFSU students feel a little less cold this winter.</p> 
+                    
+                    <ButtonToolbar>   
+                        <Button onClick={goLogin}  variant="outline-warning">Get started  </Button>  &nbsp;&nbsp;
+                        <Button  onClick={goCreate} variant="outline-warning" >Sign up</Button>
+                    </ButtonToolbar>
+                </Fade>
+            
+            </Row>
+        </Container>
     </div>
   );
 };

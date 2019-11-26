@@ -1,6 +1,6 @@
 // nav bar for when already logged in?
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -80,8 +80,8 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
+    <div className={classes.grow}> 
+      <AppBar position="static" style={{ background: '#2E3B55' }}>
         <Toolbar>
           <IconButton
             edge="start"
