@@ -9,6 +9,8 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 
+var validator = require("email-validator");
+
 const Home = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -31,6 +33,13 @@ const Home = () => {
     const bgGround = {
         backgroundImage: 'url(' + img + ')',
     };
+    function selectOnlyThis(id) {
+        var myCheckbox = document.getElementsByName("myCheckbox");
+        Array.prototype.forEach.call(myCheckbox, function (el) {
+            el.checked = false;
+        });
+        id.checked = true;
+    }
 
     const goLogin = () => {
         setLoginBox(true);
@@ -49,32 +58,45 @@ const Home = () => {
         setPassword('');
         document.getElementById("greeting").style.display = "none";
     }
-    
+
     const createUser = (e) => {
         e.preventDefault();
-        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== 0 && major !== 0) {
-            axios.post("/user/createUser", {
-                username,
-                password: md5(password),
-                age,
-                email,
-                collegeyear,
-                major,
-                addtion,
-            })
-                .then((res) => {
-                    setSuccess(res.data);
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
+            if (validator.validate(email)) {
+                axios.post("/user/createUser", {
+                    username,
+                    password: md5(password),
+                    age,
+                    email,
+                    collegeyear,
+                    major,
+                    addtion,
                 })
-                .catch(err => console.log(err));
+                    .then((res) => {
+                        setSuccess(res.data);
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                setSuccess('Missing \'@\' on email');
+            }
         } else {
-            setSuccess('Invalid. Please type in something.')
+            setSuccess('Invalid. Please type in something.');
         }
     }
+
+
+
 
     const goHome = () => {
         setCreateBox(false);
         setLoginBox(false);
         setFadeIn(true);
+        setAge('');
+        setEmail('');
+        setCollegeYear('');
+        setMajor('');
+        setAddtion('');
+        setSuccess('');
         document.getElementById("greeting").style.display = "inline";
     }
 
@@ -153,11 +175,12 @@ const Home = () => {
 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear}>
-                                <option>Freshman</option>
-                                <option>Sophomore</option>
-                                <option>Junior</option>
-                                <option>Senior</option>
+                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                                    <option value=""></option>
+                                    <option value="Freshman">Freshman</option>
+                                    <option value="Sophomore">Sophomore</option>
+                                    <option value="Junior">Junior</option>
+                                    <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -188,7 +211,7 @@ const Home = () => {
 
                         <FormGroup>
                             <Label for="exampleText">We want to know more about you.</Label>
-                            <Input type="textarea" name="text" id="exampleText" value={addtion} onChange = {e => setAddtion(e.target.value)} placeholder="preference, interest, anyting you want to share..." />
+                            <Input type="textarea" name="text" id="exampleText" value={addtion} onChange={e => setAddtion(e.target.value)} placeholder="preference, interest, anyting you want to share..." />
                         </FormGroup>
 
                         <br />
