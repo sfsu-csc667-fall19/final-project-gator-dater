@@ -11,7 +11,7 @@ let usersSchema = new Schema({
     race: String,
     gender: String,
     collegeYear: String,
-    intrests: String,
+    interests: String,
     
 });
 

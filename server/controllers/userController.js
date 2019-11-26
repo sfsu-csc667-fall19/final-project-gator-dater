@@ -17,7 +17,7 @@ exports.createUser = function (req, res) {
                     race: req.body.race,
                     gender: req.body.gender,
                     collegeYear: req.body.collegeYear,
-                    intrests: req.body.intrests,
+                    interests: req.body.intrests,
                 });
 
                 newUser.save(function (err) {
