@@ -7,10 +7,13 @@ let usersSchema = new Schema({
     password: String,
     firstName: String,
     lastName: String,
+    email: String,
     age: { type: Number, min: 18, max: 65 },
     race: String,
     gender: String,
-    collegeYear: String,
+    collegeyear: String,
+    major:String,
+    addition:String,
     interests: String,
     
 });
