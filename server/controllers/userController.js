@@ -13,11 +13,15 @@ exports.createUser = function (req, res) {
                     password: req.body.password,
                     firstName: req.body.firstName,
                     lastName: req.body.firstName,
+                    email: req.body.email,
+                    collegeyear: req.body.collegeyear,
+                    major: req.body.major,
+                    addition: req.body.addition,
                     age: req.body.age,
                     race: req.body.race,
                     gender: req.body.gender,
-                    collegeYear: req.body.collegeYear,
-                    interests: req.body.intrests,
+                    collegeyear: req.body.collegeyear,
+                    interests: req.body.interests,
                 });
 
                 newUser.save(function (err) {
