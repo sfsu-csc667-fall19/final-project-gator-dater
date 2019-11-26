@@ -37,7 +37,7 @@ const Profile = () => {
 
   const bgGround = {
     backgroundImage: 'url(' + img + ')',
-    height:'900px',
+    height:'850px',
   };
 
   function openNav() {
@@ -95,13 +95,13 @@ const Profile = () => {
          
         </Collapse>
       </Navbar>
-      </div>
+      
      
-
+       
       <Switch>
         <Route path ="/" component = {Random}/>        
       </Switch> 
-
+      
       <div id="mySidenav" className="sidenav"> 
         <ListGroup>
           <ListGroupItem>Update Profile</ListGroupItem>
@@ -110,8 +110,9 @@ const Profile = () => {
           <ListGroupItem>Some content</ListGroupItem>
           <ListGroupItem>Some content</ListGroupItem>
           <Button  bsSize = "sm" variant="warning" onClick = {logout}> LogOut</Button>
-        </ListGroup>         
+        </ListGroup>       
      </div>
+     </div> 
     </div>
  
   );
