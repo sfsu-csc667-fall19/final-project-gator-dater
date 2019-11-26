@@ -42,16 +42,17 @@ const Home = () => {
     }
 
     const goCreate = (e) => {
-        e.preventDefault();
-
         setLoginBox(false);
         setFadeIn(false);
         setCreateBox(true);
-        // setUsername('');
-        // setPassword('');
+        setUsername('');
+        setPassword('');
         document.getElementById("greeting").style.display = "none";
-
-        if (username != 0 && password != 0 && age != 0 && email != 0 && collegeyear != 0 && major != 0) {
+    }
+    
+    const createUser = (e) => {
+        e.preventDefault();
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== 0 && major !== 0) {
             axios.post("/user/createUser", {
                 username,
                 password: md5(password),
@@ -193,14 +194,14 @@ const Home = () => {
                         <br />
                         <Row form>
                             <Col md={6}>
-                                <Button onClick={goCreate} variant="warning" block>Sign Up</Button>
+                                <Button onClick={createUser} variant="warning" block>Sign Up</Button>
                             </Col>
                             <Col md={6}>
                                 <Button onClick={goHome} variant="warning" block>Not now</Button>
                             </Col>
                         </Row>
                     </Form>
-                    <h1>{success}</h1>
+                    <h5>{success}</h5>
                 </Alert>
             </div>
         )
