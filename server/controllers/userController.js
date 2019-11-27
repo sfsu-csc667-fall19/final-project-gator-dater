@@ -13,11 +13,15 @@ exports.createUser = function (req, res) {
                     password: req.body.password,
                     firstName: req.body.firstName,
                     lastName: req.body.firstName,
+                    email: req.body.email,
+                    collegeyear: req.body.collegeyear,
+                    major: req.body.major,
+                    addition: req.body.addition,
                     age: req.body.age,
                     race: req.body.race,
                     gender: req.body.gender,
-                    collegeYear: req.body.collegeYear,
-                    intrests: req.body.intrests,
+                    collegeyear: req.body.collegeyear,
+                    interests: req.body.interests,
                 });
 
                 newUser.save(function (err) {
@@ -36,16 +40,9 @@ exports.createUser = function (req, res) {
 };
 
 exports.login = function (req, res) {
-  Users.findOne({ username: req.body.username }, function (err, user) {
-    if(!user) {
-      res.send('Username does not exist.');
-    }
-    else {
-      if(user.password !== req.body.password) {
-        res.send('Password is incorrect.');
-      }
-      // Set isLoggedIn to true
-    }
+  Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]}, function (err, user) {
+    if(user) { return res.send(true); }
+    else { return res.send(false); }
   })
 }
 

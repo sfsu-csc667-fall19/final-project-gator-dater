@@ -52,7 +52,7 @@ const upload = multer({ storage });
 app.post("/user/createUser", userController.createUser);
 app.post("/user/uploadPic", upload.single("img"), userController.uploadPic);
 
-app.post("user/login", userController.login);
+app.post("/user/login", userController.login);
 
 app.get("/user/image/:filename", (req, res) => {
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
