@@ -4,8 +4,7 @@ import SnowStorm from 'react-snowstorm';
 import './css/Home.css';
 import img from './img/bg.jpg';
 import img2 from './img/Snowglobe2.jpg'
-import img3 from './img/Snowglobe1.jpg'
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert} from 'reactstrap';
 import NavBar from './NavBar';
 

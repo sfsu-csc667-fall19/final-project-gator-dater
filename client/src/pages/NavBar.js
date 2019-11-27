@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Icon from '@mdi/react'
+import Icon from '@mdi/react';
 import { mdiFlowerTulipOutline } from '@mdi/js';
 
 // css
