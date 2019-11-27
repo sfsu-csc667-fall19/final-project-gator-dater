@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
+import { connect } from 'react-redux';
+// import fb from './img/fb.jpg';
+import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
 import img from './img/bg.jpg';
 import Random from './Random';
+import Update from './Update';
 import { Switch, Route, Redirect}  from "react-router-dom";
 import { Button} from 'react-bootstrap';
 import {
@@ -24,10 +28,11 @@ import {
 
 
 
-const Profile = () => {
+const Profile = ({dispatch, isUpdateOpen}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);
+  const [isGoUpdate, setGoupdate] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => { 
@@ -40,7 +45,7 @@ const Profile = () => {
     height:'850px',
   };
 
-  function openNav() {
+  const openNav = ()=> {
     if(sideNav){
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("main").style.marginRight = "0px";
@@ -53,6 +58,14 @@ const Profile = () => {
     }
   }
 
+  const goUpdate = ()=>{
+    dispatch(setIsUpdateOpen(!isUpdateOpen));
+    document.getElementById("mySidenav").style.width = "0px";
+    document.getElementById("main").style.marginRight = "0px";
+    setNav(false);
+
+  }
+
 
   if (isLoggedOut) { return <Redirect to="/" /> }
 
@@ -62,7 +75,7 @@ const Profile = () => {
     <div style={bgGround} >
     <div id = "main">
     <Navbar color="warning" light expand="md" >
-        <NavbarBrand >GatorDater</NavbarBrand>
+        <NavbarBrand >GatorDater- Profile.js</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -90,26 +103,34 @@ const Profile = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
+          {/* <input type="image" src = "./img/fb.jpg" border="border of the image" alt="text"></input> */}
          Welcome, Seafoodghost &nbsp;&nbsp;&nbsp;
          <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
-         
         </Collapse>
       </Navbar>
       
      
+    
        
       <Switch>
-        <Route path ="/" component = {Random}/>        
-      </Switch> 
+      {isUpdateOpen && ( 
+        <Route path = "/" component ={Update}/> 
+        
+      )}
+        <Route path = "/" component = {Random}/>       
+      </Switch>
+
+
       
       <div id="mySidenav" className="sidenav"> 
         <ListGroup>
-          <ListGroupItem>Update Profile</ListGroupItem>
-          <ListGroupItem>Contact.1-800-800-8000</ListGroupItem>
+         
+          <ListGroupItem>Some information.</ListGroupItem>
           <ListGroupItem>Email: Some content@sfsu.edu</ListGroupItem>
           <ListGroupItem>Some content</ListGroupItem>
           <ListGroupItem>Some content</ListGroupItem>
-          <Button  bsSize = "sm" variant="warning" onClick = {logout}> LogOut</Button>
+          <ListGroupItem><Button bsSize = "sm" onClick ={goUpdate} block>Update Profile</Button></ListGroupItem>
+          <ListGroupItem><Button  bsSize = "sm"  onClick = {logout} block> LogOut</Button></ListGroupItem>
         </ListGroup>       
      </div>
      </div> 
@@ -118,4 +139,11 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+
+
+
+const mapStateToProps = state => ({
+   isUpdateOpen: state.pageReducer.isUpdateOpen,
+
+});
+export default connect(mapStateToProps)(Profile);
