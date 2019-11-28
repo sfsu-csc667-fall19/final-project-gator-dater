@@ -4,7 +4,6 @@ const Users = require("../models/users");
 
 exports.createUser = function (req, res) {
     try {
-
         Users.findOne({ username: req.body.username }, function (err, user) {
             if (!user) {
                 let newUser = new Users({
@@ -43,29 +42,3 @@ exports.login = function (req, res) {
     else { return res.send(false); }
   })
 }
-
-exports.uploadPic = function (req, res) {
-    res.send(req.files);
-}
-
-exports.getPic = function (req, res) {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-      // Check if file
-      if (!file || file.length === 0) {
-        return res.status(404).json({
-          err: "No file exists"
-        });
-      }
-  
-      // Check if image
-      if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
-        // Read output to browser
-        const readstream = gfs.createReadStream(file.filename);
-        readstream.pipe(res);
-      } else {
-        res.status(404).json({
-          err: "Not an image"
-        });
-      }
-    });
-  };
