@@ -1,6 +1,5 @@
 
 const Users = require("../models/users");
-const Images = require("../models/images");
 
 
 exports.createUser = function (req, res) {
@@ -36,12 +35,11 @@ exports.createUser = function (req, res) {
         console.log(e);
         res.send(e);
     }
-
 };
 
 exports.login = function (req, res) {
   Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]}, function (err, user) {
-    if(user) { return res.send(true); }
+    if (user) { return res.send(true); }
     else { return res.send(false); }
   })
 }

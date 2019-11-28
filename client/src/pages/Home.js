@@ -98,11 +98,13 @@ const Home = () => {
     }
 
     const goProfile = () => {
+        console.log("clicked");
         if (username !== 0 && password !== 0) {
                 axios.post("/user/login", {
                     username,
                     password: md5(password),
-                }) .then((res) => { setSuccess(res.data); })
+                }) .then((res) => { console.log(res.data); 
+                    setSuccess(res.data); })
                    .catch(err => console.log(err));
         } else { setSuccess('Field(s) cannot be empty.'); }
         if(success === true) { setisLoggedIn(true) };
