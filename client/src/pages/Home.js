@@ -8,8 +8,13 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import history from './history'
 
 var validator = require("email-validator");
+
+const options = {
+    withCredentials: true
+};
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -33,15 +38,15 @@ const Home = () => {
     const bgGround = {
         backgroundImage: 'url(' + img + ')',
     };
-    function selectOnlyThis(id) {
-        var myCheckbox = document.getElementsByName("myCheckbox");
-        Array.prototype.forEach.call(myCheckbox, function (el) {
-            el.checked = false;
-        });
-        id.checked = true;
-    }
+    // function selectOnlyThis(id) {
+    //     var myCheckbox = document.getElementsByName("myCheckbox");
+    //     Array.prototype.forEach.call(myCheckbox, function (el) {
+    //         el.checked = false;
+    //     });
+    //     id.checked = true;
+    // }
 
-    const goLogin = () => {
+    const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
@@ -63,7 +68,7 @@ const Home = () => {
         e.preventDefault();
         if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
             if (validator.validate(email)) {
-                axios.post("/user/createUser", {
+                axios.post("/createUser", {
                     username,
                     password: md5(password),
                     age,
@@ -97,20 +102,36 @@ const Home = () => {
         document.getElementById("greeting").style.display = "inline";
     }
 
-    const goProfile = () => {
-        console.log("clicked");
-        if (username !== 0 && password !== 0) {
-                axios.post("/user/login", {
-                    username,
-                    password: md5(password),
-                }) .then((res) => { console.log(res.data); 
-                    setSuccess(res.data); })
-                   .catch(err => console.log(err));
-        } else { setSuccess('Field(s) cannot be empty.'); }
-        if(success === true) { setisLoggedIn(true) };
-    }
+    function goProfile(e) {
+        e.preventDefault();
+        if (username != 0 && password != 0) {
 
-    if (isLoggedIn) { return <Redirect to="/profile" /> }
+            const body = {
+                username,
+                password: md5(password),
+            }
+            axios.post('/login', body, options)
+                .then((res) => {
+                    setPassword("");
+                    if (res.data) {
+                        Cookies.set("username", body.username);
+                        Cookies.set("password", body.password);
+                        Cookies.set("isLoggedIn", true);
+
+                    } else {
+                        Cookies.set("username", "");
+                        Cookies.set("password", "");
+                        Cookies.set("isLoggedIn", false);
+                    }
+                    console.log(res);
+                }).then(() => {
+                    history.push("/profile");
+                })
+                .catch(e => console.log(e));
+        } else {
+            setSuccess("Failed. Wrong username and/or password");
+        }
+    }
 
 
     const Log = () => {
@@ -138,6 +159,7 @@ const Home = () => {
                             </Col>
                         </Row>
                     </Form>
+                    <h5>{success}</h5>
                 </Alert>
             </div>
         )
@@ -182,11 +204,11 @@ const Home = () => {
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                    <option value=""></option>
-                                    <option value="Freshman">Freshman</option>
-                                    <option value="Sophomore">Sophomore</option>
-                                    <option value="Junior">Junior</option>
-                                    <option value="Senior">Senior</option>
+                                <option value=""></option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
