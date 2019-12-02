@@ -11,8 +11,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // controller
-// let userController = require('./controllers/userController');
-// let uploadController = require('./controllers/uploadController');
+let userController = require('./controllers/userController');
 
 // middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,8 +56,8 @@ const upload = multer({ storage });
 
 // upload img
 app.post('/user/uploadPic', upload.single('img'), (req, res) => {
-    res.json({ file: req.file });
-    // res.redirect('/');
+    // res.json({ file: req.file });
+    res.redirect('/');
 });
 
 // get img 
@@ -83,7 +82,13 @@ app.get('/user/profileImage/:username', (req, res) => {
         }
     });
 });
-// app.get("/user/getPic", userController.getPic);
+
+app.post('/user/editProfile', userController.editProfile);
+
+// TO DO
+app.post('user/editProfilePic', (req, res) => {
+    
+})
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")
