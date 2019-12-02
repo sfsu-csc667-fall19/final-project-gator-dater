@@ -34,37 +34,5 @@ const storage = new GridFsStorage({
     }
 });
 
-const upload = multer({ storage }).single('img');
-
-exports.uploadPic = function (req, res) {
-    upload(req, res, (err) => {
-        if (err) {
-            return res.render('index', { title: 'Uploaded Error', message: 'File could not be uploaded', error: err });
-        }
-        res.render('index', {
-            title: 'Uploaded',
-            message: `File ${req.file.filename} has been uploaded!`
-        });
-    });
-};
-
-exports.getPic = function (req, res) {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-        // Check if file
-        if (!file || file.length === 0) {
-            return res.status(404).json({
-                err: "No file exists"
-            });
-        }
-        // Check if image
-        if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
-            // Read output to browser
-            const readstream = gfs.createReadStream(file.filename);
-            readstream.pipe(res);
-        } else {
-            res.status(404).json({
-                err: "Not an image"
-            });
-        }
-    });
-};
+module.exports = multer({ storage });
+// exports.gfs;

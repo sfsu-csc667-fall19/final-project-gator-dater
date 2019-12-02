@@ -9,7 +9,7 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy Error');
 });
 
-app.all("/login" || "/createUser", (req, res) => {
+app.all("/login", (req, res) => {
   // auth
   console.log(req.path)
   apiProxy.web(req, res, {
@@ -17,7 +17,7 @@ app.all("/login" || "/createUser", (req, res) => {
   });
 })
 
-app.all("/createUser" || "/createUser", (req, res) => {
+app.all("/createUser", (req, res) => {
   // auth
   console.log(req.path)
   apiProxy.web(req, res, {
