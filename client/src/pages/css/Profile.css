@@ -13,11 +13,10 @@
     right: 0;
     background-color: white;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.4s;
     padding-top: 60px;
-    opacity: 0.9;
    }
 
    #main{
-    transition: 0.5s;
+    transition: 0.4s;
    }
