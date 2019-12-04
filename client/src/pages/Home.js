@@ -63,7 +63,7 @@ const Home = () => {
         e.preventDefault();
         if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
             if (validator.validate(email)) {
-                axios.post("/user/createUser", {
+                axios.post("/createUser", {
                     username,
                     password: md5(password),
                     age,
@@ -100,7 +100,7 @@ const Home = () => {
     const goProfile = () => {
         console.log("clicked");
         if (username !== 0 && password !== 0) {
-                axios.post("/user/login", {
+                axios.post("/login", {
                     username,
                     password: md5(password),
                 }) .then((res) => { console.log(res.data); 
