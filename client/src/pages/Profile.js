@@ -37,6 +37,7 @@ const Profile = ({dispatch, isUpdateOpen}) => {
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => { 
     setLogout(!isLoggedOut);
+    dispatch(setIsUpdateOpen(false));
   // setcookies to null
   }
 
