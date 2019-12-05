@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './css/Home.css';
 import img from './img/bg.jpg';
@@ -8,6 +7,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+
 import history from './history'
 
 var validator = require("email-validator");
@@ -15,6 +15,7 @@ var validator = require("email-validator");
 const options = {
     withCredentials: true
 };
+
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -31,20 +32,26 @@ const Home = () => {
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
 
-    const [isLoggedIn, setisLoggedIn] = useState(false);
+
+    const [loginBox, setLoginBox] = useState(false);
+    const [createBox, setCreateBox] = useState(false);
+    const [fadeIn, setFadeIn] = useState(true);
+
+    const [isLoggedIn, setisLogdedIn] = useState(false);
 
 
 
     const bgGround = {
         backgroundImage: 'url(' + img + ')',
     };
-    // function selectOnlyThis(id) {
-    //     var myCheckbox = document.getElementsByName("myCheckbox");
-    //     Array.prototype.forEach.call(myCheckbox, function (el) {
-    //         el.checked = false;
-    //     });
-    //     id.checked = true;
-    // }
+    function selectOnlyThis(id) {
+        var myCheckbox = document.getElementsByName("myCheckbox");
+        Array.prototype.forEach.call(myCheckbox, function (el) {
+            el.checked = false;
+        });
+        id.checked = true;
+    }
+
 
     const goLogin = (e) => {
         setLoginBox(true);
@@ -105,7 +112,6 @@ const Home = () => {
     function goProfile(e) {
         e.preventDefault();
         if (username != 0 && password != 0) {
-
             const body = {
                 username,
                 password: md5(password),
@@ -133,7 +139,6 @@ const Home = () => {
         }
     }
 
-
     const Log = () => {
         return (
             <div>
@@ -160,6 +165,7 @@ const Home = () => {
                         </Row>
                     </Form>
                     <h5>{success}</h5>
+
                 </Alert>
             </div>
         )
@@ -204,11 +210,11 @@ const Home = () => {
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                <option value=""></option>
-                                <option value="Freshman">Freshman</option>
-                                <option value="Sophomore">Sophomore</option>
-                                <option value="Junior">Junior</option>
-                                <option value="Senior">Senior</option>
+                                    <option value=""></option>
+                                    <option value="Freshman">Freshman</option>
+                                    <option value="Sophomore">Sophomore</option>
+                                    <option value="Junior">Junior</option>
+                                    <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -236,6 +242,7 @@ const Home = () => {
                                 </FormGroup>
                             </Col>
                         </Row>
+
 
                         <FormGroup>
                             <Label for="exampleText">We want to know more about you.</Label>
