@@ -81,12 +81,20 @@ const Home = () => {
                     major,
                     addtion,
                 })
-                .then((res) => { setSuccess(res.data); })
-                .catch(err => console.log(err));
+                    .then((res) => {
+                        setSuccess(res.data);
+                        Cookies.set("username", username);
+                        Cookies.set("password", md5(password));
+                        Cookies.set("isLoggedIn", true);
+                        if(success === 'Success') {
+                            // <Redirect path="/profile"/>
+                        }
+                    })
+                    
+                    .catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
 
-        // if (success === true) { goProfile() };
     }
 
     const goHome = () => {
@@ -203,11 +211,11 @@ const Home = () => {
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                    <option value=""></option>
-                                    <option value="Freshman">Freshman</option>
-                                    <option value="Sophomore">Sophomore</option>
-                                    <option value="Junior">Junior</option>
-                                    <option value="Senior">Senior</option>
+                                <option value=""></option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
