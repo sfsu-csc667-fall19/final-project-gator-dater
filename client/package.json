@@ -25,7 +25,7 @@
     "react-snowstorm": "0.0.3",
     "reactstrap": "^8.1.1",
     "redux": "^4.0.4",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
     "react-validation": "^3.0.7",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.1"
