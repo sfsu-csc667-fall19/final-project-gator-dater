@@ -24,11 +24,9 @@ exports.createUser = function (req, res) {
 
                 newUser.save(function (err) {
                     if (err) return res.status(500).send(err);
-                    else return res.status(200).send('Success!');
+                    else return res.status(200).send(true);
                 });
-            } else {
-                res.send('Username already taken.');
-            }
+            } else { res.send('Username already taken.'); }
         });
     } catch (e) {
         console.log(e);

@@ -87,6 +87,7 @@ app.get('/user/profileImage/:username', (req, res) => {
 app.post('/user/editProfile', userController.editProfile);
 
 // TO DO
+
 app.post('/user/editProfilePic',(req, res) => {
     gfs.files.findOne({ metadata: req.body.username }, { _id : 1 }, (err, file) => {
         if (err) res.status(500).send(err);
@@ -105,6 +106,8 @@ app.post('/user/editProfilePic',(req, res) => {
     })
 
 });
+
+app.post('/user/listUsers', userController.listUsers);
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")
