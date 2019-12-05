@@ -40,10 +40,10 @@ const storage = new GridFsStorage({
                     return reject(err);
                 }
                 const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {   
+                const fileInfo = {
                     filename: filename,
                     bucketName: 'uploads',
-                    metadata : req.body.username, 
+                    metadata: req.body.username,
                 };
                 resolve(fileInfo);
             });
@@ -57,7 +57,8 @@ const upload = multer({ storage });
 // upload img
 app.post('/user/uploadPic', upload.single('img'), (req, res) => {
     // res.json({ file: req.file });
-    res.redirect('/');
+    // res.redirect('/');
+    res.send(true);
 });
 
 // get img 
@@ -86,9 +87,25 @@ app.get('/user/profileImage/:username', (req, res) => {
 app.post('/user/editProfile', userController.editProfile);
 
 // TO DO
-app.post('/user/editProfilePic', (req, res) => {
-    
-})
+
+app.post('/user/editProfilePic',(req, res) => {
+    gfs.files.findOne({ metadata: req.body.username }, { _id : 1 }, (err, file) => {
+        if (err) res.status(500).send(err);
+        if (file)
+        {            
+            console.log("removing");
+            gfs.remove({ _id: file._id, root: 'uploads' }, (err, gridStore) => {
+                if (err) {
+                  return res.status(404).json({ err: err });
+                }
+            });
+            res.json(true);
+        }
+        // upload.single('img');
+        res.send(true);
+    })
+
+});
 
 app.post('/user/listUsers', userController.listUsers);
 

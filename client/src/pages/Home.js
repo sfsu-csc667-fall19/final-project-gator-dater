@@ -7,8 +7,13 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import history from './history'
 
 var validator = require('email-validator');
+
+const options = {
+    withCredentials: true
+};
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -35,7 +40,11 @@ const Home = () => {
         id.checked = true;
     }
 
-    const goLogin = () => {
+    const bgGround = {
+        backgroundImage: 'url(' + img + ')',
+    };
+
+    const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
@@ -87,24 +96,36 @@ const Home = () => {
         document.getElementById('greeting').style.display = 'inline';
     }
 
-    const goProfile = () => {
-        console.log('clicked');
-        if (username !== 0 && password !== 0) {
-            axios.post('/login', {
+    function goProfile(e) {
+        e.preventDefault();
+        if (username != 0 && password != 0) {
+
+            const body = {
                 username,
                 password: md5(password),
-            })
+            }
+            axios.post('/login', body, options)
                 .then((res) => {
-                    console.log(res.data);
-                    setSuccess(res.data);
+                    setPassword("");
+                    if (res.data) {
+                        Cookies.set("username", body.username);
+                        Cookies.set("password", body.password);
+                        Cookies.set("isLoggedIn", true);
+
+                    } else {
+                        Cookies.set("username", "");
+                        Cookies.set("password", "");
+                        Cookies.set("isLoggedIn", false);
+                    }
+                    console.log(res);
+                }).then(() => {
+                    history.push("/profile");
                 })
-                .catch(err => console.log(err));
-        } else { setSuccess('Field(s) cannot be empty.'); }
-        if (success === true) { setisLoggedIn(true) };
+                .catch(e => console.log(e));
+        } else {
+            setSuccess("Failed. Wrong username and/or password");
+        }
     }
-
-    if (isLoggedIn) { return <Redirect to='/profile' /> }
-
 
     const Log = () => {
         return (
@@ -131,6 +152,7 @@ const Home = () => {
                             </Col>
                         </Row>
                     </Form>
+                    <h5>{success}</h5>
                 </Alert>
             </div>
         )
@@ -173,13 +195,13 @@ const Home = () => {
                         </Row>
 
                         <FormGroup>
-                            <Label for='exampleAddress'>College Year</Label>
-                            <Input type='select' bsSize='sm' value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                <option value=''></option>
-                                <option value='Freshman'>Freshman</option>
-                                <option value='Sophomore'>Sophomore</option>
-                                <option value='Junior'>Junior</option>
-                                <option value='Senior'>Senior</option>
+                            <Label for="exampleAddress">College Year</Label>
+                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                                <option value=""></option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
