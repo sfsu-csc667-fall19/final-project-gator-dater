@@ -42,10 +42,6 @@ const Home = () => {
         id.checked = true;
     }
 
-    const bgGround = {
-        backgroundImage: 'url(' + img + ')',
-    };
-
     function selectOnlyThis(id) {
         var myCheckbox = document.getElementsByName("myCheckbox");
         Array.prototype.forEach.call(myCheckbox, function (el) {
