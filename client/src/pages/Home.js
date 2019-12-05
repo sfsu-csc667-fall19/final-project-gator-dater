@@ -8,7 +8,14 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 
+import history from './history'
+
 var validator = require("email-validator");
+
+const options = {
+    withCredentials: true
+};
+
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -19,6 +26,11 @@ const Home = () => {
     const [major, setMajor] = useState('');
     const [addtion, setAddtion] = useState('');
     const [success, setSuccess] = useState('');
+
+
+    const [loginBox, setLoginBox] = useState(false);
+    const [createBox, setCreateBox] = useState(false);
+    const [fadeIn, setFadeIn] = useState(true);
 
 
     const [loginBox, setLoginBox] = useState(false);
@@ -40,7 +52,8 @@ const Home = () => {
         id.checked = true;
     }
 
-    const goLogin = () => {
+
+    const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
@@ -62,7 +75,7 @@ const Home = () => {
         e.preventDefault();
         if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
             if (validator.validate(email)) {
-                axios.post("/user/createUser", {
+                axios.post("/createUser", {
                     username,
                     password: md5(password),
                     age,
@@ -83,9 +96,6 @@ const Home = () => {
         }
     }
 
-
-
-
     const goHome = () => {
         setCreateBox(false);
         setLoginBox(false);
@@ -99,12 +109,35 @@ const Home = () => {
         document.getElementById("greeting").style.display = "inline";
     }
 
-    const goProfile = () => {
-        setisLogdedIn(true);
+    function goProfile(e) {
+        e.preventDefault();
+        if (username != 0 && password != 0) {
+            const body = {
+                username,
+                password: md5(password),
+            }
+            axios.post('/login', body, options)
+                .then((res) => {
+                    setPassword("");
+                    if (res.data) {
+                        Cookies.set("username", body.username);
+                        Cookies.set("password", body.password);
+                        Cookies.set("isLoggedIn", true);
+
+                    } else {
+                        Cookies.set("username", "");
+                        Cookies.set("password", "");
+                        Cookies.set("isLoggedIn", false);
+                    }
+                    console.log(res);
+                }).then(() => {
+                    history.push("/profile");
+                })
+                .catch(e => console.log(e));
+        } else {
+            setSuccess("Failed. Wrong username and/or password");
+        }
     }
-
-    if (isLoggedIn) { return <Redirect to="/profile" /> }
-
 
     const Log = () => {
         return (
@@ -131,6 +164,8 @@ const Home = () => {
                             </Col>
                         </Row>
                     </Form>
+                    <h5>{success}</h5>
+
                 </Alert>
             </div>
         )
@@ -207,6 +242,7 @@ const Home = () => {
                                 </FormGroup>
                             </Col>
                         </Row>
+
 
                         <FormGroup>
                             <Label for="exampleText">We want to know more about you.</Label>

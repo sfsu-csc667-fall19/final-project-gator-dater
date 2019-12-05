@@ -69,6 +69,13 @@ h4{
   font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
 }
 
+h5 {
+  font-size: 2em; /* 40px/16=2.5em */
+  font-weight: bold;
+  font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+  text-align: center;
+}
+
 p{
     color: white;
     font-size: 1em;
