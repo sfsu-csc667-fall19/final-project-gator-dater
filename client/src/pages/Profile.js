@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import axios from 'axios'
 import { connect } from 'react-redux';
@@ -7,8 +8,9 @@ import './css/Profile.css';
 import img from './img/bg.jpg';
 import Random from './Random';
 import Update from './Update';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+
+import { Switch, Route, Redirect}  from "react-router-dom";
+import { Button} from 'react-bootstrap';
 import {
   Collapse,
   Navbar,
@@ -25,7 +27,8 @@ import {
   ListGroupItem,
 } from 'reactstrap';
 
-const Profile = ({ dispatch, isUpdateOpen }) => {
+const Profile = ({dispatch, isUpdateOpen}) => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);
@@ -37,18 +40,17 @@ const Profile = ({ dispatch, isUpdateOpen }) => {
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => {
     setLogout(!isLoggedOut);
-    // setcookies to null
+    dispatch(setIsUpdateOpen(false));
   }
 
   const bgGround = {
     backgroundImage: 'url(' + img + ')',
-    height: '850px',
-  };
 
-  const openNav = () => {
-    if (sideNav) {
-      document.getElementById('mySidenav').style.width = '0px';
-      document.getElementById('main').style.marginRight = '0px';
+  const openNav = ()=> {
+    if(sideNav){
+      document.getElementById("mySidenav").style.width = "0px";
+      document.getElementById("main").style.marginRight = "0px";
+
       setNav(false);
     }
     else {
@@ -79,21 +81,21 @@ const Profile = ({ dispatch, isUpdateOpen }) => {
   return (
 
     <div style={bgGround} >
-      <div id='main'>
-        <Navbar color='warning' light expand='md' >
-          <NavbarBrand >GatorDater- Profile.js</NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className='mr-auto' navbar>
-              <NavItem>
-                <NavLink href='/components/'>Some Option#1</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href=''>Some Option#2</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
+    <div id = "main">
+    <Navbar color="warning" light expand="md" >
+        <NavbarBrand >GatorDater- Profile.js</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/components/">Some Option#1</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="">Some Option#2</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
               </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -106,40 +108,40 @@ const Profile = ({ dispatch, isUpdateOpen }) => {
                   <DropdownItem>
                     Reset
                 </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-            {/* <input type='image' src = './img/fb.jpg' border='border of the image' alt='text'></input> */}
-            Welcome, Seafoodghost &nbsp;&nbsp;&nbsp;
-         <Button variant='warning' onClick={openNav}> &#9776;</Button>
-          </Collapse>
-        </Navbar>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+          {/* <input type="image" src = "./img/fb.jpg" border="border of the image" alt="text"></input> */}
+         Welcome, Seafoodghost &nbsp;&nbsp;&nbsp;
+         <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
+        </Collapse>
+      </Navbar>
+      
+     
+    
+       
+      <Switch>
+      {isUpdateOpen && ( 
+        <Route path = "/" component ={Update}/> 
+        
+      )}
+        <Route path = "/" component = {Random}/>       
+      </Switch>
 
 
-
-
-        <Switch>
-          {isUpdateOpen && (
-            <Route path='/' component={Update} />
-
-          )}
-          <Route path='/' component={Random} />
-        </Switch>
-
-
-
-        <div id='mySidenav' className='sidenav'>
-          <ListGroup>
-
-            <ListGroupItem>Some information.</ListGroupItem>
-            <ListGroupItem>Email: Some content@sfsu.edu</ListGroupItem>
-            <ListGroupItem>Some content</ListGroupItem>
-            <ListGroupItem>Some content</ListGroupItem>
-            <ListGroupItem><Button bsSize='sm' onClick={goUpdate} block>Edit Profile</Button></ListGroupItem>
-            <ListGroupItem><Button bsSize='sm' onClick={logout} block> Logout</Button></ListGroupItem>
-          </ListGroup>
-        </div>
-      </div>
+      
+      <div id="mySidenav" className="sidenav"> 
+        <ListGroup>
+         
+          <ListGroupItem>Some information.</ListGroupItem>
+          <ListGroupItem>Email: Some content@sfsu.edu</ListGroupItem>
+          <ListGroupItem>Some content</ListGroupItem>
+          <ListGroupItem>Some content</ListGroupItem>
+          <ListGroupItem><Button bsSize = "sm" onClick ={goUpdate} block>Update Profile</Button></ListGroupItem>
+          <ListGroupItem><Button  bsSize = "sm"  onClick = {logout} block> LogOut</Button></ListGroupItem>
+        </ListGroup>       
+     </div>
+     </div> 
     </div>
 
   );
@@ -149,7 +151,7 @@ const Profile = ({ dispatch, isUpdateOpen }) => {
 
 
 const mapStateToProps = state => ({
-  isUpdateOpen: state.pageReducer.isUpdateOpen,
+   isUpdateOpen: state.pageReducer.isUpdateOpen,
 
 });
 export default connect(mapStateToProps)(Profile);
