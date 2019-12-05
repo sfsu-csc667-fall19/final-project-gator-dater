@@ -8,7 +8,6 @@ import history from './pages/history';
 import Cookies from 'js-cookie'
 
 const App = () => {
-
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
       Cookies.get("isLoggedIn") == "true"
