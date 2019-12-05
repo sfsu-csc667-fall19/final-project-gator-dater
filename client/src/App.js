@@ -6,9 +6,11 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 
 const App = () => {
+ 
+  
   return (
-        <Switch>      
-          <Route exact path ="/profile" component = {Profile}/>
+        <Switch>
+          <Route exact path ="/login" component = {Profile}/>
           <Route exact path ="/" component = {Home}/>
         </Switch>
   );

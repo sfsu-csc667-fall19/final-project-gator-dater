@@ -105,10 +105,5 @@ export default function MediaCard() {
     </Grid>
   );
 }
-/*
-const mapStateToProps = state => ({
-   isUpdateOpen: state.pageReducer.isUpdateOpen,
 
-});
-export default connect(mapStateToProps)(Profile);
-*/
+//export default Profile;
