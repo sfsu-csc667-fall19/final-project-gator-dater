@@ -86,7 +86,7 @@ const Home = () => {
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
 
-        if (success === true) { goProfile() };
+        // if (success === true) { goProfile() };
     }
 
     const goHome = () => {
