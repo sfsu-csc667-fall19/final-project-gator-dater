@@ -39,3 +39,39 @@ exports.returnUser = function (req, res) {
         res.send(document);
       }).catch((e) => { res.send('Error'); });
 }
+
+// Like and unlike functions require the two
+// users to be passed in the body
+
+exports.likeUser = function (req, res) {
+  let tempArray = [];
+
+  User.findOne({ username: req.body.userA })
+      .then((document) => {
+        // if (document.likes.size() > 0) { tempArray = document.likes; }
+        // else { tempArray = []; }
+
+        console.log('Before push: ' + tempArray)
+        tempArray.push(req.body.userB);
+        console.log('After push: ' + tempArray);
+
+        User.updateOne({username: req.body.userA}, {$set: {likes: tempArray}}, function(err,doc) {
+          if (err) { throw err; }
+          else { console.log('User liked'); }
+        });
+      }).catch((e) => { res.send('Error'); }); 
+}
+
+exports.unlikeUser = function (req, res) {
+  User.findOne({ username: req.body.userA })
+      .then((document) => {
+        let tempArray = document.likes;
+        tempArray = tempArray.filter(e => e !== req.body.userB);
+
+        User.updateOne({username: req.body.userA}, {$set: {likes: tempArray}}, function(err,doc) {
+          if (err) { throw err; }
+          else { console.log('User unliked'); }
+        });
+      })
+      .catch((e) => { res.send('Error'); });
+}
