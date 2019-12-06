@@ -18,20 +18,24 @@ exports.editProfile = function (req, res) {
       user.save();
       res.status(200).send(user);
     }
-    else return res.status(404).send("Cannot find User");
+    else { return res.status(404).send('User does not exist.'); }
   }).then().catch(err => res.send(err));
 }
 
 exports.listUsers = function (req, res) {
-  let temp;
-  if (req.body.pref === 'E') { temp = {}; }
-  else { temp = { listed: req.body.pref } }
+  let query;
+  if (req.body.pref === 'E') { query = {}; }
+  else { query = {$or:[ {listed: req.body.pref}, {listed: 'E'} ]}}
 
-  User.find(temp)
+  User.find(query)
       .then((docs) => {
       res.send(docs);
-      })
-      .catch((e) => {
-      res.send('Error');
-      });
+      }).catch((e) => { res.send('Error'); });
+}
+
+exports.returnUser = function (req, res) {
+  User.findOne({ username: req.body.username })
+      .then((document) => {
+        res.send(document);
+      }).catch((e) => { res.send('Error'); });
 }

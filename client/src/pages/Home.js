@@ -34,22 +34,6 @@ const Home = () => {
 
     const bgGround = { backgroundImage: 'url(' + img + ')', };
 
-    function selectOnlyThis(id) {
-        var myCheckbox = document.getElementsByName('myCheckbox');
-        Array.prototype.forEach.call(myCheckbox, function (el) {
-            el.checked = false;
-        });
-        id.checked = true;
-    }
-
-    function selectOnlyThis(id) {
-        var myCheckbox = document.getElementsByName("myCheckbox");
-        Array.prototype.forEach.call(myCheckbox, function (el) {
-            el.checked = false;
-        });
-        id.checked = true;
-    }
-
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
@@ -83,15 +67,14 @@ const Home = () => {
                 })
                 .then((res) => {
                     if(res.data === 'Success') {
-                        Cookies.set("username", username);
-                        Cookies.set("password", md5(password));
-                        Cookies.set("isLoggedIn", true);
-                        history.push("/profile");
+                        Cookies.set('username', username);
+                        Cookies.set('password', md5(password));
+                        Cookies.set('isLoggedIn', true);
+                        history.push('/profile');
                     } else { setSuccess(res.data) }
                 }) .catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
-
     }
 
     const goHome = () => {
@@ -116,17 +99,17 @@ const Home = () => {
             }
             axios.post('/login', body, options)
             .then((res) => {
-                setPassword("");
+                setPassword('');
                 if (res.data === 'Success') {
-                    Cookies.set("username", body.username);
-                    Cookies.set("password", body.password);
-                    Cookies.set("isLoggedIn", true);
-                    history.push("/profile");
+                    Cookies.set('username', body.username);
+                    Cookies.set('password', body.password);
+                    Cookies.set('isLoggedIn', true);
+                    history.push('/profile');
 
                 } else {
-                    Cookies.set("username", "");
-                    Cookies.set("password", "");
-                    Cookies.set("isLoggedIn", false);
+                    Cookies.set('username', '');
+                    Cookies.set('password', '');
+                    Cookies.set('isLoggedIn', false);
                     setSuccess(res.data);
                 }
                 console.log(res);
@@ -147,7 +130,7 @@ const Home = () => {
                         </FormGroup>
                         <FormGroup>
                             <Label >Password</Label>
-                            <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='******' />
+                            <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='12345' />
                         </FormGroup>
 
                         <Row form>
@@ -203,13 +186,13 @@ const Home = () => {
                         </Row>
 
                         <FormGroup>
-                            <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                <option value=""></option>
-                                <option value="Freshman">Freshman</option>
-                                <option value="Sophomore">Sophomore</option>
-                                <option value="Junior">Junior</option>
-                                <option value="Senior">Senior</option>
+                            <Label for='exampleAddress'>College Year</Label>
+                            <Input type='select' bsSize='sm' value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                                <option value=''></option>
+                                <option value='Freshman'>Freshman</option>
+                                <option value='Sophomore'>Sophomore</option>
+                                <option value='Junior'>Junior</option>
+                                <option value='Senior'>Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -288,7 +271,7 @@ const Home = () => {
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 
                         <ButtonToolbar>
-                            <Button onClick={goLogin} variant='outline-warning'>Get started  </Button>  &nbsp;&nbsp;
+                            <Button onClick={goLogin} variant='outline-warning'>Login</Button>  &nbsp;&nbsp;
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
