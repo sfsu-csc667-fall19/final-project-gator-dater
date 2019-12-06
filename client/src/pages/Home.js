@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import './css/Home.css';
 import img from './img/bg.jpg';
 import { Redirect } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import { setUsername, setPassword } from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -17,9 +19,9 @@ const options = {
 };
 
 
-const Home = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+const Home = ({dispatch, username, password}) => {
+    // const [username, setUsername] = useState('');
+    // const [password, setPassword] = useState('');
     const [age, setAge] = useState('');
     const [email, setEmail] = useState('');
     const [collegeyear, setCollegeYear] = useState('');
@@ -34,28 +36,20 @@ const Home = () => {
 
     const bgGround = { backgroundImage: 'url(' + img + ')', };
 
-    function selectOnlyThis(id) {
-        var myCheckbox = document.getElementsByName('myCheckbox');
-        Array.prototype.forEach.call(myCheckbox, function (el) {
-            el.checked = false;
-        });
-        id.checked = true;
-    }
+    const updateUsername = newUsername => {
+        dispatch(setUsername(newUsername));
+    };
 
-    function selectOnlyThis(id) {
-        var myCheckbox = document.getElementsByName("myCheckbox");
-        Array.prototype.forEach.call(myCheckbox, function (el) {
-            el.checked = false;
-        });
-        id.checked = true;
-    }
+    const updatePassword = newPassword => {
+        dispatch(setPassword(newPassword));
+    };
 
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
-        setUsername('');
-        setPassword('');
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
         document.getElementById('greeting').style.display = 'none';
     }
 
@@ -63,8 +57,8 @@ const Home = () => {
         setLoginBox(false);
         setFadeIn(false);
         setCreateBox(true);
-        setUsername('');
-        setPassword('');
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
         document.getElementById('greeting').style.display = 'none';
     }
 
@@ -121,6 +115,7 @@ const Home = () => {
                         Cookies.set("username", "");
                         Cookies.set("password", "");
                         Cookies.set("isLoggedIn", false);
+                        Cookies.set("failedLog", true);
                     }
                     console.log(res);
                 }).then(() => {
@@ -141,11 +136,11 @@ const Home = () => {
                     <Form>
                         <FormGroup>
                             <Label >Username</Label>
-                            <Input bsSize='sm' value={username} onChange={e => setUsername(e.target.value)} id='username' placeholder='admin' />
+                            <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='admin' />
                         </FormGroup>
                         <FormGroup>
                             <Label >Password</Label>
-                            <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='******' />
+                            <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='******' />
                         </FormGroup>
 
                         <Row form>
@@ -174,13 +169,13 @@ const Home = () => {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Username</Label>
-                                    <Input bsSize='sm' value={username} onChange={e => setUsername(e.target.value)} id='username' placeholder='username' />
+                                    <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='username' />
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Password</Label>
-                                    <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='password' />
+                                    <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='password' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -297,4 +292,9 @@ const Home = () => {
     );
 };
 
-export default Home;
+const mapStateToProps = state => ({
+    username: state.userReducer.username,
+    password: state.userReducer.password,
+});
+
+export default connect(mapStateToProps)(Home);
