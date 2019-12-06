@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './css/Home.css';
 import img from './img/bg.jpg';
+import img2 from './img/Snowglobe2.jpg';
+import SnowStorm from 'react-snowstorm';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
@@ -32,7 +34,7 @@ const Home = () => {
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
 
-    const bgGround = { backgroundImage: 'url(' + img + ')', };
+    const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     function selectOnlyThis(id) {
         var myCheckbox = document.getElementsByName('myCheckbox');
@@ -260,6 +262,9 @@ const Home = () => {
 
     return (
         <div style={bgGround} id='bg'>
+
+            {/* For the snow baby. */}
+            <SnowStorm />
             <Container >
                 <Row>
 

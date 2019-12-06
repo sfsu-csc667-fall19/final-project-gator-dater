@@ -5,7 +5,7 @@ import { Router, Switch ,Route , Redirect, Link} from "react-router-dom";
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import history from './pages/history';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 const App = () => {
   const PrivateRoute = ({ component: Component, ...rest }) => (
