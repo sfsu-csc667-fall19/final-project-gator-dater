@@ -20,7 +20,8 @@ const App = () => {
   return (
     <Router history = {history}>
         <Switch>
-          <PrivateRoute exact path ="/profile" component = {Profile}/>
+          {/* Temporarily changing PrivateRoute to a regular Route to work on it */}
+          <Route exact path ="/profile" component = {Profile}/>
           <Route exact path ="/" component = {Home}/>
           {/* Added this temporarily so I can work on it. Should be a PrivateRouter */}
           <Route exact path ="/update" component = {Update}/>

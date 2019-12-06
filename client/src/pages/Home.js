@@ -9,6 +9,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import NavBar from './NavBar';
 
 import history from './history'
 
@@ -265,6 +266,8 @@ const Home = () => {
 
             {/* For the snow baby. */}
             <SnowStorm />
+            {/* References Raymond Test NavBar */}
+            <NavBar />
             <Container >
                 <Row>
 

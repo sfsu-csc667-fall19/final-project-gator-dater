@@ -11,6 +11,7 @@ import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
 // I would assume its supposed to be const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major, addtion, interests})
 // currently conflicts tho because they're being created as const with handlers.
 const Update = ({dispatch, isUpdateOpen}) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');  
@@ -79,7 +80,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
                             <Label for="exampleAddress2">Major</Label>
                             <Input type="text" value={major} onChange={e => setMajor(e.target.value)} placeholder="what is your major?" />
                         </FormGroup>
-
+                        {/* The gender needs to be accounted for in the backend? as well as handled for when onchange */}
                         <Row form>
                             <Col md={3}>
                                 <FormGroup check>

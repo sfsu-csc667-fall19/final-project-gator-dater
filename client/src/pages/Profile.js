@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
 import img from './img/bg.jpg';
+import img2 from './img/Snowglobe1.jpg';
 import Random from './Random';
 import Update from './Update';
 import { Switch, Route, Redirect}  from "react-router-dom";
@@ -42,7 +43,7 @@ const Profile = ({dispatch, isUpdateOpen}) => {
   }
 
   const bgGround = {
-    backgroundImage: 'url(' + img + ')',
+    backgroundImage: 'url(' + img2 + ')',
     height:'850px',
   };
 
