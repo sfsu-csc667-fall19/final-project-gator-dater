@@ -2,11 +2,17 @@ import axios from 'axios';
 
 // hmmm....remember to import and actually use in profile/home
 export const updateProfile = () => (dispatch, age, email, gender, collegeYear, major, addtion, interests) => {
-    axios.post('/user/editProfile')
-        .then(() => {
-            // pass all of the fields?
-        })
-        .catch(console.log);
+    axios.post('/user/editProfile', {
+        age: age,
+        email: email,
+        gender: gender,
+        collegeYear: collegeYear,
+        major: major,
+        addtion: addtion
+        //interests: interests
+    })
+        .then(({data}) => {console.log(data)})
+        .catch(console.log)
 };
 
 export const setAge = age =>({ 
