@@ -36,7 +36,7 @@ exports.createUser = function (req, res) {
 
 exports.login = function (req, res) {
   Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]}, function (err, user) {
-    if (user) { return res.send(true); }
-    else { return res.send(false); }
+    if (user) { return res.send('Success'); }
+    else { return res.send('Failed. Wrong username and/or password'); }
   })
 }

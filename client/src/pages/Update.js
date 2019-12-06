@@ -19,7 +19,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
   const [success, setSuccess] = useState('');
 
 
-  const [errormessage,setErrorMessage] = useState('');
+  const [errormessage, setErrorMessage] = useState('');
 
   const closeUpdate =()=>{
     dispatch(setIsUpdateOpen(false));

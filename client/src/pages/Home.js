@@ -82,13 +82,12 @@ const Home = () => {
                     addtion,
                 })
                 .then((res) => {
-                    setSuccess(res.data);
-                    if(success === 'Success') {
+                    if(res.data === 'Success') {
                         Cookies.set("username", username);
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
                         history.push("/profile");
-                    }
+                    } else { setSuccess(res.data) }
                 }) .catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
@@ -116,23 +115,22 @@ const Home = () => {
                 password: md5(password),
             }
             axios.post('/login', body, options)
-                .then((res) => {
-                    setPassword("");
-                    if (res.data) {
-                        Cookies.set("username", body.username);
-                        Cookies.set("password", body.password);
-                        Cookies.set("isLoggedIn", true);
+            .then((res) => {
+                setPassword("");
+                if (res.data === 'Success') {
+                    Cookies.set("username", body.username);
+                    Cookies.set("password", body.password);
+                    Cookies.set("isLoggedIn", true);
+                    history.push("/profile");
 
-                    } else {
-                        Cookies.set("username", "");
-                        Cookies.set("password", "");
-                        Cookies.set("isLoggedIn", false);
-                    }
-                    console.log(res);
-                }).then(() => { history.push("/profile");
-                }).catch(e => console.log(e));
-        } else {
-            setSuccess("Failed. Wrong username and/or password");
+                } else {
+                    Cookies.set("username", "");
+                    Cookies.set("password", "");
+                    Cookies.set("isLoggedIn", false);
+                    setSuccess(res.data);
+                }
+                console.log(res);
+            }).catch(e => console.log(e));
         }
     }
 
