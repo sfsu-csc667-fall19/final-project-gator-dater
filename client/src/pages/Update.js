@@ -1,14 +1,15 @@
 import React, {useState}from 'react';
 import { connect } from 'react-redux';
+// importing update redux
 import { updateProfile, setAge, setEmail, setGender, setCollegeYear, setMajor, setAddtion } from '../redux/actions/updateActions';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import { Button} from 'react-bootstrap';
 import './css/Update.css';
 import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
 
-
-
-
+// initial states of the updateReducer variables?
+// I would assume its supposed to be const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major, addtion, interests})
+// currently conflicts tho because they're being created as const with handlers.
 const Update = ({dispatch, isUpdateOpen}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -108,6 +109,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
                         <br />
                         <Row form>
                             <Col md={6}>
+                                {/* dispatching update redux. WIP */}
                                 <Button variant="warning" onClick={() => dispatch(updateProfile())} block>Submit</Button>
                             </Col>
                             <Col md={6}>
@@ -120,7 +122,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
             </div>
   );
 };
-
+// interests is commented out because dont think its needed actually. Addtion is the additional info.
 const mapStateToProps = state => ({
     username: state.userReducer.username,
     password: state.userReducer.password,
