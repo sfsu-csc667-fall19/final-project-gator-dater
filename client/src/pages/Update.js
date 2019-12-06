@@ -121,8 +121,17 @@ const Update = ({dispatch, isUpdateOpen}) => {
 };
 
 const mapStateToProps = state => ({
+    username: state.userReducer.username,
+    password: state.userReducer.password,
     isUpdateOpen: state.pageReducer.isUpdateOpen,
- 
+    age: state.updateReducer.age,
+    email: state.updateReducer.email,
+    gender: state.updateReducer.gender,
+    collegeYear: state.updateReducer.collegeYear,
+    major: state.updateReducer.major,
+    addtion: state.updateReducer.addtion,
+
+    // interests: '',
  });
 
 export default connect(mapStateToProps)(Update);
