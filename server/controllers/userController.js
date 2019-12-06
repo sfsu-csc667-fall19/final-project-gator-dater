@@ -48,10 +48,10 @@ exports.likeUser = function (req, res) {
         tempArray.push(req.body.userB);
 
         User.updateOne({username: req.body.userA}, {$set: {likes: tempArray}}, function(err,doc) {
-          if (err) { console.log(err); }
-          else { res.send('User liked'); }
+          if (err) { res.send('updateOne ERROR: ' + err); }
+          else { res.send(req.body.userB + ' unliked'); }
         });
-      }).catch((e) => { res.send('Error'); });
+      }).catch((e) => { res.send('findOne ERROR'); });
 }
 
 exports.unlikeUser = function (req, res) {
@@ -61,8 +61,8 @@ exports.unlikeUser = function (req, res) {
         tempArray = tempArray.filter(e => e !== req.body.userB);
 
         User.updateOne({username: req.body.userA}, {$set: {likes: tempArray}}, function(err,doc) {
-          if (err) { console.log(err); }
-          else { res.send('User unliked'); }
+          if (err) { res.send('updateOne ERROR: ' + err); }
+          else { res.send(req.body.userB + ' unliked'); }
         });
-      }).catch((e) => { res.send('Error'); });
+      }).catch((e) => { res.send('findOne ERROR'); });
 }
