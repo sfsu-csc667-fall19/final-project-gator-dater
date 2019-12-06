@@ -113,6 +113,7 @@ app.post('/user/returnUser', userController.returnUser);
 
 app.post('/user/like', userController.likeUser);
 app.post('/user/unlike', userController.unlikeUser);
+app.post('/user/requite', userController.requite);
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")

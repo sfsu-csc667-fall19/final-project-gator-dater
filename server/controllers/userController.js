@@ -28,16 +28,14 @@ exports.listUsers = function (req, res) {
   else { query = {$or:[ {listed: req.body.pref}, {listed: 'E'} ]}}
 
   User.find(query)
-      .then((docs) => {
-      res.send(docs);
-      }).catch((e) => { res.send('Error'); });
+      .then((docs) => { res.send(docs)} )
+      .catch((e) => { res.send('Error') });
 }
 
 exports.returnUser = function (req, res) {
   User.findOne({ username: req.body.username })
-      .then((document) => {
-        res.send(document);
-      }).catch((e) => { res.send('Error'); });
+      .then((document) => { res.send(document) })
+      .catch((e) => { res.send('Error') });
 }
 
 exports.likeUser = function (req, res) {
@@ -49,7 +47,7 @@ exports.likeUser = function (req, res) {
 
         User.updateOne({username: req.body.userA}, {$set: {likes: tempArray}}, function(err,doc) {
           if (err) { res.send('updateOne ERROR: ' + err); }
-          else { res.send(req.body.userB + ' unliked'); }
+          else { res.send(req.body.userB + ' liked'); }
         });
       }).catch((e) => { res.send('findOne ERROR'); });
 }
@@ -65,4 +63,27 @@ exports.unlikeUser = function (req, res) {
           else { res.send(req.body.userB + ' unliked'); }
         });
       }).catch((e) => { res.send('findOne ERROR'); });
+}
+
+exports.requite = function (req, res) {
+  User.findOne({ username: req.body.userA })
+      .then((doc1) => {
+        if (doc1.likes.length < 1) { res.send(false) }
+        else {
+          let arr1 = doc1.likes;
+
+          User.findOne({ username: req.body.userB })
+          .then((doc2) => {
+            if (doc2.likes.length < 1) { res.send(false) }
+            else {
+              let arr2 = doc2.likes;
+              
+              if (arr1.indexOf(req.body.userB, 0) > -1 &&
+                  arr2.indexOf(req.body.userA, 0) > -1)
+                  { res.send(true) }
+              else { res.send(false) };
+            }
+          }).catch((e) => { res.send('userB does not exist')} );
+        }
+      }).catch((e) => { res.send('userA does not exist')} );
 }
