@@ -101,7 +101,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
 
                         <FormGroup>
                             <Label for="exampleText">We want to know more about you.</Label>
-                            <Input type="textarea" name="text" id="exampleText" value={addtion} onChange={e => setAddtion(e.target.value)} placeholder="preference, interest, anyting you want to share..." />
+                            <Input type="textarea" name="text" id="exampleText" value={addtion} onChange={e => setAddtion(e.target.value)} placeholder="preference, interest, anything you want to share..." />
                         </FormGroup>
 
                         <br />
