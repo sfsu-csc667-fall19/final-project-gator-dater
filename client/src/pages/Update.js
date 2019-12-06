@@ -1,5 +1,6 @@
 import React, {useState}from 'react';
 import { connect } from 'react-redux';
+import { updateProfile, setAge, setEmail, setGender, setCollegeYear, setMajor, setAddtion } from '../redux/actions/updateActions';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import { Button} from 'react-bootstrap';
 import './css/Update.css';
@@ -107,7 +108,7 @@ const Update = ({dispatch, isUpdateOpen}) => {
                         <br />
                         <Row form>
                             <Col md={6}>
-                                <Button variant="warning" block>Submit</Button>
+                                <Button variant="warning" onClick={() => dispatch(updateProfile())} block>Submit</Button>
                             </Col>
                             <Col md={6}>
                                 <Button  variant="warning" onClick ={closeUpdate} block>Not Now</Button>
@@ -130,8 +131,7 @@ const mapStateToProps = state => ({
     collegeYear: state.updateReducer.collegeYear,
     major: state.updateReducer.major,
     addtion: state.updateReducer.addtion,
-
-    // interests: '',
+    // interests: state.updateReducer.interests,
  });
 
 export default connect(mapStateToProps)(Update);
