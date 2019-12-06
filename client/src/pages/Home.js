@@ -81,17 +81,15 @@ const Home = () => {
                     major,
                     addtion,
                 })
-                    .then((res) => {
-                        setSuccess(res.data);
+                .then((res) => {
+                    setSuccess(res.data);
+                    if(success === 'Success') {
                         Cookies.set("username", username);
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
-                        if(success === 'Success') {
-                            // <Redirect path="/profile"/>
-                        }
-                    })
-                    
-                    .catch(err => console.log(err));
+                        history.push("/profile");
+                    }
+                }) .catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
 
@@ -131,10 +129,8 @@ const Home = () => {
                         Cookies.set("isLoggedIn", false);
                     }
                     console.log(res);
-                }).then(() => {
-                    history.push("/profile");
-                })
-                .catch(e => console.log(e));
+                }).then(() => { history.push("/profile");
+                }).catch(e => console.log(e));
         } else {
             setSuccess("Failed. Wrong username and/or password");
         }
