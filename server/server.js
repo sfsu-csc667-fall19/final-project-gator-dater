@@ -104,16 +104,14 @@ app.post('/user/editProfilePic',(req, res) => {
         // upload.single('img');
         res.send(true);
     })
-
 });
 
 app.post('/user/listUsers', userController.listUsers);
-
 app.post('/user/returnUser', userController.returnUser);
 
 app.post('/user/like', userController.likeUser);
 app.post('/user/unlike', userController.unlikeUser);
-app.post('/user/requite', userController.requite);
+app.post('/user/mutual', userController.mutual);
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")

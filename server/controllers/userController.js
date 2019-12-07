@@ -65,7 +65,7 @@ exports.unlikeUser = function (req, res) {
       }).catch((e) => { res.send('findOne ERROR'); });
 }
 
-exports.requite = function (req, res) {
+exports.mutual = function (req, res) {
   User.findOne({ username: req.body.userA })
       .then((doc1) => {
         if (doc1.likes.length < 1) { res.send(false) }
