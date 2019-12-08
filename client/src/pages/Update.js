@@ -7,18 +7,18 @@ import { Button} from 'react-bootstrap';
 import './css/Update.css';
 import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
 
-// initial states of the updateReducer variables?
-// I would assume its supposed to be const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major, addtion, interests})
-// currently conflicts tho because they're being created as const with handlers.
-const Update = ({dispatch, isUpdateOpen}) => {
+// replaced const/their handlers with the redux states.
+const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major, addtion, interests}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  /*
   const [age, setAge] = useState('');  
   const [email, setEmail] = useState('');  
   const [collegeyear, setCollegeYear] = useState(''); 
   const [major, setMajor] = useState('');  
   const [addtion, setAddtion] = useState('');  
+  */
   const [success, setSuccess] = useState('');
 
 
