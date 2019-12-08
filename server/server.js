@@ -10,10 +10,6 @@ const crypto = require("crypto");
 const app = express();
 const port = process.env.PORT || 4000;
 
-// redis
-const redis = require("./controllers/redis");
-app.use(redis);
-
 // controller
 let userController = require('./controllers/userController');
 
@@ -21,6 +17,10 @@ let userController = require('./controllers/userController');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+// redis
+const redis = require("./controllers/redis");
+app.use(redis);
 
 // Mongo setup
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";
