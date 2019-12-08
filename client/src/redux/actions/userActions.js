@@ -20,6 +20,42 @@ export const setPassword = password =>({
     password,
 });
 
+export const setAge = age => ({
+    type: 'SET_AGE',
+    age,
+});
+
+export const setEmail = email => ({
+    type: 'SET_EMAIL',
+    email,
+});
+
+export const setMajor = major => ({
+    type: 'SET_MAJOR',
+    major,
+});
+
+export const setFirstName = firstName => ({
+    type: 'SET_FIRSTNAME',
+    firstName,
+});
+
+export const setLastName = lastName => ({
+    type: 'SET_LASTNAME',
+    lastName,
+});
+
+export const setAddtion = addtion => ({
+    type: 'SET_ADDTION',
+    addtion,
+});
+
+export const setPreference = preference => ({
+    type: 'SET_PREFERENCE',
+    preference,
+});
+
+
 export const setIsLoggedIn = isLoggedIn =>({
     type:'SET_IS_LOGGED_IN',
     isLoggedIn,

@@ -3,8 +3,9 @@ import './css/Random.css';
 import { Button} from 'react-bootstrap';
 import { Card, Row, Col, CardSubtitle, CardBody,CardTitle} from 'reactstrap';
 import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
+import {connect} from 'react-redux';
 
-const Random = () => {
+const Random = ({dispatch, username, password}) => {
   const [messageBox, setMessageBox] = useState(false);
 
 
@@ -42,7 +43,7 @@ const Random = () => {
     <div id="con">
      
       <Row>
-      <h4>This is RandomUser.js</h4><br/>
+      <h4>This is Random.js</h4><br/>
       </Row>
       <Row>
       <p> Below are users randomly seclected form the database.</p><br/>
@@ -55,7 +56,7 @@ const Random = () => {
         <CardBody>
           <CardTitle>RandomUser#1 &nbsp;&nbsp;&nbsp;
           </CardTitle><hr/>
-          <CardSubtitle>Hello, I am Seafoodghost.Let's meet some new friends today.
+          <CardSubtitle>Hello, I am {username}.Let's meet some new friends today.
           Let's meet some new friends today.</CardSubtitle><br/>
           <div>
           <Button onClick = {openMessage}>Send Message</Button>
@@ -73,4 +74,9 @@ const Random = () => {
   );
 };
 
-export default Random;
+const mapStateToProps = state => ({
+  username: state.userReducer.username,
+  password: state.userReducer.password,
+});
+
+export default connect(mapStateToProps)(Random);

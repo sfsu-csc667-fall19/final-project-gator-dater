@@ -1,13 +1,13 @@
-const INITIAL_STATE ={
+const INITIAL_STATE = {
     username: '',
     password: '',
     isLoggedIn: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
-    switch(action.type){
+    switch (action.type) {
         case 'SET_IS_LOGGED_IN':
-            return{
+            return {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
             };
@@ -25,6 +25,41 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 token: action.token,
+            };
+        case 'SET_AGE':
+            return {
+                ...state,
+                age: action.age,
+            };
+        case 'SET_EMAIL':
+            return {
+                ...state,
+                email: action.email,
+            };
+        case 'SET_MAJOR':
+            return {
+                ...state,
+                major: action.major,
+            };
+        case 'SET_FIRSTNAME':
+            return {
+                ...state,
+                firstName: action.firstName,
+            };
+        case 'SET_LASTNAME':
+            return {
+                ...state,
+                lastName: action.lastName,
+            };
+        case 'SET_ADDTION':
+            return {
+                ...state,
+                addtion: action.addtion,
+            };
+        case 'SET_PREFERENCE':
+            return {
+                ...state,
+                preference: action.preference,
             };
         default:
             return state;

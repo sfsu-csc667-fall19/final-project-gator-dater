@@ -8,7 +8,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
-import { setUsername, setPassword } from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setMajor, setAddtion, setFirstName, setLastName, setPreference } from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -19,15 +19,11 @@ const options = {
 };
 
 
-const Home = ({dispatch, username, password}) => {
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
-    const [age, setAge] = useState('');
-    const [email, setEmail] = useState('');
+const Home = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference}) => {
     const [collegeyear, setCollegeYear] = useState('');
-    const [major, setMajor] = useState('');
-    const [addtion, setAddtion] = useState('');
+
     const [success, setSuccess] = useState('');
+
 
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
@@ -42,6 +38,38 @@ const Home = ({dispatch, username, password}) => {
 
     const updatePassword = newPassword => {
         dispatch(setPassword(newPassword));
+    };
+
+    const updateAge = newAge => {
+      dispatch(setAge(newAge));  
+    };
+
+    const updateEmail = newEmail => {
+        dispatch(setEmail(newEmail));
+    };
+
+    const updateCollegeYear = newCollegeYear => {
+        dispatch(setCollegeYear(newCollegeYear));
+    }; 
+
+    const updateMajor = newMajor => {
+        dispatch(setMajor(newMajor));
+    };
+
+    const updateFirstName = newFirstName => {
+        dispatch(setFirstName(newFirstName));
+    };
+
+    const updateLastName = newLastName => {
+        dispatch(setLastName(newLastName));
+    };
+
+    const updateAddtion = newAddtion => {
+        dispatch(setAddtion(newAddtion));
+    };
+
+    const updatePreference = newPreference => {
+        dispatch(setPreference(newPreference));
     };
 
     const goLogin = (e) => {
@@ -87,11 +115,12 @@ const Home = ({dispatch, username, password}) => {
         setCreateBox(false);
         setLoginBox(false);
         setFadeIn(true);
-        setAge('');
-        setEmail('');
-        setCollegeYear('');
-        setMajor('');
-        setAddtion('');
+        dispatch(setAge(''));
+        dispatch(setEmail(''));
+        dispatch(setCollegeYear(''));
+        dispatch(setMajor(''));
+        dispatch(setAddtion(''));
+        dispatch(setPreference(''));
         setSuccess('');
         document.getElementById('greeting').style.display = 'inline';
     }
@@ -115,7 +144,6 @@ const Home = ({dispatch, username, password}) => {
                         Cookies.set("username", "");
                         Cookies.set("password", "");
                         Cookies.set("isLoggedIn", false);
-                        Cookies.set("failedLog", true);
                     }
                     console.log(res);
                 }).then(() => {
@@ -184,20 +212,20 @@ const Home = ({dispatch, username, password}) => {
                             <Col md={3}>
                                 <FormGroup>
                                     <Label >Age</Label>
-                                    <Input bsSize='sm' value={age} onChange={e => setAge(e.target.value)} placeholder='age' />
+                                    <Input bsSize='sm' value={age} onChange={e => updateAge(e.target.value)} placeholder='age' />
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
-                                    <Input bsSize='sm' type='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='email@mail.sfsu.edu' />
+                                    <Input bsSize='sm' type='email' value={email} onChange={e => updateEmail(e.target.value)} placeholder='email@mail.sfsu.edu' />
                                 </FormGroup>
                             </Col>
                         </Row>
 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => updateCollegeYear(e.target.value)}>
                                     <option value=""></option>
                                     <option value="Freshman">Freshman</option>
                                     <option value="Sophomore">Sophomore</option>
@@ -207,7 +235,7 @@ const Home = ({dispatch, username, password}) => {
                         </FormGroup>
                         <FormGroup>
                             <Label for='exampleAddress2'>Major</Label>
-                            <Input type='text' value={major} onChange={e => setMajor(e.target.value)} placeholder='what is your major?' />
+                            <Input type='text' value={major} onChange={e => updateMajor(e.target.value)} placeholder='what is your major?' />
                         </FormGroup>
 
                         <Row form>
@@ -234,8 +262,9 @@ const Home = ({dispatch, username, password}) => {
 
                         <FormGroup>
                             <Label for='exampleText'>We want to know more about you.</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={addtion} onChange={e => setAddtion(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
+                            <Input type='textarea' name='text' id='exampleText' value={addtion} onChange={e => updateAddtion(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
                         </FormGroup>
+
 
                         <br />
                         <Row form>
@@ -295,6 +324,13 @@ const Home = ({dispatch, username, password}) => {
 const mapStateToProps = state => ({
     username: state.userReducer.username,
     password: state.userReducer.password,
+    age: state.userReducer.age,
+    email: state.userReducer.email,
+    major: state.userReducer.major,
+    firstName: state.userReducer.firstName,
+    lastName: state.userReducer.lastName,
+    addtion: state.userReducer.addtion,
+    preference: state.userReducer.preference
 });
 
 export default connect(mapStateToProps)(Home);
