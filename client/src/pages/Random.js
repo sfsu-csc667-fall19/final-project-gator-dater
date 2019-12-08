@@ -5,7 +5,7 @@ import { Card, Row, Col, CardSubtitle, CardBody,CardTitle} from 'reactstrap';
 import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
 import {connect} from 'react-redux';
 
-const Random = ({dispatch, username, password}) => {
+const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
   const [messageBox, setMessageBox] = useState(false);
 
 
@@ -77,6 +77,15 @@ const Random = ({dispatch, username, password}) => {
 const mapStateToProps = state => ({
   username: state.userReducer.username,
   password: state.userReducer.password,
+  age: state.userReducer.age,
+  email: state.userReducer.email,
+  major: state.userReducer.major,
+  firstName: state.userReducer.firstName,
+  lastName: state.userReducer.lastName,
+  addtion: state.userReducer.addtion,
+  listed: state.userReducer.listed,
+  identity: state.userReducer.identity,
+  preference: state.userReducer.preference
 });
 
 export default connect(mapStateToProps)(Random);

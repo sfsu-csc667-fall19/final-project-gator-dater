@@ -253,13 +253,15 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
                             <Label for='identity'>Identity</Label>
                             <Input type='text' value={identity} onChange={e => updateIdentity(e.target.value)} placeholder='what do you identify as?' />
                         </FormGroup>
-                        <FormGroup>
-                            <Label for='preference'>Preference</Label>
-                            <Input type='text' value={preference} onChange={e => updatePreference(e.target.value)} placeholder='who are you searching for?' />
-                        </FormGroup>
+
                         <FormGroup>
                             <Label for='exampleAddress2'>Listed</Label>
                             <Input type='text' value={listed} onChange={e => updateListed(e.target.value)} placeholder='how do you want the world to view you?' />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for='preference'>Preference</Label>
+                            <Input type='text' value={preference} onChange={e => updatePreference(e.target.value)} placeholder='who are you searching for?' />
                         </FormGroup>
 
                         <Row form>
@@ -354,6 +356,8 @@ const mapStateToProps = state => ({
     firstName: state.userReducer.firstName,
     lastName: state.userReducer.lastName,
     addtion: state.userReducer.addtion,
+    listed: state.userReducer.listed,
+    identity: state.userReducer.identity,
     preference: state.userReducer.preference
 });
 

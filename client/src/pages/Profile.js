@@ -28,7 +28,7 @@ import {
 
 
 
-const Profile = ({dispatch, isUpdateOpen}) => {
+const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);
@@ -145,6 +145,18 @@ const Profile = ({dispatch, isUpdateOpen}) => {
 
 const mapStateToProps = state => ({
    isUpdateOpen: state.pageReducer.isUpdateOpen,
+   username: state.userReducer.username,
+   password: state.userReducer.password,
+   age: state.userReducer.age,
+   email: state.userReducer.email,
+   major: state.userReducer.major,
+   firstName: state.userReducer.firstName,
+   lastName: state.userReducer.lastName,
+   addtion: state.userReducer.addtion,
+   preference: state.userReducer.preference,
+   listed: state.userReducer.listed,
+   identity: state.userReducer.identity,
 
 });
+
 export default connect(mapStateToProps)(Profile);

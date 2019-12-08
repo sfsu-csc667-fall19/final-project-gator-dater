@@ -56,10 +56,22 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 addtion: action.addtion,
             };
+
         case 'SET_PREFERENCE':
             return {
                 ...state,
                 preference: action.preference,
+            };
+        case 'SET_IDENTITY':
+            return {
+                ...state,
+                identity: action.identity,
+            };
+
+        case 'SET_LISTED':
+            return {
+                ...state,
+                listed: action.listed,
             };
         default:
             return state;
