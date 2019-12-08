@@ -10,6 +10,10 @@ const crypto = require("crypto");
 const app = express();
 const port = process.env.PORT || 4000;
 
+// redis
+const redis = require("./controllers/redis");
+app.use(redis);
+
 // controller
 let userController = require('./controllers/userController');
 
