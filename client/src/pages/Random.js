@@ -7,8 +7,6 @@ import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGro
 const Random = () => {
   const [messageBox, setMessageBox] = useState(false);
 
-
-
   const openMessage = () =>{
     setMessageBox(!messageBox);
   }

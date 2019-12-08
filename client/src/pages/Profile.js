@@ -31,6 +31,7 @@ const styles = {
     padding: 20,
   }
 }
+
 // for the background.
 const bgGround = {
   backgroundImage: 'url(' + img2 + ')',
@@ -39,6 +40,25 @@ const bgGround = {
 export default function MediaCard() {
   const classes = useStyles();
 
+  // handling to toggle heart appearance
+  const [heart, setHeart] = React.useState('default');
+  const updateHeart = () => {
+    if(heart==='default') {
+      setHeart('secondary');
+    } else {
+      setHeart('default');
+    }
+  };
+  
+  // toggling for heart?
+  /*
+  const [isToggled, setIsToggled] = React.useState(false);
+  if(isToggled) {
+    setHeart('default');
+  } else {
+    setHeart('secondary');
+  }
+*/
   return (
     <Grid container>
       {/* To get background */}
@@ -64,7 +84,7 @@ export default function MediaCard() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Fab active aria-label="like">
+              <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>
                 <FavoriteIcon />
               </Fab>
               <Fab active aria-label="like" style={{marginLeft: 20}}>
