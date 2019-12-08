@@ -8,7 +8,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
-import { setUsername, setPassword, setAge, setEmail, setMajor, setAddtion, setFirstName, setLastName, setPreference } from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setMajor, setAddtion, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -19,12 +19,9 @@ const options = {
 };
 
 
-const Home = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference}) => {
+const Home = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
     const [collegeyear, setCollegeYear] = useState('');
-
     const [success, setSuccess] = useState('');
-
-
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
@@ -68,6 +65,14 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
         dispatch(setAddtion(newAddtion));
     };
 
+    const updateListed = newListed => {
+        dispatch(setListed(newListed));
+    };
+
+    const updateIdentity = newIdentity => {
+        dispatch(setIdentity(newIdentity));
+    };
+
     const updatePreference = newPreference => {
         dispatch(setPreference(newPreference));
     };
@@ -102,6 +107,9 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
                     collegeyear,
                     major,
                     addtion,
+                    listed,
+                    identity,
+                    preference,
                 })
                 .then((res) => { setSuccess(res.data); })
                 .catch(err => console.log(err));
@@ -121,6 +129,9 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
         dispatch(setMajor(''));
         dispatch(setAddtion(''));
         dispatch(setPreference(''));
+        dispatch(setIdentity(''));
+        dispatch(setPreference(''));
+        dispatch(setListed(''));
         setSuccess('');
         document.getElementById('greeting').style.display = 'inline';
     }
@@ -238,10 +249,23 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
                             <Input type='text' value={major} onChange={e => updateMajor(e.target.value)} placeholder='what is your major?' />
                         </FormGroup>
 
+                        <FormGroup>
+                            <Label for='identity'>Identity</Label>
+                            <Input type='text' value={identity} onChange={e => updateIdentity(e.target.value)} placeholder='what do you identify as?' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='preference'>Preference</Label>
+                            <Input type='text' value={preference} onChange={e => updatePreference(e.target.value)} placeholder='who are you searching for?' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='exampleAddress2'>Listed</Label>
+                            <Input type='text' value={listed} onChange={e => updateListed(e.target.value)} placeholder='how do you want the world to view you?' />
+                        </FormGroup>
+
                         <Row form>
                             <Col md={3}>
                                 <FormGroup check>
-                                    <Input type='checkbox' id='male' />
+                                    <Input type='checkbox' id='female' />
                                     <Label check>Female</Label>
                                 </FormGroup>
                             </Col>

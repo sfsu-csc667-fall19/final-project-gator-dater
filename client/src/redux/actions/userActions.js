@@ -50,10 +50,25 @@ export const setAddtion = addtion => ({
     addtion,
 });
 
+// how the public will see, check box
+export const setListed = listedAs => ({
+    type: 'SET_LISTED',
+    listedAs,
+});
+
+// what you see in your profile
+export const setIdentity = identity => ({
+    type: 'SET_IDENTITY',
+    identity,
+});
+
+//what you like , check box
 export const setPreference = preference => ({
     type: 'SET_PREFERENCE',
     preference,
 });
+
+//
 
 
 export const setIsLoggedIn = isLoggedIn =>({
