@@ -105,7 +105,7 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
             </UncontrolledDropdown>
           </Nav>
           {/* <input type="image" src = "./img/fb.jpg" border="border of the image" alt="text"></input> */}
-         Welcome, Seafoodghost &nbsp;&nbsp;&nbsp;
+         Welcome, {username} &nbsp;&nbsp;&nbsp;
          <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
         </Collapse>
       </Navbar>
