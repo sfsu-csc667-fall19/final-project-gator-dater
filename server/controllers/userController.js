@@ -9,10 +9,8 @@ exports.editProfile = function (req, res) {
       if (req.body.lastName) user.lastName = req.body.lastName;
       if (req.body.email) user.email = req.body.email;
       if (req.body.age) user.age = req.body.age;
-      if (req.body.race) user.race = req.body.race;
       if (req.body.gender) user.gender = req.body.gender;
       if (req.body.collegeyear) user.collegeyear = req.body.collegeyear;
-      if (req.body.major) user.major = req.body.major;
       if (req.body.addition) user.addition = req.body.addition;
       if (req.body.interests) user.interests = req.body.interests;
       user.save();
@@ -27,15 +25,15 @@ exports.listUsers = function (req, res) {
   if (req.body.pref === 'E') { query = {}; }
   else { query = {$or:[ {listed: req.body.pref}, {listed: 'E'} ]}}
 
-  User.find(query)
+  User.find(query).select('username -_id')
       .then((docs) => { res.send(docs)} )
-      .catch((e) => { res.send('Error') });
+      .catch((e) => { res.send('find ERROR') });
 }
 
 exports.returnUser = function (req, res) {
   User.findOne({ username: req.body.username })
       .then((document) => { res.send(document) })
-      .catch((e) => { res.send('Error') });
+      .catch((e) => { res.send('fineOne ERROR') });
 }
 
 exports.likeUser = function (req, res) {
@@ -49,7 +47,7 @@ exports.likeUser = function (req, res) {
           if (err) { res.send('updateOne ERROR: ' + err); }
           else { res.send(req.body.userB + ' liked'); }
         });
-      }).catch((e) => { res.send('findOne ERROR'); });
+      }).catch((e) => { res.send('findOne ERROR') });
 }
 
 exports.unlikeUser = function (req, res) {
@@ -62,7 +60,7 @@ exports.unlikeUser = function (req, res) {
           if (err) { res.send('updateOne ERROR: ' + err); }
           else { res.send(req.body.userB + ' unliked'); }
         });
-      }).catch((e) => { res.send('findOne ERROR'); });
+      }).catch((e) => { res.send('findOne ERROR') });
 }
 
 exports.mutual = function (req, res) {
@@ -83,7 +81,7 @@ exports.mutual = function (req, res) {
                   { res.send(true) }
               else { res.send(false) };
             }
-          }).catch((e) => { res.send('userB does not exist')} );
+          }).catch((e) => { res.send('userB does not exist') });
         }
-      }).catch((e) => { res.send('userA does not exist')} );
+      }).catch((e) => { res.send('userA does not exist') });
 }
