@@ -68,7 +68,7 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => setCollegeYear(e.target.value)}>
                                     <option value=""></option>
                                     <option value="Freshman">Freshman</option>
                                     <option value="Sophomore">Sophomore</option>
