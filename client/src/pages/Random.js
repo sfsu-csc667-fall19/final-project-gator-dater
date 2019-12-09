@@ -49,7 +49,7 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   //export default function MediaCard() {
   const classes = useStyles();
 
-  // handling to toggle heart appearance/color
+  // handling to toggle heart appearance/color (when the heart is clicked)
   const [heart, setHeart] = React.useState('default');
   const updateHeart = () => {
     if(heart==='default') {
@@ -57,6 +57,12 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     } else {
       setHeart('default');
     }
+  };
+
+  // handling for when the X is clicked
+  const [x, setX] = React.useState('');
+  const updateX = () => {
+
   };
 
   const Message = ()=>{      
@@ -137,9 +143,11 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
                 </CardContent>
               </CardActionArea>
               <CardActions> {/* Handler example for changing heart color */}
+                {/* This is the heart button */}
                 <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>
                   <FavoriteIcon />
-                </Fab>
+                </Fab> {/* This is the X button */}
+                {/* onClick={() => setX(updateX)} ... is an example of setting an onClick for the X */}
                 <Fab active aria-label="like" style={{marginLeft: 20}}>
                   <CancelRoundedIcon />
                 </Fab>
