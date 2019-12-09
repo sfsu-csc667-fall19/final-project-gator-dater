@@ -2,8 +2,6 @@ import React, { useState }from 'react';
 import './css/Random.css';
 import { Button} from 'react-bootstrap';
 import { Card, Row, Col, CardSubtitle, CardBody,CardTitle} from 'reactstrap';
-import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
-
 // Raymond's card imports
 import Jedi from './img/Jedi.jpg';
 import Grid from '@material-ui/core/Grid';
@@ -19,8 +17,10 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import Fab from '@material-ui/core/Fab';
+import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
+import {connect} from 'react-redux';
 
-const Random = () => {
+const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
 
   const openMessage = () =>{
@@ -68,6 +68,7 @@ const Random = () => {
   const Message = ()=>{      
     return (
         <div>       
+         
             <Alert color = "light" isOpen={messageBox} id="messageBox">           
             <Form>
                 <FormGroup>
@@ -93,20 +94,21 @@ const Random = () => {
     <div id="con">
      
       <Row>
-      <h4>This is RandomUser.js</h4><br/>
+      {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
+     
+      <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
       </Row>
       <Row>
       <p> Below are users randomly seclected form the database.</p><br/>
       <p> Let's meet some new friends today.</p>
       </Row>
-
       <Row>    
       <Col id="user">
       <Card >
         <CardBody>
           <CardTitle>RandomUser#1 &nbsp;&nbsp;&nbsp;
           </CardTitle><hr/>
-          <CardSubtitle>Hello, I am Seafoodghost.Let's meet some new friends today.
+          <CardSubtitle>Hello, I am {username}.Let's meet some new friends today.
           Let's meet some new friends today.</CardSubtitle><br/>
           <div>
           <Button onClick = {openMessage}>Send Message</Button>
@@ -157,5 +159,19 @@ const Random = () => {
     </div>
   );
 };
-
-export default Random;
+const mapStateToProps = state => ({
+  username: state.userReducer.username,
+  password: state.userReducer.password,
+  age: state.userReducer.age,
+  email: state.userReducer.email,
+  major: state.userReducer.major,
+  firstName: state.userReducer.firstName,
+  lastName: state.userReducer.lastName,
+  addtion: state.userReducer.addtion,
+  listed: state.userReducer.listed,
+  identity: state.userReducer.identity,
+  preference: state.userReducer.preference,
+  collegeYear: state.userReducer.collegeYear,
+  activeUsers: state.userReducer.activeUsers,
+});
+export default connect(mapStateToProps)(Random);

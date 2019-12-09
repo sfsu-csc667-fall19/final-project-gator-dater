@@ -7,6 +7,7 @@ import Update from './pages/Update';
 import Home from './pages/Home';
 import history from './pages/history';
 import Cookies from 'js-cookie';
+import AddUserInfo from './pages/AddUserInfo';
 
 const App = () => {
   const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -21,6 +22,7 @@ const App = () => {
     <Router history = {history}>
         <Switch>
           {/* Temporarily changing PrivateRoute to a regular Route to work on it */}
+          <Route exact path ="/adduserinfo" component = {AddUserInfo}/>
           <Route exact path ="/profile" component = {Profile}/>
           <Route exact path ="/" component = {Home}/>
           {/* Added this temporarily so I can work on it. Should be a PrivateRouter */}
