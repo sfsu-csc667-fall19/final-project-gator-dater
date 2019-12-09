@@ -11,7 +11,7 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 import NavBar from './NavBar'
-import { setUsername, setPassword, setAge, setEmail, setMajor, setCollegeYear, setInfo, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName} from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -30,54 +30,6 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
     const [isLoggedIn, setisLoggedIn] = useState(false);
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
-
-    const updateUsername = newUsername => {
-        dispatch(setUsername(newUsername));
-    };
-
-    const updatePassword = newPassword => {
-        dispatch(setPassword(newPassword));
-    };
-
-    const updateAge = newAge => {
-      dispatch(setAge(newAge));  
-    };
-
-    const updateEmail = newEmail => {
-        dispatch(setEmail(newEmail));
-    };
-
-    const updateCollegeYear = newCollegeYear => {
-        dispatch(setCollegeYear(newCollegeYear));
-    }; 
-
-    const updateMajor = newMajor => {
-        dispatch(setMajor(newMajor));
-    };
-
-    const updateFirstName = newFirstName => {
-        dispatch(setFirstName(newFirstName));
-    };
-
-    const updateLastName = newLastName => {
-        dispatch(setLastName(newLastName));
-    };
-
-    const updateInfo = newInfo => {
-        dispatch(setInfo(newInfo));
-    };
-
-    const updateListed = newListed => {
-        dispatch(setListed(newListed));
-    };
-
-    const updateIdentity = newIdentity => {
-        dispatch(setIdentity(newIdentity));
-    };
-
-    const updatePreference = newPreference => {
-        dispatch(setPreference(newPreference));
-    };
 
     const goLogin = (e) => {
         setLoginBox(true);
@@ -170,11 +122,11 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                     <Form>
                         <FormGroup>
                             <Label >Username</Label>
-                            <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='admin' />
+                            <Input bsSize='sm' value={username} onChange={e => dispatch(setUsername(e.target.value))} id='username' placeholder='admin' />
                         </FormGroup>
                         <FormGroup>
                             <Label >Password</Label>
-                            <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='******' />
+                            <Input bsSize='sm' type='password' value={password} onChange={e => dispatch(setPassword(e.target.value))} id='password' placeholder='******' />
                         </FormGroup>
 
                         <Row form>
@@ -203,7 +155,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Username</Label>
-                                    <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='username' />
+                                    <Input bsSize='sm' value={username} onChange={e => dispatch(setUsername(e.target.value))} id='username' placeholder='username' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -211,7 +163,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Password</Label>
-                                    <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='password' />
+                                    <Input bsSize='sm' type='password' value={password} onChange={e => dispatch(setPassword(e.target.value))} id='password' placeholder='password' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -220,7 +172,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >First Name</Label>
-                                    <Input bsSize='sm' value={firstName} onChange={e => updateFirstName(e.target.value)} placeholder='brian' />
+                                    <Input bsSize='sm' value={firstName} onChange={e => dispatch(setFirstName(e.target.value))} placeholder='brian' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -228,7 +180,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Last Name</Label>
-                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => updateLastName(e.target.value)} placeholder='parra' />
+                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => dispatch(setLastName(e.target.value))} placeholder='parra' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -236,7 +188,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={3}>
                                 <FormGroup>
                                     <Label >Age</Label>
-                                    <Input bsSize='sm' value={age} onChange={e => updateAge(e.target.value)} placeholder='age' />
+                                    <Input bsSize='sm' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='age' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -244,7 +196,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
-                                    <Input bsSize='sm' type='email' value={email} onChange={e => updateEmail(e.target.value)} placeholder='email@mail.sfsu.edu' />
+                                    <Input bsSize='sm' type='email' value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder='email@mail.sfsu.edu' />
                                 </FormGroup>
                             </Col>
                         </Row>
