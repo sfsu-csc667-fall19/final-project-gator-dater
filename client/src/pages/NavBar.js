@@ -5,13 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Icon from '@mdi/react';
 import { mdiFlowerTulipOutline } from '@mdi/js';
 
@@ -84,17 +80,6 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}> 
       <AppBar position="static" style={{ background: '#2E3B55' }}>
         <Toolbar>
-          {/* This is for the left side menu. 3 horizontal bars. Dont need, so commented out */}
-          {/* 
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          */}
           {/* For the rotating icon and Gator Dater title */}
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
                         <Icon path={mdiFlowerTulipOutline}
@@ -109,18 +94,7 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          {/* Mail Icon to the right. Shows number based on badge content/aria-label */}
-            <IconButton aria-label="show 1 new mails" color="inherit">
-              <Badge badgeContent={1} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            {/* Bell Icon to the right. Shows number based on badge content/aria-label */}
-            <IconButton aria-label="show 2 new notifications" color="inherit">
-              <Badge badgeContent={2} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            {/* For the menu all the way at the right/end */}
             <IconButton
               edge="end"
               aria-label="account of current user"

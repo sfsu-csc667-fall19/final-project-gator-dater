@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import fb from './img/fb.jpg';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
-import img from './img/bg.jpg';
+//import img from './img/bg.jpg';
 import img2 from './img/Snowglobe1.jpg';
 import Random from './Random';
 import Update from './Update';

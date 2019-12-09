@@ -8,7 +8,8 @@ import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGro
 import Jedi from './img/Jedi.jpg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Card2 from '@material-ui/core/Card';
+// Dont know why this isnt needed...maybe the reactstrap version of card is same
+//import Card2 from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';

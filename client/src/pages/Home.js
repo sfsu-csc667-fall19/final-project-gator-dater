@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './css/Home.css';
-import img from './img/bg.jpg';
+//import img from './img/bg.jpg';
 import img2 from './img/Snowglobe2.jpg';
 import SnowStorm from 'react-snowstorm';
 import { Redirect } from 'react-router-dom';
@@ -270,23 +270,17 @@ const Home = () => {
             <NavBar />
             <Container >
                 <Row>
-
                     {loginBox && (
                         <Col sm='12' md={{ size: 6, offset: 4 }}>
                             <div className='iBox' >{Log()}</div>
                         </Col>
                     )}
 
-
-
                     {createBox && (
                         <Col sm='12' md={{ size: 6, offset: 3 }}>
                             <div className='cBox'>{Create()}</div>
                         </Col>
                     )}
-
-
-
 
                     <Fade in={fadeIn} id='greeting'>
                         <h1>Gator.Dater</h1>
@@ -298,7 +292,6 @@ const Home = () => {
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
-
                 </Row>
             </Container>
         </div>
