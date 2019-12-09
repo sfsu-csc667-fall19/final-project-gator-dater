@@ -20,7 +20,6 @@ const App = () => {
   return (
     <Router history = {history}>
         <Switch>
-          <Route exact path ="/profile/random" component = {Random}/>
           <PrivateRoute exact path ="/profile" component = {Profile}/>
           <Route exact path ="/" component = {Home}/>
         </Switch>

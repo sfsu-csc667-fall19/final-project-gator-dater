@@ -28,10 +28,6 @@ const Home = () => {
     const [success, setSuccess] = useState('');
 
 
-    const [loginBox, setLoginBox] = useState(false);
-    const [createBox, setCreateBox] = useState(false);
-    const [fadeIn, setFadeIn] = useState(true);
-
 
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);

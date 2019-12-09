@@ -29,3 +29,9 @@ export const setToken = token => ({
     type: 'SET_TOKEN',
     token,
 })
+
+export const setActiveUsers = activeUsers => ({
+    type: 'SET_ACTIVE_USERS',
+    activeUsers,
+  });
+  
