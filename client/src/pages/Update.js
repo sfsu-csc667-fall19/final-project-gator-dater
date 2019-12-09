@@ -14,7 +14,7 @@ const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, 
   const [success, setSuccess] = useState('');
 
 
-  const [errormessage,setErrorMessage] = useState('');
+  const [errormessage, setErrorMessage] = useState('');
 
   const closeUpdate =()=>{
     dispatch(setIsUpdateOpen(false));

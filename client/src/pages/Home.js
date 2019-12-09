@@ -110,12 +110,16 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, add
                     identity,
                     preference,
                 })
-                .then((res) => { setSuccess(res.data); })
-                .catch(err => console.log(err));
+                .then((res) => {
+                    if(res.data === 'Success') {
+                        Cookies.set('username', username);
+                        Cookies.set('password', md5(password));
+                        Cookies.set('isLoggedIn', true);
+                        history.push('/profile');
+                    } else { setSuccess(res.data) }
+                }) .catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
-
-        // if (success === true) { goProfile() };
     }
 
     const goHome = () => {
@@ -143,25 +147,22 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, add
                 password: md5(password),
             }
             axios.post('/login', body, options)
-                .then((res) => {
-                    setPassword("");
-                    if (res.data) {
-                        Cookies.set("username", body.username);
-                        Cookies.set("password", body.password);
-                        Cookies.set("isLoggedIn", true);
+            .then((res) => {
+                setPassword('');
+                if (res.data === 'Success') {
+                    Cookies.set('username', body.username);
+                    Cookies.set('password', body.password);
+                    Cookies.set('isLoggedIn', true);
+                    history.push('/profile');
 
-                    } else {
-                        Cookies.set("username", "");
-                        Cookies.set("password", "");
-                        Cookies.set("isLoggedIn", false);
-                    }
-                    console.log(res);
-                }).then(() => {
-                    history.push("/profile");
-                })
-                .catch(e => console.log(e));
-        } else {
-            setSuccess("Failed. Wrong username and/or password");
+                } else {
+                    Cookies.set('username', '');
+                    Cookies.set('password', '');
+                    Cookies.set('isLoggedIn', false);
+                    setSuccess(res.data);
+                }
+                console.log(res);
+            }).catch(e => console.log(e));
         }
     }
 
@@ -335,7 +336,7 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, add
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 
                         <ButtonToolbar>
-                            <Button onClick={goLogin} variant='outline-warning'>Get started  </Button>  &nbsp;&nbsp;
+                            <Button onClick={goLogin} variant='outline-warning'>Login</Button>  &nbsp;&nbsp;
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
