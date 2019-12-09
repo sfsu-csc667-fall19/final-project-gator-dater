@@ -50,9 +50,9 @@ export const setLastName = lastName => ({
     lastName,
 });
 
-export const setAddtion = addtion => ({
-    type: 'SET_ADDTION',
-    addtion,
+export const setInfo = info => ({
+    type: 'SET_INFO',
+    info,
 });
 
 // how the public will see, check box
