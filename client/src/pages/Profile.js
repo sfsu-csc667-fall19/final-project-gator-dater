@@ -31,11 +31,12 @@ import {
 
 
 
-const Profile = ({dispatch, isUpdateOpen}) => {
+const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);
   const [isGoUpdate, setGoupdate] = useState(false);
+  const [profileImg, setProfileImg] = useState('');
 
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => { 
@@ -75,47 +76,45 @@ const Profile = ({dispatch, isUpdateOpen}) => {
 
   if (isLoggedOut) { return <Redirect to="/" /> }
 
-    return (
-      
-      <div style={bgGround}>
-      <div id = "main">
-      <Navbar color="warning" light expand="md" >
-          <NavbarBrand >GatorDater- Profile.js</NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink href="/components/">Some Option#1</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="">Some Option#2</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-            {/* <input type="image" src = "./img/fb.jpg" border="border of the image" alt="text"></input> */}
-          Welcome, Seafoodghost &nbsp;&nbsp;&nbsp;
-          <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
-          </Collapse>
-        </Navbar>
-        
-      
-      
+
+  return (
+    
+    <div style={bgGround} >
+    <div id = "main">
+    <Navbar color="warning" light expand="md" >
+        <NavbarBrand >GatorDater- Profile.js</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/components/">Some Option#1</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="">Some Option#2</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+          {/* <input type="image" src = "./img/fb.jpg" border="border of the image" alt="text"></input> */}
+         Welcome, {username} &nbsp;&nbsp;&nbsp;
+         <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
+        </Collapse>
+      </Navbar>
         
         <Switch>
         {isUpdateOpen && ( 
@@ -125,26 +124,36 @@ const Profile = ({dispatch, isUpdateOpen}) => {
           <Route path = "/" component = {Random}/>       
         </Switch>
 
-
-        
-        <div id="mySidenav" className="sidenav"> 
-          <ListGroup>
-            <ListGroupItem>Some information.</ListGroupItem>
-            <ListGroupItem>Email: Some content@sfsu.edu</ListGroupItem>
-            <ListGroupItem>Some content</ListGroupItem>
-            <ListGroupItem>Some content</ListGroupItem>
-            <ListGroupItem><Button bsSize = "sm" onClick ={goUpdate} block>Update Profile</Button></ListGroupItem>
-            <ListGroupItem><Button bsSize = "sm"  onClick = {logout} block> LogOut</Button></ListGroupItem>
-          </ListGroup>       
-        </div>
-      </div> 
-      </div>
-    );
-  };
+      <div id="mySidenav" className="sidenav"> 
+        <ListGroup>
+         
+          <ListGroupItem>Some information.</ListGroupItem>
+          <ListGroupItem>Email: Some content@sfsu.edu</ListGroupItem>
+          <ListGroupItem>Some content</ListGroupItem>
+          <ListGroupItem>Some content</ListGroupItem>
+          <ListGroupItem><Button bsSize = "sm" onClick ={goUpdate} block>Update Profile</Button></ListGroupItem>
+          <ListGroupItem><Button  bsSize = "sm"  onClick = {logout} block> LogOut</Button></ListGroupItem>
+        </ListGroup>       
+     </div>
+     </div> 
+    </div>
+  );
+};
 //}
 
 const mapStateToProps = state => ({
    isUpdateOpen: state.pageReducer.isUpdateOpen,
+   password: state.userReducer.password,
+   age: state.userReducer.age,
+   email: state.userReducer.email,
+   major: state.userReducer.major,
+   firstName: state.userReducer.firstName,
+   lastName: state.userReducer.lastName,
+   addtion: state.userReducer.addtion,
+   preference: state.userReducer.preference,
+   listed: state.userReducer.listed,
+   identity: state.userReducer.identity,
 
 });
+
 export default connect(mapStateToProps)(Profile);

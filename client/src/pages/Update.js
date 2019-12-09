@@ -1,25 +1,17 @@
 import React, {useState}from 'react';
 import { connect } from 'react-redux';
 // importing update redux
-import { updateProfile, setAge, setEmail, setGender, setCollegeYear, setMajor, setAddtion } from '../redux/actions/updateActions';
+import { updateProfile} from '../redux/actions/updateActions';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
+import { setUsername, setPassword, setAge, setEmail, setMajor, setInfo, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
 import { Button} from 'react-bootstrap';
 import './css/Update.css';
 import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
 
-// replaced const/their handlers with the redux states.
-const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major, addtion, interests}) => {
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  /*
-  const [age, setAge] = useState('');  
-  const [email, setEmail] = useState('');  
+const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, info, firstName, lastName, preference, listed, identity}) => {
   const [collegeyear, setCollegeYear] = useState(''); 
-  const [major, setMajor] = useState('');  
-  const [addtion, setAddtion] = useState('');  
-  */
   const [success, setSuccess] = useState('');
+  const [profileImg, setProfileImg] = useState('');
 
 
   const [errormessage, setErrorMessage] = useState('');
@@ -36,17 +28,23 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
                     <h4> Update User Information</h4><br />
                     <h5>{errormessage}</h5><br />
                     <Form>
+                    <Row><Col>
+                        <FormGroup>
+                            <Label>You can upload your img here</Label>
+                            <Input type="file" id="imgFile" onChange ={e => setProfileImg(e.target.value)} />
+                        </FormGroup></Col>{profileImg}
+                    </Row>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Username</Label>
-                                    <Input bsSize="sm" value={username} onChange={e => setUsername(e.target.value)} id="username" placeholder="username" />
+                                    <Input bsSize="sm" value={username} onChange={e => dispatch(setUsername(e.target.value))} id="username" placeholder="username" />
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Password</Label>
-                                    <Input bsSize="sm" type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" placeholder="password" />
+                                    <Input bsSize="sm" type="password" value={password} onChange={e => dispatch(setPassword(e.target.value))} id="password" placeholder="password" />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -55,20 +53,20 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
                             <Col md={3}>
                                 <FormGroup>
                                     <Label >Age</Label>
-                                    <Input bsSize="sm" value={age} onChange={e => setAge(e.target.value)} placeholder="age" />
+                                    <Input bsSize="sm" value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder="age" />
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
-                                    <Input bsSize="sm" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="email@mail.sfsu.edu" />
+                                    <Input bsSize="sm" type="email" value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder="email@mail.sfsu.edu" />
                                 </FormGroup>
                             </Col>
                         </Row>
 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => setCollegeYear(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
                                     <option value=""></option>
                                     <option value="Freshman">Freshman</option>
                                     <option value="Sophomore">Sophomore</option>
@@ -78,7 +76,7 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleAddress2">Major</Label>
-                            <Input type="text" value={major} onChange={e => setMajor(e.target.value)} placeholder="what is your major?" />
+                            <Input type="text" value={major} onChange={e => dispatch(setMajor(e.target.value))} placeholder="what is your major?" />
                         </FormGroup>
                         {/* The gender needs to be accounted for in the backend? as well as handled for when onchange */}
                         <Row form>
@@ -104,7 +102,7 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
 
                         <FormGroup>
                             <Label for="exampleText">We want to know more about you.</Label>
-                            <Input type="textarea" name="text" id="exampleText" value={addtion} onChange={e => setAddtion(e.target.value)} placeholder="preference, interest, anything you want to share..." />
+                            <Input type="textarea" name="text" id="exampleText" value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder="preference, interest, anyting you want to share..." />
                         </FormGroup>
 
                         <br />
@@ -125,16 +123,20 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
 };
 // interests is commented out because dont think its needed actually. Addtion is the additional info.
 const mapStateToProps = state => ({
+    isUpdateOpen: state.pageReducer.isUpdateOpen,
     username: state.userReducer.username,
     password: state.userReducer.password,
-    isUpdateOpen: state.pageReducer.isUpdateOpen,
-    age: state.updateReducer.age,
-    email: state.updateReducer.email,
-    gender: state.updateReducer.gender,
-    collegeYear: state.updateReducer.collegeYear,
-    major: state.updateReducer.major,
-    addtion: state.updateReducer.addtion,
-    // interests: state.updateReducer.interests,
+    age: state.userReducer.age,
+    email: state.userReducer.email,
+    major: state.userReducer.major,
+    firstName: state.userReducer.firstName,
+    lastName: state.userReducer.lastName,
+    info: state.userReducer.info,
+    listed: state.userReducer.listed,
+    identity: state.userReducer.identity,
+    preference: state.userReducer.preference,
+    collegeYear: state.userReducer.collegeYear,
+
  });
 
 export default connect(mapStateToProps)(Update);

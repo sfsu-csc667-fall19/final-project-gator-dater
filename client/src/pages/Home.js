@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import './css/Home.css';
 //import img from './img/bg.jpg';
 import img2 from './img/Snowglobe2.jpg';
 import SnowStorm from 'react-snowstorm';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom'; //unusedK
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
-import NavBar from './NavBar';
+import NavBar from './NavBar'
+import { setUsername, setPassword, setAge, setEmail, setMajor, setCollegeYear, setInfo, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -20,29 +22,70 @@ const options = {
 };
 
 
-const Home = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [age, setAge] = useState('');
-    const [email, setEmail] = useState('');
-    const [collegeyear, setCollegeYear] = useState('');
-    const [major, setMajor] = useState('');
-    const [addtion, setAddtion] = useState('');
+const Home = ({dispatch, username, password, age, email, firstName, lastName}) => {
     const [success, setSuccess] = useState('');
-
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
+   
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
+    const updateUsername = newUsername => {
+        dispatch(setUsername(newUsername));
+    };
+
+    const updatePassword = newPassword => {
+        dispatch(setPassword(newPassword));
+    };
+
+    const updateAge = newAge => {
+      dispatch(setAge(newAge));  
+    };
+
+    const updateEmail = newEmail => {
+        dispatch(setEmail(newEmail));
+    };
+
+    const updateCollegeYear = newCollegeYear => {
+        dispatch(setCollegeYear(newCollegeYear));
+    }; 
+
+    const updateMajor = newMajor => {
+        dispatch(setMajor(newMajor));
+    };
+
+    const updateFirstName = newFirstName => {
+        dispatch(setFirstName(newFirstName));
+    };
+
+    const updateLastName = newLastName => {
+        dispatch(setLastName(newLastName));
+    };
+
+    const updateInfo = newInfo => {
+        dispatch(setInfo(newInfo));
+    };
+
+    const updateListed = newListed => {
+        dispatch(setListed(newListed));
+    };
+
+    const updateIdentity = newIdentity => {
+        dispatch(setIdentity(newIdentity));
+    };
+
+    const updatePreference = newPreference => {
+        dispatch(setPreference(newPreference));
+    };
+  
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
         setCreateBox(false);
-        setUsername('');
-        setPassword('');
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
         document.getElementById('greeting').style.display = 'none';
     }
 
@@ -50,32 +93,32 @@ const Home = () => {
         setLoginBox(false);
         setFadeIn(false);
         setCreateBox(true);
-        setUsername('');
-        setPassword('');
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
         document.getElementById('greeting').style.display = 'none';
     }
 
     const createUser = (e) => {
         e.preventDefault();
-        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && firstName !== 0 && lastName !== 0) {
             if (validator.validate(email)) {
                 axios.post('/createUser', {
                     username,
                     password: md5(password),
+                    firstName,
+                    lastName,
                     age,
                     email,
-                    collegeyear,
-                    major,
-                    addtion,
                 })
-                .then((res) => {
-                    if(res.data === 'Success') {
-                        Cookies.set('username', username);
-                        Cookies.set('password', md5(password));
-                        Cookies.set('isLoggedIn', true);
-                        history.push('/profile');
-                    } else { setSuccess(res.data) }
-                }) .catch(err => console.log(err));
+                    .then((res) => {
+                        setSuccess(res.data);
+                        if (success === 'Success') {
+                            Cookies.set("username", username);
+                            Cookies.set("password", md5(password));
+                            Cookies.set("isLoggedIn", true);
+                            history.push("/adduserinfo");
+                        }
+                    }).catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
     }
@@ -84,39 +127,38 @@ const Home = () => {
         setCreateBox(false);
         setLoginBox(false);
         setFadeIn(true);
-        setAge('');
-        setEmail('');
-        setCollegeYear('');
-        setMajor('');
-        setAddtion('');
+        dispatch(setAge(''));
+        dispatch(setEmail(''));
         setSuccess('');
         document.getElementById('greeting').style.display = 'inline';
     }
 
     function goProfile(e) {
         e.preventDefault();
-        if (username != 0 && password != 0) {
+        if (username !== 0 && password !== 0) {
             const body = {
                 username,
                 password: md5(password),
             }
             axios.post('/login', body, options)
-            .then((res) => {
-                setPassword('');
-                if (res.data === 'Success') {
-                    Cookies.set('username', body.username);
-                    Cookies.set('password', body.password);
-                    Cookies.set('isLoggedIn', true);
-                    history.push('/profile');
+                .then((res) => {
+                    setPassword("");
+                    if (res.data) {
+                        Cookies.set("username", body.username);
+                        Cookies.set("password", body.password);
+                        Cookies.set("isLoggedIn", true);
 
-                } else {
-                    Cookies.set('username', '');
-                    Cookies.set('password', '');
-                    Cookies.set('isLoggedIn', false);
-                    setSuccess(res.data);
-                }
-                console.log(res);
-            }).catch(e => console.log(e));
+                    } else {
+                        Cookies.set("username", "");
+                        Cookies.set("password", "");
+                        Cookies.set("isLoggedIn", false);
+                    }
+                    console.log(res);
+                }).then(() => {
+                    history.push("/profile");
+                }).catch(e => console.log(e));
+        } else {
+            setSuccess("Failed. Wrong username and/or password");
         }
     }
 
@@ -129,11 +171,11 @@ const Home = () => {
                     <Form>
                         <FormGroup>
                             <Label >Username</Label>
-                            <Input bsSize='sm' value={username} onChange={e => setUsername(e.target.value)} id='username' placeholder='admin' />
+                            <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='admin' />
                         </FormGroup>
                         <FormGroup>
                             <Label >Password</Label>
-                            <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='12345' />
+                            <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='******' />
                         </FormGroup>
 
                         <Row form>
@@ -162,13 +204,32 @@ const Home = () => {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Username</Label>
-                                    <Input bsSize='sm' value={username} onChange={e => setUsername(e.target.value)} id='username' placeholder='username' />
+                                    <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='username' />
                                 </FormGroup>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Password</Label>
-                                    <Input bsSize='sm' type='password' value={password} onChange={e => setPassword(e.target.value)} id='password' placeholder='password' />
+                                    <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='password' />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label >First Name</Label>
+                                    <Input bsSize='sm' value={firstName} onChange={e => updateFirstName(e.target.value)} placeholder='brian' />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label >Last Name</Label>
+                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => updateLastName(e.target.value)} placeholder='parra' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -177,64 +238,27 @@ const Home = () => {
                             <Col md={3}>
                                 <FormGroup>
                                     <Label >Age</Label>
-                                    <Input bsSize='sm' value={age} onChange={e => setAge(e.target.value)} placeholder='age' />
+                                    <Input bsSize='sm' value={age} onChange={e => updateAge(e.target.value)} placeholder='age' />
                                 </FormGroup>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
-                                    <Input bsSize='sm' type='email' value={email} onChange={e => setEmail(e.target.value)} placeholder='email@mail.sfsu.edu' />
+                                    <Input bsSize='sm' type='email' value={email} onChange={e => updateEmail(e.target.value)} placeholder='email@mail.sfsu.edu' />
                                 </FormGroup>
                             </Col>
                         </Row>
-
-                        <FormGroup>
-                            <Label for='exampleAddress'>College Year</Label>
-                            <Input type='select' bsSize='sm' value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
-                                <option value=''></option>
-                                <option value='Freshman'>Freshman</option>
-                                <option value='Sophomore'>Sophomore</option>
-                                <option value='Junior'>Junior</option>
-                                <option value='Senior'>Senior</option>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for='exampleAddress2'>Major</Label>
-                            <Input type='text' value={major} onChange={e => setMajor(e.target.value)} placeholder='what is your major?' />
-                        </FormGroup>
-
-                        <Row form>
-                            <Col md={3}>
-                                <FormGroup check>
-                                    <Input type='checkbox' id='male' />
-                                    <Label check>Female</Label>
-                                </FormGroup>
-                            </Col>
-                            <Col md={4}>
-                                <FormGroup>
-                                    <Input type='checkbox' id='male' />
-                                    <Label check>Male</Label>
-                                </FormGroup>
-                            </Col>
-                            <Col md={5}>
-                                <FormGroup>
-                                    <Input type='checkbox' id='male' />
-                                    <Label check>Other</Label>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-
-
-                        <FormGroup>
-                            <Label for='exampleText'>We want to know more about you.</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={addtion} onChange={e => setAddtion(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
-                        </FormGroup>
 
                         <br />
                         <Row form>
                             <Col md={6}>
                                 <Button onClick={createUser} variant='warning' block>Sign Up</Button>
                             </Col>
+                        </Row>
+                        <br />
+                        <Row>
                             <Col md={6}>
                                 <Button onClick={goHome} variant='warning' block>Not now</Button>
                             </Col>
@@ -283,4 +307,13 @@ const Home = () => {
     );
 };
 
-export default Home;
+const mapStateToProps = state => ({
+    username: state.userReducer.username,
+    password: state.userReducer.password,
+    age: state.userReducer.age,
+    email: state.userReducer.email,
+    firstName: state.userReducer.firstName,
+    lastName: state.userReducer.lastName,
+});
+
+export default connect(mapStateToProps)(Home);
