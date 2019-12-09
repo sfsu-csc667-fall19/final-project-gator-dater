@@ -41,6 +41,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 major: action.major,
             };
+
+        case 'SET_COLLEGE_YEAR':
+            return {
+                ...state,
+                major:action.collegeYearm
+            };
         case 'SET_FIRSTNAME':
             return {
                 ...state,

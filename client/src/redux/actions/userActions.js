@@ -30,6 +30,11 @@ export const setEmail = email => ({
     email,
 });
 
+export const setCollegeYear = collegeYear => ({
+    type: 'SET_COLLEGE_YEAR',
+    collegeYear,
+});
+
 export const setMajor = major => ({
     type: 'SET_MAJOR',
     major,

@@ -127,7 +127,9 @@ const mapStateToProps = state => ({
     addtion: state.userReducer.addtion,
     listed: state.userReducer.listed,
     identity: state.userReducer.identity,
-    preference: state.userReducer.preference
+    preference: state.userReducer.preference,
+    collegeYear: state.userReducer.collegeYear,
+
  });
 
 export default connect(mapStateToProps)(Update);

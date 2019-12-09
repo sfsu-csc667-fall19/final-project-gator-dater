@@ -156,6 +156,7 @@ const mapStateToProps = state => ({
    preference: state.userReducer.preference,
    listed: state.userReducer.listed,
    identity: state.userReducer.identity,
+   collegeYear: state.userReducer.collegeYear,
 
 });
 
