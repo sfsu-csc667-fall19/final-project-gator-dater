@@ -28,6 +28,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
+   
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 

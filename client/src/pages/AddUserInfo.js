@@ -14,12 +14,13 @@ const AddUserInfo = () => {
     const [addtion, setAddtion] = useState('');
     const [gender, setGender] = useState('');
     const [success, setSuccess] = useState('');
+    const [profileImg, setProfileImg] = useState('');
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     function goProfile(e) {
         e.preventDefault()
         if (collegeyear !== '' && major !== 0 && gender !== '') {
-            axios.post('/editProfile', {
+            axios.post('/user/editProfile', {
                 collegeyear,
                 major,
                 gender,
@@ -31,6 +32,26 @@ const AddUserInfo = () => {
         }
     }
 
+    function uploadImg(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('myImage',profileImg);
+        const config = {
+            headers: {
+                'contentType': 'multipart/form-data'
+            }
+        };
+        axios.post("/user/uploadPic", {
+            formData,
+            config,
+        })
+        .then((res) => {
+            if(res.data) {
+                alert('Success');
+            }
+        })
+    }
+
 
     return (
         <div style={bgGround} id='bg'>
@@ -39,6 +60,17 @@ const AddUserInfo = () => {
             <Container>
                 <h4>Update Profile</h4> <br /><br />
                 <Form form>
+                    <Row>
+                        <FormGroup>
+                            <Label>You can upload your img here</Label>
+                            <Input type="file" id="imgFile" onChange ={e => setProfileImg(e.target.files[0])} />
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <Col md={2}>
+                            <Button onClick={uploadImg} variant='warning' block>upload</Button>
+                        </Col>
+                    </Row>
                     <Row>
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>

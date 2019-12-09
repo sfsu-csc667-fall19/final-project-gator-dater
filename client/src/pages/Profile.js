@@ -36,6 +36,7 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);
   const [isGoUpdate, setGoupdate] = useState(false);
+  const [profileImg, setProfileImg] = useState('');
 
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => { 

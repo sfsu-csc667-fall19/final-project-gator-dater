@@ -8,7 +8,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const crypto = require("crypto");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 // controller
 let userController = require('./controllers/userController');
@@ -60,7 +60,7 @@ const upload = multer({ storage });
 
 // upload img
 app.post('/user/uploadPic', upload.single('img'), (req, res) => {
-    // res.json({ file: req.file });
+    res.json({ file: req.file });
     // res.redirect('/');
     res.send(true);
 });

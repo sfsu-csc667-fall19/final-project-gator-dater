@@ -20,7 +20,7 @@ import Fab from '@material-ui/core/Fab';
 import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
 import {connect} from 'react-redux';
 
-const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
+const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
 
   const openMessage = () =>{
@@ -90,7 +90,7 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
       <Row>
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
      
-      <h4>This is Random.js</h4><br/>
+      <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
       </Row>
       <Row>
       <p> Below are users randomly seclected form the database.</p><br/>
@@ -164,5 +164,6 @@ const mapStateToProps = state => ({
   identity: state.userReducer.identity,
   preference: state.userReducer.preference,
   collegeYear: state.userReducer.collegeYear,
+  activeUsers: state.userReducer.activeUsers,
 });
 export default connect(mapStateToProps)(Random);
