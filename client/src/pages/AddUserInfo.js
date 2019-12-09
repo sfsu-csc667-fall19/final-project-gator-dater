@@ -13,6 +13,7 @@ const AddUserInfo = () => {
     const [major, setMajor] = useState('');
     const [addtion, setAddtion] = useState('');
     const [gender, setGender] = useState('');
+    const [success, setSuccess] = useState('');
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     function goProfile(e) {
@@ -25,6 +26,8 @@ const AddUserInfo = () => {
                 addtion,
             })
             history.push("/profile");
+        } else {
+            setSuccess('Fields cannot be left empty!');
         }
     }
 
@@ -40,6 +43,7 @@ const AddUserInfo = () => {
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                                <option value="" selected disabled>Please select</option>
                                 <option value="Freshman">Freshman</option>
                                 <option value="Sophomore">Sophomore</option>
                                 <option value="Junior">Junior</option>
@@ -57,6 +61,7 @@ const AddUserInfo = () => {
                         <FormGroup>
                             <Label for="exampleAddress">Gender</Label>
                             <Input type="select" bsSize="sm" value={gender} onChange={e => setGender(e.target.value)}>
+                                <option value="" selected disabled>Please select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Gender Fluid">Gender Fluid</option>
@@ -74,6 +79,7 @@ const AddUserInfo = () => {
                             <Button onClick={goProfile} variant='warning' block>Finish!</Button>
                         </Col>
                     </Row>
+                    <h4>{success}</h4>
 
 
                 </Form>

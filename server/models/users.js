@@ -7,15 +7,16 @@ let usersSchema = new Schema({
     password: String,
     firstName: String,
     lastName: String,
-    email: String,
     age: { type: Number, min: 18, max: 65 },
-    race: String,
+    email: String,
+
     gender: String,
+    listed: String,
+    preference: String,
     collegeyear: String,
-    major:String,
-    addition:String,
     interests: String,
-    
+
+    likes: Array,
 });
 
 module.exports = mongoose.model('Users', usersSchema);

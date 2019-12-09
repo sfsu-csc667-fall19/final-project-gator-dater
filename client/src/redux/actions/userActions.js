@@ -20,6 +20,59 @@ export const setPassword = password =>({
     password,
 });
 
+export const setAge = age => ({
+    type: 'SET_AGE',
+    age,
+});
+
+export const setEmail = email => ({
+    type: 'SET_EMAIL',
+    email,
+});
+
+export const setCollegeYear = collegeYear => ({
+    type: 'SET_COLLEGE_YEAR',
+    collegeYear,
+});
+
+export const setMajor = major => ({
+    type: 'SET_MAJOR',
+    major,
+});
+
+export const setFirstName = firstName => ({
+    type: 'SET_FIRSTNAME',
+    firstName,
+});
+
+export const setLastName = lastName => ({
+    type: 'SET_LASTNAME',
+    lastName,
+});
+
+export const setInfo = info => ({
+    type: 'SET_INFO',
+    info,
+});
+
+// how the public will see, check box
+export const setListed = listedAs => ({
+    type: 'SET_LISTED',
+    listedAs,
+});
+
+// what you see in your profile
+export const setIdentity = identity => ({
+    type: 'SET_IDENTITY',
+    identity,
+});
+
+//what you like , check box
+export const setPreference = preference => ({
+    type: 'SET_PREFERENCE',
+    preference,
+});
+
 export const setIsLoggedIn = isLoggedIn =>({
     type:'SET_IS_LOGGED_IN',
     isLoggedIn,
