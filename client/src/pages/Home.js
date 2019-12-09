@@ -27,9 +27,6 @@ const Home = () => {
     const [email, setEmail] = useState('');
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastName] = useState('');
-    // const [collegeyear, setCollegeYear] = useState('');
-    // const [major, setMajor] = useState('');
-    // const [addtion, setAddtion] = useState('');
     const [success, setSuccess] = useState('');
 
     const [loginBox, setLoginBox] = useState(false);
@@ -59,7 +56,7 @@ const Home = () => {
 
     const createUser = (e) => {
         e.preventDefault();
-        if (username !== 0 && password !== 0 && age !== 0 && email !== 0) {
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && firstname !== 0 && lastname !== 0) {
             if (validator.validate(email)) {
                 axios.post('/createUser', {
                     username,
@@ -95,7 +92,7 @@ const Home = () => {
 
     function goProfile(e) {
         e.preventDefault();
-        if (username != 0 && password != 0) {
+        if (username !== 0 && password !== 0) {
             const body = {
                 username,
                 password: md5(password),
@@ -181,7 +178,7 @@ const Home = () => {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >First Name</Label>
-                                    <Input bsSize='sm' value={age} onChange={e => setFirstName(e.target.value)} placeholder='age' />
+                                    <Input bsSize='sm' value={firstname} onChange={e => setFirstName(e.target.value)} placeholder='brian' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -189,19 +186,18 @@ const Home = () => {
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Last Name</Label>
-                                    <Input bsSize='sm' type='email' value={email} onChange={e => setLastName(e.target.value)} placeholder='email@mail.sfsu.edu' />
+                                    <Input bsSize='sm' type='email' value={lastname} onChange={e => setLastName(e.target.value)} placeholder='parra' />
                                 </FormGroup>
                             </Col>
                         </Row>
                         <Row>
-                            <Col md={2}>
+                            <Col md={3}>
                                 <FormGroup>
                                     <Label >Age</Label>
                                     <Input bsSize='sm' value={age} onChange={e => setAge(e.target.value)} placeholder='age' />
                                 </FormGroup>
                             </Col>
                         </Row>
-                        
                         <Row>
                             <Col md={6}>
                                 <FormGroup>
@@ -212,7 +208,6 @@ const Home = () => {
                         </Row>
 
                         <br />
-
                         <Row form>
                             <Col md={6}>
                                 <Button onClick={createUser} variant='warning' block>Sign Up</Button>

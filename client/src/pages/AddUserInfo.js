@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-// import fb from './img/fb.jpg';
-import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
-//import img from './img/bg.jpg';
+
 import img2 from './img/Snowglobe1.jpg';
-import Random from './Random';
-import Update from './Update';
-import { Switch, Route, Redirect } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import SnowStorm from 'react-snowstorm';
@@ -23,7 +17,7 @@ const AddUserInfo = () => {
 
     function goProfile(e) {
         e.preventDefault()
-        if (collegeyear != '' && major != 0 && gender != '') {
+        if (collegeyear !== '' && major !== 0 && gender !== '') {
             axios.post('/editProfile', {
                 collegeyear,
                 major,
