@@ -22,7 +22,7 @@ const Update = ({dispatch, isUpdateOpen, age, email, gender, collegeYear, major,
   const [success, setSuccess] = useState('');
 
 
-  const [errormessage,setErrorMessage] = useState('');
+  const [errormessage, setErrorMessage] = useState('');
 
   const closeUpdate =()=>{
     dispatch(setIsUpdateOpen(false));

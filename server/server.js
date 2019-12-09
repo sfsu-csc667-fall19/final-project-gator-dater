@@ -18,6 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// redis
+const redis = require("./controllers/redis");
+app.use(redis);
+
 // Mongo setup
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(mongoURI, { useNewUrlParser: true });
@@ -104,10 +108,14 @@ app.post('/user/editProfilePic',(req, res) => {
         // upload.single('img');
         res.send(true);
     })
-
 });
 
 app.post('/user/listUsers', userController.listUsers);
+app.post('/user/returnUser', userController.returnUser);
+
+app.post('/user/like', userController.likeUser);
+app.post('/user/unlike', userController.unlikeUser);
+app.post('/user/mutual', userController.mutual);
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")

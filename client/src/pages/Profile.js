@@ -7,6 +7,7 @@ import './css/Profile.css';
 import img2 from './img/Snowglobe1.jpg';
 import Random from './Random';
 import Update from './Update';
+import Cookies from 'js-cookie'
 import { Switch, Route, Redirect}  from "react-router-dom";
 import { Button} from 'react-bootstrap';
 
@@ -40,6 +41,9 @@ const Profile = ({dispatch, isUpdateOpen}) => {
   const logout = () => { 
     setLogout(!isLoggedOut);
     dispatch(setIsUpdateOpen(false));
+    Cookies.remove('username')
+    Cookies.remove('password')
+    Cookies.remove('isLoggedIn')
   // setcookies to null
   }
 
