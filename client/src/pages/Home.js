@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './css/Home.css';
-import img from './img/bg.jpg';
+//import img from './img/bg.jpg';
+import img2 from './img/Snowglobe2.jpg';
+import SnowStorm from 'react-snowstorm';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import NavBar from './NavBar';
 
 import history from './history'
 
@@ -32,7 +35,7 @@ const Home = () => {
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
 
-    const bgGround = { backgroundImage: 'url(' + img + ')', };
+    const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     const goLogin = (e) => {
         setLoginBox(true);
@@ -245,25 +248,24 @@ const Home = () => {
 
     return (
         <div style={bgGround} id='bg'>
+
+            {/* For the snow baby. */}
+            <SnowStorm />
+            {/* References Raymond Test NavBar */}
+            <NavBar />
             <Container >
                 <Row>
-
                     {loginBox && (
                         <Col sm='12' md={{ size: 6, offset: 4 }}>
                             <div className='iBox' >{Log()}</div>
                         </Col>
                     )}
 
-
-
                     {createBox && (
                         <Col sm='12' md={{ size: 6, offset: 3 }}>
                             <div className='cBox'>{Create()}</div>
                         </Col>
                     )}
-
-
-
 
                     <Fade in={fadeIn} id='greeting'>
                         <h1>Gator.Dater</h1>
@@ -275,7 +277,6 @@ const Home = () => {
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
-
                 </Row>
             </Container>
         </div>
