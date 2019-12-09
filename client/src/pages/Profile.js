@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 // import fb from './img/fb.jpg';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
-import img from './img/bg.jpg';
+//import img from './img/bg.jpg';
+import img2 from './img/Snowglobe1.jpg';
 import Random from './Random';
 import Update from './Update';
 import Cookies from 'js-cookie'
 import { Switch, Route, Redirect}  from "react-router-dom";
 import { Button} from 'react-bootstrap';
+
 import {
   Collapse,
   Navbar,
@@ -46,7 +48,7 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
   }
 
   const bgGround = {
-    backgroundImage: 'url(' + img + ')',
+    backgroundImage: 'url(' + img2 + ')',
     height:'850px',
   };
 
@@ -70,7 +72,6 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
     setNav(false);
 
   }
-
 
   if (isLoggedOut) { return <Redirect to="/" /> }
 
@@ -113,20 +114,15 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
          <Button  variant="warning" onClick = {openNav}> &#9776;</Button>
         </Collapse>
       </Navbar>
-      
-     
-    
-       
-      <Switch>
-      {isUpdateOpen && ( 
-        <Route path = "/" component ={Update}/> 
         
-      )}
-        <Route path = "/" component = {Random}/>       
-      </Switch>
+        <Switch>
+        {isUpdateOpen && ( 
+          <Route path = "/" component ={Update}/> 
+          
+        )}
+          <Route path = "/" component = {Random}/>       
+        </Switch>
 
-
-      
       <div id="mySidenav" className="sidenav"> 
         <ListGroup>
          
@@ -140,16 +136,12 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
      </div>
      </div> 
     </div>
- 
   );
 };
-
-
-
+//}
 
 const mapStateToProps = state => ({
    isUpdateOpen: state.pageReducer.isUpdateOpen,
-   username: state.userReducer.username,
    password: state.userReducer.password,
    age: state.userReducer.age,
    email: state.userReducer.email,
@@ -160,7 +152,6 @@ const mapStateToProps = state => ({
    preference: state.userReducer.preference,
    listed: state.userReducer.listed,
    identity: state.userReducer.identity,
-   collegeYear: state.userReducer.collegeYear,
 
 });
 
