@@ -1,13 +1,9 @@
-// nav bar for when already logged in?
+// nav bar for Home.js
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Icon from '@mdi/react';
 import { mdiFlowerTulipOutline } from '@mdi/js';
 
@@ -46,35 +42,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles(); // for the css
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleProfileMenuOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  // handlers for menu (circle with a person)on the right.
-  const renderMenu = ( 
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
-      <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log In</MenuItem>
-    </Menu>
-  );
 
   return (
     <div className={classes.grow}> 
@@ -92,23 +59,8 @@ export default function PrimarySearchAppBar() {
                         spin/>
                         Gator Dater
           </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            {/* For the menu all the way at the right/end */}
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
-      {renderMenu}
     </div>
   );
 }
