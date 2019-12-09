@@ -2,9 +2,10 @@ import React, { useState }from 'react';
 import './css/Random.css';
 import { Button} from 'react-bootstrap';
 import { Card, Row, Col, CardSubtitle, CardBody,CardTitle} from 'reactstrap';
-import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
+import { Label, Form, FormGroup, Input, Alert } from 'reactstrap';
+import { connect } from 'react-redux';
 
-const Random = () => {
+const Random = ({ activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
 
 
@@ -17,6 +18,7 @@ const Random = () => {
   const Message = ()=>{      
     return (
         <div>       
+         
             <Alert color = "light" isOpen={messageBox} id="messageBox">           
             <Form>
                 <FormGroup>
@@ -42,7 +44,8 @@ const Random = () => {
     <div id="con">
      
       <Row>
-      <h4>This is RandomUser.js</h4><br/>
+      <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/>
+     
       </Row>
       <Row>
       <p> Below are users randomly seclected form the database.</p><br/>
@@ -73,4 +76,8 @@ const Random = () => {
   );
 };
 
-export default Random;
+const mapStateToProps = state => ({
+  activeUsers: state.userReducer.activeUsers,
+});
+
+export default connect(mapStateToProps)(Random);
