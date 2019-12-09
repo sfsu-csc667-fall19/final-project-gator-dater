@@ -89,7 +89,7 @@ const Random = () => {
     <div id="con">
      
       <Row>
-      <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/>
+      {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
      
       </Row>
       <Row>
