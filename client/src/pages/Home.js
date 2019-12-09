@@ -8,7 +8,7 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
-import { setUsername, setPassword, setAge, setEmail, setMajor, setAddtion, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setMajor, setCollegeYear, setAddtion, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -19,8 +19,7 @@ const options = {
 };
 
 
-const Home = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
-    const [collegeyear, setCollegeYear] = useState('');
+const Home = ({dispatch, username, password, age, email, collegeYear, major, addtion, firstName, lastName, preference, listed, identity}) => {
     const [success, setSuccess] = useState('');
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
@@ -97,14 +96,14 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
 
     const createUser = (e) => {
         e.preventDefault();
-        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeyear !== '' && major !== 0) {
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeYear !== '' && major !== 0) {
             if (validator.validate(email)) {
                 axios.post('/createUser', {
                     username,
                     password: md5(password),
                     age,
                     email,
-                    collegeyear,
+                    collegeYear,
                     major,
                     addtion,
                     listed,
@@ -236,7 +235,7 @@ const Home = ({dispatch, username, password, age, email, major, addtion, firstNa
 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => updateCollegeYear(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => updateCollegeYear(e.target.value)}>
                                     <option value=""></option>
                                     <option value="Freshman">Freshman</option>
                                     <option value="Sophomore">Sophomore</option>
@@ -352,6 +351,7 @@ const mapStateToProps = state => ({
     password: state.userReducer.password,
     age: state.userReducer.age,
     email: state.userReducer.email,
+    collegeYear: state.userReducer.collegeYear,
     major: state.userReducer.major,
     firstName: state.userReducer.firstName,
     lastName: state.userReducer.lastName,
