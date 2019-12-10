@@ -79,7 +79,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
     const updatePreference = newPreference => {
         dispatch(setPreference(newPreference));
     };
-
+  
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
@@ -233,6 +233,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                                 </FormGroup>
                             </Col>
                         </Row>
+
                         <Row>
                             <Col md={3}>
                                 <FormGroup>
@@ -296,7 +297,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 
                         <ButtonToolbar>
-                            <Button onClick={goLogin} variant='outline-warning'>Get started  </Button>  &nbsp;&nbsp;
+                            <Button onClick={goLogin} variant='outline-warning'>Login</Button>  &nbsp;&nbsp;
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
