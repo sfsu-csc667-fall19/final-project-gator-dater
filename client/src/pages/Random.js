@@ -59,11 +59,20 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     }
   };
 
-  // handling for when the X is clicked
+  // handling for when the X is clicked. Currently no functionality
   const [x, setX] = React.useState('');
   const updateX = () => {
 
   };
+  // temporary states/handlers for the card info.
+  const [cardFirstName, setCardFirstName] = useState('First Name');
+  //const [cardLastName, setCardLastName] = useState('Last Name');
+  const [cardAge, setCardAge] = useState('Age');
+  const [cardGender, setCardGender] = useState('Gender');
+  const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
+  const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
+
+
   /*
   const Message = ()=>{      
     return (
@@ -133,12 +142,15 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
                   image={Jedi}
                   title="Friendly doge"
                 />
-                <CardContent>
+                <CardContent> {/* This is where the user info is displayed */}
                   <Typography gutterBottom variant="h5" component="h2">
-                    Jedi, 12
+                    {cardFirstName}, {cardAge}
+                  </Typography>
+                  <Typography variant="body" color="textSecondary" component="p">
+                    {cardGender}, {cardCollegeYear}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
-                    Jedi loves going out for long walks and sniffing absolutely everything.
+                    {cardInfo}
                   </Typography>
                 </CardContent>
               </CardActionArea>
