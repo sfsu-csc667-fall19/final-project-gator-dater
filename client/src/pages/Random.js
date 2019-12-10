@@ -20,6 +20,7 @@ import Fab from '@material-ui/core/Fab';
 import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
 import {connect} from 'react-redux';
 import Modal from './Modal';
+import NavBar from './NavBar';
 
 const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
@@ -27,6 +28,7 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
 
   const toggleModal = () => {
       setShowModal(!showModal);
+
   }
 
   const openMessage = () =>{
@@ -108,6 +110,7 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     <div>
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
+      
       <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
       
       {/*
