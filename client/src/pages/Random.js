@@ -64,11 +64,10 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   const updateX = () => {
 
   };
-
+  /*
   const Message = ()=>{      
     return (
         <div>       
-         
             <Alert color = "light" isOpen={messageBox} id="messageBox">           
             <Form>
                 <FormGroup>
@@ -89,14 +88,14 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     </div>
     )
   }
-
+*/
   return (
-    <div id="con">
-     
-      <Row>
+    <div>
+      {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-     
       <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
+      
+      {/*
       </Row>
       <Row>
       <p> Below are users randomly seclected form the database.</p><br/>
@@ -117,15 +116,16 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
         </CardBody>
       </Card>
       </Col>
+      
       {messageBox && (  
                 <div >{Message()}</div> 
             )}     
       </Row>
+    */}
       
-      
-      <Grid container>
+      <Grid container spacing={24} justify="center">
           {/* Card #1 */}
-          <Grid item sm>
+          <Grid item sm={4}>
             <Card className={classes.card}>
               <CardActionArea>
                 <CardMedia
