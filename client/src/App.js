@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import history from './pages/history';
 import Cookies from 'js-cookie';
 import AddUserInfo from './pages/AddUserInfo';
+import Upload from './pages/Upload';
+
 
 const App = () => {
   const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -22,6 +24,7 @@ const App = () => {
     <Router history = {history}>
         <Switch>
           {/* Temporarily changing PrivateRoute to a regular Route to work on it */}
+          <Route exact path ="/upload" component = {Upload}/>
           <Route exact path ="/adduserinfo" component = {AddUserInfo}/>
           <Route exact path ="/profile" component = {Profile}/>
           <Route exact path ="/" component = {Home}/>
