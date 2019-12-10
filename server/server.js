@@ -10,6 +10,9 @@ const crypto = require("crypto");
 const app = express();
 const port = process.env.PORT || 4001;
 
+const cors = require('cors')
+app.use(cors())
+
 // controller
 let userController = require('./controllers/userController');
 
@@ -19,8 +22,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // redis
-const redis = require("./controllers/redis");
-app.use(redis);
+// const redis = require("./controllers/redis");
+// app.use(redis);
 
 // Mongo setup
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";
@@ -43,11 +46,14 @@ const storage = new GridFsStorage({
                 if (err) {
                     return reject(err);
                 }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
+                // buf.toString('hex') + path.extname(file.originalname)
+                const filename = file.originalname;
+                const username = file.username;
+                console.log(file);
                 const fileInfo = {
                     filename: filename,
                     bucketName: 'uploads',
-                    metadata: req.body.username,
+                    metadata: username,
                 };
                 resolve(fileInfo);
             });
@@ -60,14 +66,14 @@ const upload = multer({ storage });
 
 // upload img
 app.post('/user/uploadPic', upload.single('img'), (req, res) => {
-    res.json({ file: req.file });
-    // res.redirect('/');
+    // res.json({ file: req });
+    // // res.redirect('/');
     res.send(true);
 });
 
 // get img 
-app.get('/user/profileImage/:username', (req, res) => {
-    gfs.files.findOne({ metadata: req.params.username }, (err, file) => {
+app.get('/user/profilePic/:username', (req, res) => {
+    gfs.files.findOne({ filename: req.params.username }, (err, file) => {
         // Check if file
         if (!file || file.length === 0) {
             return res.status(404).json({
