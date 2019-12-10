@@ -28,9 +28,9 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
+   
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
-
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
@@ -184,6 +184,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                                 </FormGroup>
                             </Col>
                         </Row>
+
                         <Row>
                             <Col md={3}>
                                 <FormGroup>

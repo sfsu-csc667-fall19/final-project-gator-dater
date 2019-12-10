@@ -11,6 +11,7 @@ import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
 const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, info, firstName, lastName, preference, listed, identity}) => {
   const [collegeyear, setCollegeYear] = useState(''); 
   const [success, setSuccess] = useState('');
+  const [profileImg, setProfileImg] = useState('');
 
 
   const [errormessage,setErrorMessage] = useState('');
@@ -27,6 +28,12 @@ const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, 
                     <h4> Update User Information</h4><br />
                     <h5>{errormessage}</h5><br />
                     <Form>
+                    <Row><Col>
+                        <FormGroup>
+                            <Label>You can upload your img here</Label>
+                            <Input type="file" id="imgFile" onChange ={e => setProfileImg(e.target.value)} />
+                        </FormGroup></Col>{profileImg}
+                    </Row>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>

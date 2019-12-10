@@ -27,6 +27,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 token: action.token,
             };
+        case 'SET_ACTIVE_USERS':
+            return {
+              ...state,
+              activeUsers: action.activeUsers,
+            };
         case 'SET_AGE':
             return {
                 ...state,
@@ -58,10 +63,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 lastName: action.lastName,
             };
-        case 'SET_ADDTION':
+        case 'SET_INFO':
             return {
                 ...state,
-                addtion: action.addtion,
+                info: action.info,
             };
 
         case 'SET_PREFERENCE':
@@ -81,11 +86,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 listed: action.listed,
             };
             
-        case 'SET_ACTIVE_USERS':
-            return {
-              ...state,
-              activeUsers: action.activeUsers,
-            };
         default:
             return state;
     }

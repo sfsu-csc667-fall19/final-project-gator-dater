@@ -8,11 +8,12 @@ exports.editProfile = function (req, res) {
       if (req.body.firstName) user.firstName = req.body.firstName;
       if (req.body.lastName) user.lastName = req.body.lastName;
       if (req.body.email) user.email = req.body.email;
-      if (req.body.age) user.age = req.body.age;
       if (req.body.gender) user.gender = req.body.gender;
+      if (req.body.listed) user.listed = req.body.gender;
+      if (req.body.preference) user.preference = req.body.preference;
       if (req.body.collegeyear) user.collegeyear = req.body.collegeyear;
-      if (req.body.addition) user.addition = req.body.addition;
-      if (req.body.interests) user.interests = req.body.interests;
+      if (req.body.info) user.info = req.body.info;
+      
       user.save();
       res.status(200).send(user);
     }
@@ -22,8 +23,9 @@ exports.editProfile = function (req, res) {
 
 exports.listUsers = function (req, res) {
   let query;
-  if (req.body.pref === 'E') { query = {}; }
-  else { query = {$or:[ {listed: req.body.pref}, {listed: 'E'} ]}}
+  
+  if (req.body.preference === 'E') { query = {}; }
+  else { query = {$or:[ {listed: req.body.preference}, {listed: 'E'} ]}}
 
   User.find(query).select('username -_id')
       .then((docs) => { res.send(docs)} )

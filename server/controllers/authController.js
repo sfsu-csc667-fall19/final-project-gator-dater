@@ -11,13 +11,12 @@ exports.createUser = function (req, res) {
                     password: req.body.password,
                     firstName: req.body.firstName,
                     lastName: req.body.firstName,
-                    email: req.body.email,
-                    collegeyear: req.body.collegeyear,
-                    major: req.body.major,
-                    addition: req.body.addition,
                     age: req.body.age,
-                    race: req.body.race,
+                    email: req.body.email,
+                    
                     gender: req.body.gender,
+                    listed: req.body.listed,
+                    preference: req.body.preference,
                     collegeyear: req.body.collegeyear,
                     interests: req.body.interests,
                 });

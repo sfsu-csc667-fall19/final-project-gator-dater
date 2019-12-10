@@ -29,7 +29,7 @@ app.all("/user/*", (req, res) => {
   // service1
   console.log(req.path)
   apiProxy.web(req, res, {
-    target: 'http://localhost:4000',
+    target: 'http://localhost:4001',
   });
 });
 
