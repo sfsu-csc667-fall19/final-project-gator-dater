@@ -24,12 +24,12 @@ const App = () => {
     <Router history = {history}>
         <Switch>
           {/* Temporarily changing PrivateRoute to a regular Route to work on it */}
-          <Route exact path ="/upload" component = {Upload}/>
-          <Route exact path ="/adduserinfo" component = {AddUserInfo}/>
-          <Route exact path ="/profile" component = {Profile}/>
+          <PrivateRoute exact path ="/upload" component = {Upload}/>
+          <PrivateRoute exact path ="/adduserinfo" component = {AddUserInfo}/>
+          <PrivateRoute exact path ="/profile" component = {Profile}/>
+          <PrivateRoute exact path ="/update" component = {Update}/>
           <Route exact path ="/" component = {Home}/>
           {/* Added this temporarily so I can work on it. Should be a PrivateRouter */}
-          <Route exact path ="/update" component = {Update}/>
         </Switch>
     </Router>
   );

@@ -107,12 +107,12 @@ button {
   user-select: none;
   border: 0;
   border-radius: 2px;
-  background: rgb(245, 194, 26);
+  background:#FFC118;
   color: black;
   outline: 0;
 }
 
 button:disabled {
-  background: rgb(189, 189, 189);
+  background: #FFC118;
   cursor: default;
 }

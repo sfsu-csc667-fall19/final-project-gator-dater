@@ -143,7 +143,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
             axios.post('/login', body, options)
                 .then((res) => {
                     setPassword("");
-                    if (res.data) {
+                    if (res.data === 'Success') {
                         Cookies.set("username", body.username);
                         Cookies.set("password", body.password);
                         Cookies.set("isLoggedIn", true);
