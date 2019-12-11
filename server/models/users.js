@@ -10,11 +10,13 @@ let usersSchema = new Schema({
     age: { type: Number, min: 18, max: 65 },
     email: String,
 
+    collegeyear: String,
     gender: String,
+    pronoun: String,
     listed: String,
     preference: String,
-    collegeyear: String,
-    interests: String,
+    info: String,
+    
     likes: Array,
 });
 

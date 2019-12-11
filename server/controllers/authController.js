@@ -10,15 +10,16 @@ exports.createUser = function (req, res) {
                     username: req.body.username,
                     password: req.body.password,
                     firstName: req.body.firstName,
-                    lastName: req.body.firstName,
+                    lastName: req.body.lastName,
                     age: req.body.age,
                     email: req.body.email,
                     
-                    gender: req.body.gender,
-                    listed: req.body.listed,
-                    preference: req.body.preference,
-                    collegeyear: req.body.collegeyear,
-                    interests: req.body.interests,
+                    collegeYear: '',
+                    gender: '',
+                    pronoun: '',
+                    listed: '',
+                    preference: '',
+                    info: '',
                 });
 
                 newUser.save(function (err) {
@@ -33,9 +34,10 @@ exports.createUser = function (req, res) {
     }
 };
 
+
 exports.login = function (req, res) {
-  Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]}, function (err, user) {
-    if (user) { return res.send('Success'); }
-    else { return res.send('Failed. Wrong username and/or password'); }
-  })
+  Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]})
+  .then((document) => {
+      res.send(document);
+  }).catch((e) => {res.send("Unable to retrieve info")})
 }

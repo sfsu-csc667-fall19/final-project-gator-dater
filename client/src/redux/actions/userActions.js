@@ -30,6 +30,11 @@ export const setEmail = email => ({
     email,
 });
 
+export const setGender = gender => ({
+    type: 'SET_GENDER',
+    gender,
+});
+
 export const setCollegeYear = collegeYear => ({
     type: 'SET_COLLEGE_YEAR',
     collegeYear,
@@ -61,10 +66,9 @@ export const setListed = listedAs => ({
     listedAs,
 });
 
-// what you see in your profile
-export const setIdentity = identity => ({
-    type: 'SET_IDENTITY',
-    identity,
+export const setPronoun = pronoun => ({
+    type: 'SET_PRONOUN',
+    pronoun,
 });
 
 //what you like , check box

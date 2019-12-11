@@ -1,7 +1,7 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import './css/Random.css';
-import { Button} from 'react-bootstrap';
-import { Card, Row, Col, CardSubtitle, CardBody,CardTitle} from 'reactstrap';
+import { Button } from 'react-bootstrap';
+import { Card, Row, Col, CardSubtitle, CardBody, CardTitle } from 'reactstrap';
 // Raymond's card imports
 import Jedi from './img/Jedi.jpg';
 import Grid from '@material-ui/core/Grid';
@@ -17,13 +17,32 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import Fab from '@material-ui/core/Fab';
-import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import Modal from './Modal';
+import axios from 'axios'
 
-const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
+
+const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
   const [messageBox, setMessageBox] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  // temporary states/handlers for the card info.
+  const [cardFirstName, setCardFirstName] = useState('First Name');
+  //const [cardLastName, setCardLastName] = useState('Last Name');
+  const [cardAge, setCardAge] = useState('Age');
+  const [cardGender, setCardGender] = useState('Gender');
+  const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
+  const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
+  const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
+const [cardUsername, setCardUsername] = useState('')
+  let users = [];
 
-  const openMessage = () =>{
+  const toggleModal = () => {
+    axios('/user/mutual', )
+    setShowModal(!showModal);
+
+  }
+
+  const openMessage = () => {
     setMessageBox(!messageBox);
   }
 
@@ -45,6 +64,36 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     }
   }
 
+  const listUsers = () => {
+    axios.post('/user/listUsers', {
+      preference,
+    })
+      .then((res) => {
+        users = res.data;
+      })
+  }
+
+  const clickX = () => {
+    let query = users[Math.floor(Math.random() * users.length)];
+    let username = query.username;
+    axios.post('/user/returnUser', {
+      username,
+    })
+      .then((res) => {
+        console.log("Loading Next Potential");
+        console.log(res);
+        setCardUsername(res.data.username);
+        setCardAge(res.data.age);
+        setCardFirstName(res.data.firstName);
+        setCardGender(res.data.gender);
+        setCardCollegeYear(res.data.collegeYear);
+        setCardInfo(res.data.info);
+        setCardEmail(res.data.email);
+        setHeart('default');
+      })
+  }
+
+
   // styles for the card- Raymond
   //export default function MediaCard() {
   const classes = useStyles();
@@ -52,109 +101,79 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   // handling to toggle heart appearance/color (when the heart is clicked)
   const [heart, setHeart] = React.useState('default');
   const updateHeart = () => {
-    if(heart==='default') {
+    if (heart === 'default') {
       setHeart('secondary');
+      axios.post('/user/like', {
+        cardUsername,
+      }).then((res) => {
+        
+      })
+      toggleModal();
     } else {
       setHeart('default');
     }
   };
 
-  // handling for when the X is clicked
+  // handling for when the X is clicked. Currently no functionality
   const [x, setX] = React.useState('');
   const updateX = () => {
 
   };
 
-  const Message = ()=>{      
-    return (
-        <div>       
-         
-            <Alert color = "light" isOpen={messageBox} id="messageBox">           
-            <Form>
-                <FormGroup>
-                <Label>To RandomUser#1</Label> <hr/>     
-                    <Input type="textarea" bsSize="sm" placeholder="Send a massage..." rows="11" cols="50"/>
-                </FormGroup> 
-               
-            <Row form>
-                <Col md={6}>
-                <Button  block>Submit</Button>
-                </Col>
-                <Col md={6}>
-                <Button  onClick = {openMessage} block>Not Now</Button>
-                </Col>
-            </Row>
-            </Form>      
-            </Alert> 
-    </div>
-    )
-  }
-
   return (
-    <div id="con">
-     
-      <Row>
+    <div>
+      {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-     
-      <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
-      </Row>
-      <Row>
-      <p> Below are users randomly seclected form the database.</p><br/>
-      <p> Let's meet some new friends today.</p>
-      </Row>
-      <Row>    
-      <Col id="user">
-      <Card >
-        <CardBody>
-          <CardTitle>RandomUser#1 &nbsp;&nbsp;&nbsp;
-          </CardTitle><hr/>
-          <CardSubtitle>Hello, I am {username}.Let's meet some new friends today.
-          Let's meet some new friends today.</CardSubtitle><br/>
-          <div>
-          <Button onClick = {openMessage}>Send Message</Button>
-          <Button id ="ab"> &#9776;</Button>
-          </div>
-        </CardBody>
-      </Card>
-      </Col>
-      {messageBox && (  
-                <div >{Message()}</div> 
-            )}     
-      </Row>
-      
-      
-      <Grid container>
-          {/* Card #1 */}
-          <Grid item sm>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={Jedi}
-                  title="Friendly doge"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Jedi, 12
-                  </Typography>
-                  <Typography variant="body" color="textSecondary" component="p">
-                    Jedi loves going out for long walks and sniffing absolutely everything.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions> {/* Handler example for changing heart color */}
-                {/* This is the heart button */}
-                <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>
-                  <FavoriteIcon />
-                </Fab> {/* This is the X button */}
-                {/* onClick={() => setX(updateX)} ... is an example of setting an onClick for the X */}
-                <Fab active aria-label="like" style={{marginLeft: 20}}>
-                  <CancelRoundedIcon />
-                </Fab>
-              </CardActions>
-            </Card>
-          </Grid>
+      {listUsers()}
+      <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br />
+      <Grid container spacing={24} justify="center">
+        {/* Card #1 */}
+        <Grid item sm={4}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={Jedi}
+                title="Friendly doge"
+              />
+              <CardContent> {/* This is where the user info is displayed */}
+                <Typography gutterBottom variant="h5" component="h2">
+                  {cardFirstName}, {cardAge}
+                </Typography>
+                <Typography variant="body" color="textSecondary" component="p">
+                  {cardGender}, {cardCollegeYear}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {cardInfo}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions> {/* Handler example for changing heart color */}
+              {/* This is the heart button */}
+              <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>
+                <FavoriteIcon />
+              </Fab>
+              <Modal
+                show={showModal}
+                closeCallback={toggleModal}
+                customClass="custom_modal_class"
+              >
+                <React.Fragment>
+                  <h2>It's A Match!</h2>
+            
+                    {cardEmail}
+                
+                </React.Fragment>
+              </Modal>
+              {/* This is the X button */}
+              {/* onClick={() => setX(updateX)} ... is an example of setting an onClick for the X */}
+              <Fab active aria-label="like" style={{ marginLeft: 20 }} onClick={() => clickX()}>
+                <CancelRoundedIcon />
+              </Fab>
+            </CardActions>
+          </Card>
         </Grid>
+      </Grid>
 
     </div>
   );
