@@ -11,7 +11,7 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 import NavBar from './NavBar'
-import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName, setIsLoggedIn} from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName, setIsLoggedIn, setPreference} from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -95,9 +95,17 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                 .then((res) => {
                     setPassword("");
                     if (res.data) {
-                        Cookies.set("username", body.username);
-                        Cookies.set("password", body.password);
+                        Cookies.set("username", res.data.username);
+                        Cookies.set("password", res.data.password);
                         Cookies.set("isLoggedIn", true);
+                        console.log(res.data);
+                        dispatch(setUsername(res.data.username));
+                        dispatch(setPassword(res.data.password));
+                        dispatch(setAge(res.data.age));
+                        dispatch(setEmail(res.data.email));
+                        dispatch(setFirstName(res.data.firstName));
+                        dispatch(setLastName(res.data.lastName));
+                        dispatch(setPreference(res.data.preference));
                         dispatch(setIsLoggedIn(true));
 
                     } else {

@@ -69,6 +69,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 info: action.info,
             };
 
+        case 'SET_GENDER':
+            return {
+                ...state,
+                gender: action.gender,
+            };
+
         case 'SET_PREFERENCE':
             return {
                 ...state,

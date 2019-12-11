@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import './css/Profile.css';
-
+import {connect} from 'react-redux';
 import img2 from './img/Snowglobe1.jpg';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import SnowStorm from 'react-snowstorm';
 import history from './history'
 import axios from 'axios';
+import {setCollegeYear, setMajor, setInfo, setGender, setPreference} from '../redux/actions/userActions';
 
-const AddUserInfo = () => {
-    const [collegeyear, setCollegeYear] = useState('');
-    const [major, setMajor] = useState('');
-    const [addtion, setAddtion] = useState('');
-    const [gender, setGender] = useState('');
+const AddUserInfo = ({dispatch, collegeYear, major, info, gender, preference}) => {
     const [success, setSuccess] = useState('');
     const [profileImg, setProfileImg] = useState('');
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     function goProfile(e) {
         e.preventDefault()
-        if (collegeyear !== '' && major !== 0 && gender !== '') {
+        if (collegeYear !== '' && major !== 0 && gender !== '') {
             axios.post('/user/editProfile', {
-                collegeyear,
+                collegeYear,
                 major,
                 gender,
-                addtion,
+                preference,
+                info,
             })
             history.push("/profile");
         } else {
@@ -74,7 +72,7 @@ const AddUserInfo = () => {
                     <Row>
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeyear} onChange={e => setCollegeYear(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
                                 <option value="" selected disabled>Please select</option>
                                 <option value="Freshman">Freshman</option>
                                 <option value="Sophomore">Sophomore</option>
@@ -86,13 +84,13 @@ const AddUserInfo = () => {
                     <Row>
                         <FormGroup>
                             <Label for='exampleAddress2'>Major</Label>
-                            <Input type='text' value={major} onChange={e => setMajor(e.target.value)} placeholder='what is your major?' />
+                            <Input type='text' value={major} onChange={e => dispatch(setMajor(e.target.value))} placeholder='what is your major?' />
                         </FormGroup>
                     </Row>
                     <Row>
                         <FormGroup>
                             <Label for="exampleAddress">Gender</Label>
-                            <Input type="select" bsSize="sm" value={gender} onChange={e => setGender(e.target.value)}>
+                            <Input type="select" bsSize="sm" value={gender} onChange={e => dispatch(setGender(e.target.value))}>
                                 <option value="" selected disabled>Please select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -101,9 +99,20 @@ const AddUserInfo = () => {
                         </FormGroup>
                     </Row>
                     <Row>
+                    <FormGroup>
+                    <Label for="exampleAddress">Preference</Label>
+                    <Input type="select" bsSize="sm" value={preference} onChange={e => dispatch(setPreference(e.target.value))}>
+                        <option value="" selected disabled>Please select</option>
+                        <option value="M">Men</option>
+                        <option value="F">Women</option>
+                        <option value="E">Everyone</option>
+                    </Input>
+                    </FormGroup>
+                    </Row>
+                    <Row>
                         <FormGroup>
                             <Label for='exampleText'>We want to know more about you.</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={addtion} onChange={e => setAddtion(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
+                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => setInfo(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
                         </FormGroup>
                     </Row>
                     <Row>
@@ -123,4 +132,20 @@ const AddUserInfo = () => {
     );
 }
 
-export default AddUserInfo;
+const mapStateToProps = state => ({
+    username: state.userReducer.username,
+    password: state.userReducer.password,
+    age: state.userReducer.age,
+    email: state.userReducer.email,
+    major: state.userReducer.major,
+    firstName: state.userReducer.firstName,
+    lastName: state.userReducer.lastName,
+    addtion: state.userReducer.addtion,
+    listed: state.userReducer.listed,
+    identity: state.userReducer.identity,
+    preference: state.userReducer.preference,
+    collegeYear: state.userReducer.collegeYear,
+    activeUsers: state.userReducer.activeUsers,
+  });
+
+export default connect(mapStateToProps)(AddUserInfo);

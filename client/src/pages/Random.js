@@ -20,12 +20,19 @@ import Fab from '@material-ui/core/Fab';
 import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText} from 'reactstrap';
 import {connect} from 'react-redux';
 import Modal from './Modal';
-import NavBar from './NavBar';
+import axios from 'axios'
 
 
 const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  // temporary states/handlers for the card info.
+  const [cardFirstName, setCardFirstName] = useState('First Name');
+  //const [cardLastName, setCardLastName] = useState('Last Name');
+  const [cardAge, setCardAge] = useState('Age');
+  const [cardGender, setCardGender] = useState('Gender');
+  const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
+  const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
 
   let users = [];
 
@@ -56,7 +63,29 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
     }
   }
 
-  
+  const listUsers = () => {
+    axios.post('/user/listUsers', {
+      preference,
+    })
+    .then((res) => {
+      //find out how to pass whole document
+      console.log("PREFERENCE: " + preference);
+      console.log(res.data);
+      users = res.data;
+    })
+  }
+
+  const uploadPotentials = () => {
+    let userToUpload = "dangle";
+    axios.post('/user/returnUser', {
+      userToUpload,
+    })
+    .then((res) => {
+      console.log("Calling Upload Potentials");
+      console.log(res);
+      setCardAge(res.data.age);
+    })
+  }
 
   // styles for the card- Raymond
   //export default function MediaCard() {
@@ -78,22 +107,14 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   const updateX = () => {
 
   };
-  // temporary states/handlers for the card info.
-  const [cardFirstName, setCardFirstName] = useState('First Name');
-  //const [cardLastName, setCardLastName] = useState('Last Name');
-  const [cardAge, setCardAge] = useState('Age');
-  const [cardGender, setCardGender] = useState('Gender');
-  const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
-  const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
 
   return (
     <div>
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-
+      {listUsers()}
       <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
-    
-      
+      <Button onClick={() => uploadPotentials()}>potentials</Button>
       <Grid container spacing={24} justify="center">
           {/* Card #1 */}
           <Grid item sm={4}>
