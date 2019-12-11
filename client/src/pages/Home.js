@@ -8,16 +8,16 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
-import { setUsername, setPassword, setAge, setEmail, setMajor, setCollegeYear, setInfo, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setMajor,
+         setCollegeYear, setInfo, setFirstName, setLastName,
+         setPreference, setIdentity, setListed }
+         from '../redux/actions/userActions';
 
 import history from './history'
 
 var validator = require('email-validator');
 
-const options = {
-    withCredentials: true
-};
-
+const options = { withCredentials: true };
 
 const Home = ({dispatch, username, password, age, email, collegeYear, major, info, firstName, lastName, preference, listed, identity}) => {
     const [success, setSuccess] = useState('');
@@ -234,7 +234,7 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                             </Col>
                         </Row>
 
-                        <FormGroup>
+                        <FormGroup>createProfile
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeYear} onChange={e => updateCollegeYear(e.target.value)}>
                                     <option value=""></option>

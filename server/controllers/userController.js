@@ -10,7 +10,7 @@ exports.editProfile = function (req, res) {
       if (req.body.email) user.email = req.body.email;
 
       if (req.body.gender) user.gender = req.body.gender;
-      if (req.body.listed) user.listed = req.body.gender;
+      if (req.body.listed) user.listed = req.body.listed;
       if (req.body.preference) user.preference = req.body.preference;
 
       if (req.body.collegeyear) user.collegeyear = req.body.collegeyear;
