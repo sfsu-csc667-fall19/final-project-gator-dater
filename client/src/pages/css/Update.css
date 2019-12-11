@@ -2,9 +2,9 @@
 
 #frame{
     position: relative;
-    left:480px;
-    top:20px;
-    width:600px;
+    right:10%;
+    top:20%;
+    width:40%;
     color:white;
 }
 

@@ -8,13 +8,12 @@ exports.editProfile = function (req, res) {
       if (req.body.firstName) user.firstName = req.body.firstName;
       if (req.body.lastName) user.lastName = req.body.lastName;
       if (req.body.email) user.email = req.body.email;
-
       if (req.body.gender) user.gender = req.body.gender;
       if (req.body.listed) user.listed = req.body.listed;
       if (req.body.preference) user.preference = req.body.preference;
-
       if (req.body.collegeyear) user.collegeyear = req.body.collegeyear;
       if (req.body.info) user.info = req.body.info;
+      
       user.save();
       res.status(200).send(user);
     }
@@ -24,6 +23,7 @@ exports.editProfile = function (req, res) {
 
 exports.listUsers = function (req, res) {
   let query;
+  
   if (req.body.preference === 'E') { query = {}; }
   else { query = {$or:[ {listed: req.body.preference}, {listed: 'E'} ]}}
 

@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     username: '',
     password: '',
     isLoggedIn: false,
+    activeUsers: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -25,6 +26,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 token: action.token,
+            };
+        case 'SET_ACTIVE_USERS':
+            return {
+              ...state,
+              activeUsers: action.activeUsers,
             };
         case 'SET_AGE':
             return {

@@ -15,7 +15,6 @@ let usersSchema = new Schema({
     preference: String,
     collegeyear: String,
     interests: String,
-
     likes: Array,
 });
 

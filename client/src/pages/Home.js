@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './css/Home.css';
-import img from './img/bg.jpg';
-import { Redirect } from 'react-router-dom';
+//import img from './img/bg.jpg';
+import img2 from './img/Snowglobe2.jpg';
+import SnowStorm from 'react-snowstorm';
+// import { Redirect } from 'react-router-dom'; //unusedK
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
+import NavBar from './NavBar'
 import { setUsername, setPassword, setAge, setEmail, setMajor,
          setCollegeYear, setInfo, setFirstName, setLastName,
          setPreference, setIdentity, setListed }
@@ -19,14 +22,15 @@ var validator = require('email-validator');
 
 const options = { withCredentials: true };
 
-const Home = ({dispatch, username, password, age, email, collegeYear, major, info, firstName, lastName, preference, listed, identity}) => {
+const Home = ({dispatch, username, password, age, email, firstName, lastName}) => {
     const [success, setSuccess] = useState('');
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
     const [fadeIn, setFadeIn] = useState(true);
     const [isLoggedIn, setisLoggedIn] = useState(false);
+   
 
-    const bgGround = { backgroundImage: 'url(' + img + ')', };
+    const bgGround = { backgroundImage: 'url(' + img2 + ')', };
 
     const updateUsername = newUsername => {
         dispatch(setUsername(newUsername));
@@ -75,7 +79,7 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
     const updatePreference = newPreference => {
         dispatch(setPreference(newPreference));
     };
-
+  
     const goLogin = (e) => {
         setLoginBox(true);
         setFadeIn(false);
@@ -96,49 +100,42 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
 
     const createUser = (e) => {
         e.preventDefault();
-        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && collegeYear !== '' && major !== 0) {
+        if (username !== 0 && password !== 0 && age !== 0 && email !== 0 && firstName !== 0 && lastName !== 0) {
             if (validator.validate(email)) {
                 axios.post('/createUser', {
                     username,
                     password: md5(password),
+                    firstName,
+                    lastName,
                     age,
                     email,
-                    collegeYear,
-                    major,
-                    info,
-                    listed,
-                    identity,
-                    preference,
                 })
-                .then((res) => { setSuccess(res.data); })
-                .catch(err => console.log(err));
+                    .then((res) => {
+                        setSuccess(res.data);
+                        if (success === 'Success') {
+                            Cookies.set("username", username);
+                            Cookies.set("password", md5(password));
+                            Cookies.set("isLoggedIn", true);
+                            history.push("/adduserinfo");
+                        }
+                    }).catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
-
-        // if (success === true) { goProfile() };
     }
 
     const goHome = () => {
         setCreateBox(false);
         setLoginBox(false);
         setFadeIn(true);
-
         dispatch(setAge(''));
         dispatch(setEmail(''));
-        dispatch(setCollegeYear(''));
-        dispatch(setMajor(''));
-        dispatch(setInfo(''));
-        dispatch(setIdentity(''));
-        dispatch(setPreference(''));
-        dispatch(setListed(''));
-
         setSuccess('');
         document.getElementById('greeting').style.display = 'inline';
     }
 
     function goProfile(e) {
         e.preventDefault();
-        if (username != 0 && password != 0) {
+        if (username !== 0 && password !== 0) {
             const body = {
                 username,
                 password: md5(password),
@@ -146,7 +143,7 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
             axios.post('/login', body, options)
                 .then((res) => {
                     setPassword("");
-                    if (res.data) {
+                    if (res.data === 'Success') {
                         Cookies.set("username", body.username);
                         Cookies.set("password", body.password);
                         Cookies.set("isLoggedIn", true);
@@ -159,8 +156,7 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                     console.log(res);
                 }).then(() => {
                     history.push("/profile");
-                })
-                .catch(e => console.log(e));
+                }).catch(e => console.log(e));
         } else {
             setSuccess("Failed. Wrong username and/or password");
         }
@@ -211,10 +207,29 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                                     <Input bsSize='sm' value={username} onChange={e => updateUsername(e.target.value)} id='username' placeholder='username' />
                                 </FormGroup>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Password</Label>
                                     <Input bsSize='sm' type='password' value={password} onChange={e => updatePassword(e.target.value)} id='password' placeholder='password' />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label >First Name</Label>
+                                    <Input bsSize='sm' value={firstName} onChange={e => updateFirstName(e.target.value)} placeholder='brian' />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Label >Last Name</Label>
+                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => updateLastName(e.target.value)} placeholder='parra' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -226,6 +241,8 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                                     <Input bsSize='sm' value={age} onChange={e => updateAge(e.target.value)} placeholder='age' />
                                 </FormGroup>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
@@ -234,69 +251,14 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                             </Col>
                         </Row>
 
-                        <FormGroup>createProfile
-                            <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => updateCollegeYear(e.target.value)}>
-                                    <option value=""></option>
-                                    <option value="Freshman">Freshman</option>
-                                    <option value="Sophomore">Sophomore</option>
-                                    <option value="Junior">Junior</option>
-                                    <option value="Senior">Senior</option>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for='exampleAddress2'>Major</Label>
-                            <Input type='text' value={major} onChange={e => updateMajor(e.target.value)} placeholder='what is your major?' />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Label for='identity'>Identity</Label>
-                            <Input type='text' value={identity} onChange={e => updateIdentity(e.target.value)} placeholder='what do you identify as?' />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Label for='exampleAddress2'>Listed</Label>
-                            <Input type='text' value={listed} onChange={e => updateListed(e.target.value)} placeholder='how do you want the world to view you?' />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Label for='preference'>Preference</Label>
-                            <Input type='text' value={preference} onChange={e => updatePreference(e.target.value)} placeholder='who are you searching for?' />
-                        </FormGroup>
-
-                        <Row form>
-                            <Col md={3}>
-                                <FormGroup check>
-                                    <Input type='checkbox' id='female' />
-                                    <Label check>Female</Label>
-                                </FormGroup>
-                            </Col>
-                            <Col md={4}>
-                                <FormGroup>
-                                    <Input type='checkbox' id='male' />
-                                    <Label check>Male</Label>
-                                </FormGroup>
-                            </Col>
-                            <Col md={5}>
-                                <FormGroup>
-                                    <Input type='checkbox' id='male' />
-                                    <Label check>Other</Label>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-
-
-                        <FormGroup>
-                            <Label for='exampleText'>We want to know more about you.</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => updateInfo(e.target.value)} placeholder='preference, interest, anyting you want to share...' />
-                        </FormGroup>
-
-
                         <br />
                         <Row form>
                             <Col md={6}>
                                 <Button onClick={createUser} variant='warning' block>Sign Up</Button>
                             </Col>
+                        </Row>
+                        <br />
+                        <Row>
                             <Col md={6}>
                                 <Button onClick={goHome} variant='warning' block>Not now</Button>
                             </Col>
@@ -310,16 +272,18 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
 
     return (
         <div style={bgGround} id='bg'>
+
+            {/* For the snow baby. */}
+            <SnowStorm />
+            {/* References Raymond Test NavBar */}
+            <NavBar />
             <Container >
                 <Row>
-
                     {loginBox && (
                         <Col sm='12' md={{ size: 6, offset: 4 }}>
                             <div className='iBox' >{Log()}</div>
                         </Col>
                     )}
-
-
 
                     {createBox && (
                         <Col sm='12' md={{ size: 6, offset: 3 }}>
@@ -327,20 +291,16 @@ const Home = ({dispatch, username, password, age, email, collegeYear, major, inf
                         </Col>
                     )}
 
-
-
-
                     <Fade in={fadeIn} id='greeting'>
                         <h1>Gator.Dater</h1>
                         <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br />
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 
                         <ButtonToolbar>
-                            <Button onClick={goLogin} variant='outline-warning'>Get started  </Button>  &nbsp;&nbsp;
+                            <Button onClick={goLogin} variant='outline-warning'>Login</Button>  &nbsp;&nbsp;
                             <Button onClick={goCreate} variant='outline-warning' >Sign up</Button>
                         </ButtonToolbar>
                     </Fade>
-
                 </Row>
             </Container>
         </div>
@@ -352,14 +312,8 @@ const mapStateToProps = state => ({
     password: state.userReducer.password,
     age: state.userReducer.age,
     email: state.userReducer.email,
-    collegeYear: state.userReducer.collegeYear,
-    major: state.userReducer.major,
     firstName: state.userReducer.firstName,
     lastName: state.userReducer.lastName,
-    info: state.userReducer.info,
-    listed: state.userReducer.listed,
-    identity: state.userReducer.identity,
-    preference: state.userReducer.preference
 });
 
 export default connect(mapStateToProps)(Home);
