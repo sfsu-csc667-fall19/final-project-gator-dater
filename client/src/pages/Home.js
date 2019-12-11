@@ -11,7 +11,7 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 import NavBar from './NavBar'
-import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName} from '../redux/actions/userActions';
+import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName, setIsLoggedIn} from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -22,13 +22,11 @@ const options = {
 };
 
 
-const Home = ({dispatch, username, password, age, email, firstName, lastName}) => {
+const Home = ({dispatch, username, password, age, email, firstName, lastName, isLoggedIn}) => {
     const [success, setSuccess] = useState('');
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
-    const [fadeIn, setFadeIn] = useState(true);
-    const [isLoggedIn, setisLoggedIn] = useState(false);
-   
+    const [fadeIn, setFadeIn] = useState(true);   
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
     const goLogin = (e) => {
@@ -37,6 +35,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
         setCreateBox(false);
         dispatch(setUsername(''));
         dispatch(setPassword(''));
+        dispatch(setIsLoggedIn(false));
         document.getElementById('greeting').style.display = 'none';
     }
 
@@ -80,6 +79,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
         setFadeIn(true);
         dispatch(setAge(''));
         dispatch(setEmail(''));
+        dispatch(setIsLoggedIn(''));
         setSuccess('');
         document.getElementById('greeting').style.display = 'inline';
     }
@@ -98,6 +98,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName}) =
                         Cookies.set("username", body.username);
                         Cookies.set("password", body.password);
                         Cookies.set("isLoggedIn", true);
+                        dispatch(setIsLoggedIn(true));
 
                     } else {
                         Cookies.set("username", "");
@@ -265,6 +266,7 @@ const mapStateToProps = state => ({
     email: state.userReducer.email,
     firstName: state.userReducer.firstName,
     lastName: state.userReducer.lastName,
+    isLoggedIn: state.userReducer.isLoggedIn,
 });
 
 export default connect(mapStateToProps)(Home);

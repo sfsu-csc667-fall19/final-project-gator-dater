@@ -1,14 +1,23 @@
 // nav bar for Home.js
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Icon from '@mdi/react';
 import { mdiFlowerTulipOutline } from '@mdi/js';
+import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { setIsLoggedIn } from '../redux/actions/userActions';
+import { Switch, Route, Redirect}  from "react-router-dom";
+
 
 // css
-const NavBar = ({dispatch, username}) => {
+const NavBar = ({ dispatch, username, isLoggedIn }) => {
+
   const useStyles = makeStyles(theme => ({
     grow: {
       flexGrow: 1,
@@ -39,32 +48,69 @@ const NavBar = ({dispatch, username}) => {
         display: 'flex',
       },
     },
+    rightToolbar: {
+      marginLeft: 'auto',
+      marginRight: -12,
+    },
+    menuButton: {
+      marginRight: 16,
+      marginLeft: -12,
+    },
   }));
-  
-    const classes = useStyles(); // for the css
-  
-    return (
-      <div className={classes.grow}> 
-        <AppBar position="static" style={{ background: '#2E3B55' }}>
-          <Toolbar>
-            {/* For the rotating icon and Gator Dater title */}
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-                          <Icon path={mdiFlowerTulipOutline}
-                          title="Nav Bar Icon"
-                          size={1}
-                          horizontal
-                          vertical
-                          rotate={90}
-                          color="red"
-                          spin/>
-                          Gator Dater
+
+  const logout = () => {
+    Cookies.remove('username')
+    Cookies.remove('password')
+    Cookies.remove('isLoggedIn')
+    dispatch(setIsLoggedIn(false));
+    // setcookies to null
+  }
+
+  const editProfile = () => {
+    console.log('Edit Profile');
+  }
+
+  const classes = useStyles(); // for the css
+  if (!isLoggedIn) { return <Redirect to="/" /> }
+
+
+  return (
+    <div className={classes.grow}>
+      <AppBar position="static" style={{ background: '#2E3B55' }}>
+        <Toolbar>
+          {/* For the rotating icon and Gator Dater title */}
+          <Typography className={classes.title} variant="title" color="inherit" noWrap>
+            <Icon path={mdiFlowerTulipOutline}
+              title="Nav Bar Icon"
+              size={1}
+              horizontal
+              vertical
+              rotate={90}
+              color="red"
+              spin />
+            Gator Dater
             </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  
+          {isLoggedIn && (
+            <section className={classes.rightToolbar}>
+              <IconButton color="inherit" aria-label="Edit" onClick={editProfile}>
+                <EditIcon />
+              </IconButton>
+              <IconButton color="inherit" aria-label="logout" onClick={logout}>
+                <ExitToAppIcon />
+              </IconButton>
+            </section>
+          )}
+
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+
 }
 
+const mapStateToProps = state => ({
+  isLoggedIn: state.userReducer.isLoggedIn,
 
-export default NavBar;
+});
+
+export default connect(mapStateToProps)(NavBar);
