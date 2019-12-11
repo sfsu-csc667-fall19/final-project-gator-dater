@@ -137,7 +137,7 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
                   <Typography gutterBottom variant="h5" component="h2">
                     Jedi, 12
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
+                  <Typography variant="body" color="textSecondary" component="p">
                     Jedi loves going out for long walks and sniffing absolutely everything.
                   </Typography>
                 </CardContent>

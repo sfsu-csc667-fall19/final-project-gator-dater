@@ -1,39 +1,35 @@
-import React, {useState}from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 // importing update redux
-import { updateProfile} from '../redux/actions/updateActions';
+import { updateProfile } from '../redux/actions/updateActions';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import { setUsername, setPassword, setAge, setEmail, setMajor, setInfo, setFirstName, setLastName, setPreference, setIdentity, setListed } from '../redux/actions/userActions';
-import { Button} from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import './css/Update.css';
-import { Row, Col, Label, Form, FormGroup, Input, Alert} from 'reactstrap';
+import { Row, Col, Label, Form, FormGroup, Input, Alert } from 'reactstrap';
+import Upload from './Upload';
 
-const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, info, firstName, lastName, preference, listed, identity}) => {
-  const [collegeyear, setCollegeYear] = useState(''); 
-  const [success, setSuccess] = useState('');
-  const [profileImg, setProfileImg] = useState('');
-
-
-  const [errormessage, setErrorMessage] = useState('');
-
-  const closeUpdate =()=>{
-    dispatch(setIsUpdateOpen(false));
-  }
+const Update = ({ dispatch, isUpdateOpen, username, password, age, email, major, info, firstName, lastName, preference, listed, identity }) => {
+    const [collegeyear, setCollegeYear] = useState('');
+    const [success, setSuccess] = useState('');
+    const [profileImg, setProfileImg] = useState('');
 
 
+    const [errormessage, setErrorMessage] = useState('');
 
-  return (
-    <div id="frame">
-                <Alert color="black" id="con" > 
-                    <h4> Update User Information</h4><br />
+    const closeUpdate = () => {
+        dispatch(setIsUpdateOpen(false));
+    }
+
+
+
+    return (
+        <Container id="frame">
+            <h4> Update User Information</h4><br />
+            <Upload />
+                <Alert color="black" id="con" >
                     <h5>{errormessage}</h5><br />
                     <Form>
-                    <Row><Col>
-                        <FormGroup>
-                            <Label>You can upload your img here</Label>
-                            <Input type="file" id="imgFile" onChange ={e => setProfileImg(e.target.value)} />
-                        </FormGroup></Col>{profileImg}
-                    </Row>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
@@ -67,11 +63,11 @@ const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, 
                         <FormGroup>
                             <Label for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeyear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
-                                    <option value=""></option>
-                                    <option value="Freshman">Freshman</option>
-                                    <option value="Sophomore">Sophomore</option>
-                                    <option value="Junior">Junior</option>
-                                    <option value="Senior">Senior</option>
+                                <option value=""></option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -112,14 +108,15 @@ const Update = ({dispatch, isUpdateOpen, username, password, age, email, major, 
                                 <Button variant="warning" onClick={() => dispatch(updateProfile())} block>Submit</Button>
                             </Col>
                             <Col md={6}>
-                                <Button  variant="warning" onClick ={closeUpdate} block>Not Now</Button>
+                                <Button variant="warning" onClick={closeUpdate} block>Not Now</Button>
                             </Col>
                         </Row>
                     </Form>
                     <h5>{success}</h5>
                 </Alert>
-            </div>
-  );
+            
+        </Container>
+    );
 };
 // interests is commented out because dont think its needed actually. Addtion is the additional info.
 const mapStateToProps = state => ({
@@ -137,6 +134,6 @@ const mapStateToProps = state => ({
     preference: state.userReducer.preference,
     collegeYear: state.userReducer.collegeYear,
 
- });
+});
 
 export default connect(mapStateToProps)(Update);
