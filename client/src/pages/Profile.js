@@ -56,9 +56,9 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
 
   if (isLoggedOut) { return <Redirect to="/" /> }
 
+  console.log('PROFILE USER: ' + username);
 
   return (
-    
     <div style={bgGround} >
     <div id = "main">
     <Route path = "/" component = {NavBar}/>    
@@ -78,18 +78,20 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
 //}
 
 const mapStateToProps = state => ({
-   isUpdateOpen: state.pageReducer.isUpdateOpen,
-   password: state.userReducer.password,
-   age: state.userReducer.age,
-   email: state.userReducer.email,
-   major: state.userReducer.major,
-   firstName: state.userReducer.firstName,
-   lastName: state.userReducer.lastName,
-   addtion: state.userReducer.addtion,
-   preference: state.userReducer.preference,
-   listed: state.userReducer.listed,
-   identity: state.userReducer.identity,
+  isUpdateOpen: state.pageReducer.isUpdateOpen, //??
 
+  username: state.userReducer.username,
+  password: state.userReducer.password,
+  age: state.userReducer.age,
+  email: state.userReducer.email,
+  firstName: state.userReducer.firstName,
+  lastName: state.userReducer.lastName,
+  info: state.userReducer.info,
+  listed: state.userReducer.listed,
+  gender: state.userReducer.gender,
+  pronoun: state.userReducer.pronoun,
+  preference: state.userReducer.preference,
+  collegeYear: state.userReducer.collegeYear,
 });
 
 export default connect(mapStateToProps)(Profile);

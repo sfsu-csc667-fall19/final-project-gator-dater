@@ -61,9 +61,9 @@ export const setInfo = info => ({
 });
 
 // how the public will see, check box
-export const setListed = listedAs => ({
+export const setListed = listed => ({
     type: 'SET_LISTED',
-    listedAs,
+    listed,
 });
 
 export const setPronoun = pronoun => ({
@@ -85,7 +85,7 @@ export const setIsLoggedIn = isLoggedIn =>({
 export const setToken = token => ({
     type: 'SET_TOKEN',
     token,
-})
+});
 
 export const setActiveUsers = activeUsers => ({
     type: 'SET_ACTIVE_USERS',

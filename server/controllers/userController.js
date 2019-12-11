@@ -9,10 +9,11 @@ exports.editProfile = function (req, res) {
       if (req.body.lastName) user.lastName = req.body.lastName;
       if (req.body.email) user.email = req.body.email;
 
+      if (req.body.collegeYear) user.collegeYear = req.body.collegeYear;
       if (req.body.gender) user.gender = req.body.gender;
+      if (req.body.pronoun) user.pronoun = req.body.pronoun;
       if (req.body.listed) user.listed = req.body.listed;
       if (req.body.preference) user.preference = req.body.preference;
-      if (req.body.collegeyear) user.collegeyear = req.body.collegeyear;
       if (req.body.info) user.info = req.body.info;
       user.save();
       res.status(200).send(user);

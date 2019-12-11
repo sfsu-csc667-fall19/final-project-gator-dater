@@ -28,10 +28,7 @@ exports.createUser = function (req, res) {
                 });
             } else { res.send('Username already taken.'); }
         });
-    } catch (e) {
-        console.log(e);
-        res.send(e);
-    }
+    } catch (e) { res.send(e); }
 };
 
 

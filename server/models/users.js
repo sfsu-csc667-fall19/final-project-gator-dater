@@ -10,7 +10,7 @@ let usersSchema = new Schema({
     age: { type: Number, min: 18, max: 65 },
     email: String,
 
-    collegeyear: String,
+    collegeYear: String,
     gender: String,
     pronoun: String,
     listed: String,

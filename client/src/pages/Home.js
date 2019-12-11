@@ -67,13 +67,19 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
                         
-                        dispatch(setUsername(res.data.username));
-                        dispatch(setPassword(res.data.password));
-                        dispatch(setAge(res.data.age));
-                        dispatch(setEmail(res.data.email));
-                        dispatch(setFirstName(res.data.firstName));
-                        dispatch(setLastName(res.data.lastName));
-                        dispatch(setPreference(res.data.preference));
+                        
+                        // console.log('HOMEJS CREATE USER: '+res.data.username);
+                        // console.log(res.username);
+                        // console.log(firstName);
+
+
+
+                        dispatch(setUsername(username));
+                        dispatch(setPassword(password));
+                        dispatch(setAge(age));
+                        dispatch(setEmail(email));
+                        dispatch(setFirstName(firstName));
+                        dispatch(setLastName(lastName));
                         dispatch(setIsLoggedIn(true));
 
                         history.push("/adduserinfo");
@@ -108,7 +114,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                         Cookies.set("username", res.data.username);
                         Cookies.set("password", res.data.password);
                         Cookies.set("isLoggedIn", true);
-                        
+
                         dispatch(setUsername(res.data.username));
                         dispatch(setPassword(res.data.password));
                         dispatch(setAge(res.data.age));
@@ -117,6 +123,8 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                         dispatch(setLastName(res.data.lastName));
                         dispatch(setPreference(res.data.preference));
                         dispatch(setIsLoggedIn(true));
+
+                        console.log(isLoggedIn)
 
                         history.push("/profile");
                     } else {
