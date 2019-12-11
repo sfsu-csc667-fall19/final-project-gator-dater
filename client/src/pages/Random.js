@@ -21,6 +21,7 @@ import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGro
 import {connect} from 'react-redux';
 import Modal from './Modal';
 import axios from 'axios'
+import { setGender } from '../redux/actions/userActions';
 
 
 const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
@@ -76,14 +77,18 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   }
 
   const uploadPotentials = () => {
-    let userToUpload = "dangle";
+    let username = "a";
     axios.post('/user/returnUser', {
-      userToUpload,
+      username,
     })
     .then((res) => {
       console.log("Calling Upload Potentials");
       console.log(res);
       setCardAge(res.data.age);
+      setCardFirstName(res.data.firstName);
+      setCardGender(res.data.gender);
+      setCardCollegeYear(res.data.collegeYear);
+      setCardInfo(res.data.info);
     })
   }
 
