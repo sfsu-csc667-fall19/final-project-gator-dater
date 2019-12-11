@@ -22,9 +22,12 @@ import {connect} from 'react-redux';
 import Modal from './Modal';
 import NavBar from './NavBar';
 
+
 const Random = ({dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers}) => {
   const [messageBox, setMessageBox] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  let users = [];
 
   const toggleModal = () => {
       setShowModal(!showModal);
@@ -52,6 +55,8 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
       padding: 20,
     }
   }
+
+  
 
   // styles for the card- Raymond
   //export default function MediaCard() {
@@ -81,65 +86,13 @@ const Random = ({dispatch, username, password, age, email, major, addtion, first
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
 
-  /*
-  const Message = ()=>{      
-    return (
-        <div>       
-            <Alert color = "light" isOpen={messageBox} id="messageBox">           
-            <Form>
-                <FormGroup>
-                <Label>To RandomUser#1</Label> <hr/>     
-                    <Input type="textarea" bsSize="sm" placeholder="Send a massage..." rows="11" cols="50"/>
-                </FormGroup> 
-               
-            <Row form>
-                <Col md={6}>
-                <Button  block>Submit</Button>
-                </Col>
-                <Col md={6}>
-                <Button  onClick = {openMessage} block>Not Now</Button>
-                </Col>
-            </Row>
-            </Form>      
-            </Alert> 
-    </div>
-    )
-  }
-*/
   return (
     <div>
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-      
+
       <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br/>
-      
-      {/*
-      </Row>
-      <Row>
-      <p> Below are users randomly seclected form the database.</p><br/>
-      <p> Let's meet some new friends today.</p>
-      </Row>
-      <Row>    
-      <Col id="user">
-      <Card >
-        <CardBody>
-          <CardTitle>RandomUser#1 &nbsp;&nbsp;&nbsp;
-          </CardTitle><hr/>
-          <CardSubtitle>Hello, I am {username}.Let's meet some new friends today.
-          Let's meet some new friends today.</CardSubtitle><br/>
-          <div>
-          <Button onClick = {openMessage}>Send Message</Button>
-          <Button id ="ab"> &#9776;</Button>
-          </div>
-        </CardBody>
-      </Card>
-      </Col>
-      
-      {messageBox && (  
-                <div >{Message()}</div> 
-            )}     
-      </Row>
-    */}
+    
       
       <Grid container spacing={24} justify="center">
           {/* Card #1 */}

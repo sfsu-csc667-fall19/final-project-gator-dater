@@ -13,10 +13,12 @@ import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { setIsLoggedIn } from '../redux/actions/userActions';
 import { Switch, Route, Redirect}  from "react-router-dom";
+import Update from './Update';
 
 
 // css
 const NavBar = ({ dispatch, username, isLoggedIn }) => {
+  const [goEdit, setGoEdit] = useState(false);
 
   const useStyles = makeStyles(theme => ({
     grow: {
@@ -68,10 +70,12 @@ const NavBar = ({ dispatch, username, isLoggedIn }) => {
 
   const editProfile = () => {
     console.log('Edit Profile');
+    setGoEdit(true);
   }
 
   const classes = useStyles(); // for the css
   if (!isLoggedIn) { return <Redirect to="/" /> }
+  if (goEdit) {return <Redirect to="/update"/> }
 
 
   return (
