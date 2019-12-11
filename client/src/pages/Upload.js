@@ -92,9 +92,9 @@ class Upload extends Component {
 
       const formData = new FormData();
       // Replace Pyae with Username pls!
-      formData.append("img", file, "pyae");
+      formData.append("img", file, "jj");
 
-      req.open("POST", "http://localhost:80/user/uploadPic");
+      req.open("POST", "http://localhost:80/user/uploadPic/");
       req.send(formData);
     });
   }
@@ -147,7 +147,6 @@ class Upload extends Component {
       <div className="App">
         <div className="Card">
           <div className="Upload">
-            <span className="Title">Upload Files</span>
             <div className="Content">
               <div>
                 <Dropzone
