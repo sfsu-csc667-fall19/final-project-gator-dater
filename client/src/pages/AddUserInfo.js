@@ -7,7 +7,6 @@ import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input
 import SnowStorm from 'react-snowstorm';
 import history from './history'
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import Upload from './Upload';
 import { setCollegeYear, setInfo, setGender, setListed, setPreference, setPronoun, setIsLoggedIn } from '../redux/actions/userActions';
 
@@ -29,7 +28,8 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                 preference,
                 info,
             })
-            .then(history.push("/profile"));
+            .then(()=>{
+                history.push("/profile")});
         } else { setSuccess('Require field(s) left empty.'); }
     }
 

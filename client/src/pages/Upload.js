@@ -26,7 +26,7 @@ class Upload extends Component {
     }));
   }
 
-  async uploadFiles() {
+  uploadFiles = async () => {
     this.setState({ uploadProgress: {}, uploading: true });
     const promises = [];
     this.state.files.forEach(file => {

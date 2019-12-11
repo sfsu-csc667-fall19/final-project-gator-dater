@@ -61,18 +61,10 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                     email,
                 })
                 .then((res) => {
-                    setSuccess(res.data);
-                    if (success === 'Success') {
+                    if (res.data === 'Success') {
                         Cookies.set("username", username);
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
-                        
-                        
-                        // console.log('HOMEJS CREATE USER: '+res.data.username);
-                        // console.log(res.username);
-                        // console.log(firstName);
-
-
 
                         dispatch(setUsername(username));
                         dispatch(setPassword(password));
