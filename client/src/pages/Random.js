@@ -17,11 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import Fab from '@material-ui/core/Fab';
-import { Label, Form, FormGroup, Input, Alert, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { connect } from 'react-redux';
 import Modal from './Modal';
 import axios from 'axios'
-import { setGender } from '../redux/actions/userActions';
 
 
 const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
@@ -35,10 +33,11 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
-
+const [cardUsername, setCardUsername] = useState('')
   let users = [];
 
   const toggleModal = () => {
+    axios('/user/mutual', )
     setShowModal(!showModal);
 
   }
@@ -70,9 +69,6 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
       preference,
     })
       .then((res) => {
-        //find out how to pass whole document
-        console.log("PREFERENCE: " + preference);
-        console.log(res.data);
         users = res.data;
       })
   }
@@ -84,8 +80,9 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
       username,
     })
       .then((res) => {
-        console.log("Calling Upload Potentials");
+        console.log("Loading Next Potential");
         console.log(res);
+        setCardUsername(res.data.username);
         setCardAge(res.data.age);
         setCardFirstName(res.data.firstName);
         setCardGender(res.data.gender);
@@ -97,7 +94,6 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   }
 
 
-
   // styles for the card- Raymond
   //export default function MediaCard() {
   const classes = useStyles();
@@ -107,6 +103,11 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const updateHeart = () => {
     if (heart === 'default') {
       setHeart('secondary');
+      axios.post('/user/like', {
+        cardUsername,
+      }).then((res) => {
+        
+      })
       toggleModal();
     } else {
       setHeart('default');
