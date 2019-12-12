@@ -46,12 +46,12 @@ const [cardUsername, setCardUsername] = useState('')
   // card css style imports for Raymond
   const useStyles = makeStyles({
     card: {
-      maxWidth: 345,
+      maxWidth: 700,
       marginTop: 20,
       marginLeft: 20,
     },
     media: {
-      height: 140,
+      height: 500,
     },
   });
 
@@ -76,12 +76,9 @@ const [cardUsername, setCardUsername] = useState('')
 
     let query = users[Math.floor(Math.random() * users.length)];
     let username = query.username;
-    console.log(users);
-    console.log("1")
+
     axios.post('/user/returnUser', {username})
       .then((res) => {
-        console.log("Loading Next Potential");
-        console.log(res);
         setCardUsername(res.data.username);
         setCardAge(res.data.age);
         setCardFirstName(res.data.firstName);
@@ -137,7 +134,8 @@ const [cardUsername, setCardUsername] = useState('')
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image={Jedi}
+                image={`http://localhost/user/profilePic/${cardUsername}`}
+
                 title="Friendly doge"
               />
               <CardContent> {/* This is where the user info is displayed */}
