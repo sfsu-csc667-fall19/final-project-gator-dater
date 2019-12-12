@@ -13,7 +13,11 @@ import { setCollegeYear, setInfo, setGender, setListed, setPreference, setPronou
 const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, info, gender, listed, preference }) => {
     const [success, setSuccess] = useState('');
 
-    const bgGround = { backgroundImage: 'url(' + img2 + ')', };
+    const bgGround = {
+        backgroundImage: 'url(' + img2 + ')',
+        width: '1920px',
+        height:'1080px',
+};
 
     function goProfile(e) {
         console.log('CYEAR' + collegeYear);

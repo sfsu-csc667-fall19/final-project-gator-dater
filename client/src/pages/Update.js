@@ -27,6 +27,8 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
 
     const bgGround = {
         backgroundImage: 'url(' + img2 + ')',
+        width: '1920px',
+        height:'1080px',
     };
 
     function goProfile(e) {
@@ -48,7 +50,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
                 preference,
                 info,
             })
-            .then(history.push("/profile"))
+                .then(history.push("/profile"))
         } else { setSuccess('Require field(s) left empty.'); }
     }
     return (
@@ -57,8 +59,10 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
             <SnowStorm />
             <br /><br />
             <Container className="con">
-                <h4>Update Profile</h4><br />
+
+                <h4>Update Profile</h4>
                 <Upload />
+
                 <Form form>
                     <Row>
                         <Col md={20}>
@@ -75,7 +79,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
                     <Row>
                         <Col md={20}>
                             <Label className="ud" for="exampleAddress">Password</Label>
-                            <Input type='text' value={password} onChange={e => dispatch(setPassword(e.target.value))} placeholder='...' />
+                            <Input type='password' value={password} onChange={e => dispatch(setPassword(e.target.value))} placeholder='...' />
                         </Col>
                     </Row>
                     <Row>

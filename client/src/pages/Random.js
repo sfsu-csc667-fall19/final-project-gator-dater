@@ -126,7 +126,12 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
       {listUsers()}
       <br />
       <Label className="ud">&emsp;Active gators: {activeUsers}</Label><br />
-      <Grid container spacing={24} align-content="center" justify="center">
+      <Grid container 
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: '100vh'}}>
         {/* Card #1 */}
         <Grid item sm={4}>
           <Card className={classes.card}>
