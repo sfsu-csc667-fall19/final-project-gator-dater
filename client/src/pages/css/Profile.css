@@ -2,6 +2,7 @@
   #bg{
     height:860px;
     width:100%;
+    align-content: center;
    }
 
    .sidenav{
@@ -19,4 +20,8 @@
 
    #main{
     transition: 0.4s;
+   }
+
+   .container{
+     display: flex;
    }

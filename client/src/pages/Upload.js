@@ -159,7 +159,7 @@ class Upload extends Component {
                   return (
                     <div key={file.name} className="Row">
                       <span className="Filename">{file.name}</span>
-                      {this.renderProgress(file)}
+                      {/* {this.renderProgress(file)} */}
                     </div>
                   );
                 })}
