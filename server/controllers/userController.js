@@ -34,7 +34,7 @@ exports.listUsers = function (req, res) {
 }
 
 exports.returnUser = function (req, res) {
-  User.findOne({ username: req.body })
+  User.findOne({ username: req.body.username })
       .then((document) => { res.send(document) })
       .catch((e) => { res.send('fineOne ERROR') });
 }

@@ -34,12 +34,9 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
 const [cardUsername, setCardUsername] = useState('')
-  let users = [];
-
+  const [users, setUser] = useState([]);
   const toggleModal = () => {
-    axios('/user/mutual', )
     setShowModal(!showModal);
-
   }
 
   const openMessage = () => {
@@ -69,16 +66,19 @@ const [cardUsername, setCardUsername] = useState('')
       preference,
     })
       .then((res) => {
-        users = res.data;
+        console.log("calling")
+      setUser(res.data);
       })
   }
-
+  React.useEffect(listUsers,[])
   const clickX = () => {
+    try{
+
     let query = users[Math.floor(Math.random() * users.length)];
     let username = query.username;
-    axios.post('/user/returnUser', {
-      username,
-    })
+    console.log(users);
+    console.log("1")
+    axios.post('/user/returnUser', {username})
       .then((res) => {
         console.log("Loading Next Potential");
         console.log(res);
@@ -90,7 +90,11 @@ const [cardUsername, setCardUsername] = useState('')
         setCardInfo(res.data.info);
         setCardEmail(res.data.email);
         setHeart('default');
-      })
+      }).catch(console.log("NOTHING FOUND"));
+    }
+    catch(e){
+      console.log(e)
+    }
   }
 
 
@@ -124,7 +128,7 @@ const [cardUsername, setCardUsername] = useState('')
     <div>
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-      {listUsers()}
+      {/* {listUsers()} */}
       <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br />
       <Grid container spacing={24} justify="center">
         {/* Card #1 */}
@@ -167,7 +171,7 @@ const [cardUsername, setCardUsername] = useState('')
               </Modal>
               {/* This is the X button */}
               {/* onClick={() => setX(updateX)} ... is an example of setting an onClick for the X */}
-              <Fab active aria-label="like" style={{ marginLeft: 20 }} onClick={() => clickX()}>
+              <Fab active aria-label="like" style={{ marginLeft: 20 }} onClick={clickX}>
                 <CancelRoundedIcon />
               </Fab>
             </CardActions>
