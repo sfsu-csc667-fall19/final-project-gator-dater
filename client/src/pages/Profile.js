@@ -30,7 +30,7 @@ const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major,
 
   const bgGround = {
     backgroundImage: 'url(' + img2 + ')',
-    height:'850px',
+    height:'1080px',
   };
 
   const openNav = ()=> {
