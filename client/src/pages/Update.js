@@ -51,7 +51,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
 
             <SnowStorm />
             <br /><br />
-            <Container>
+            <Container className="con">
                 <h4>Tell us more about you.</h4><br />
                 <Upload />
                 <Form form>

@@ -11,10 +11,12 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 import NavBar from './NavBar'
-import { setUsername, setPassword, setAge, setEmail, setMajor,
-         setCollegeYear, setInfo, setFirstName, setLastName,
-         setPreference, setIdentity, setListed, setIsLoggedIn }
-         from '../redux/actions/userActions';
+import {
+    setUsername, setPassword, setAge, setEmail, setMajor,
+    setCollegeYear, setInfo, setFirstName, setLastName,
+    setPreference, setIdentity, setListed, setIsLoggedIn
+}
+    from '../redux/actions/userActions';
 
 import history from './history'
 
@@ -22,11 +24,11 @@ var validator = require('email-validator');
 
 const options = { withCredentials: true };
 
-const Home = ({dispatch, username, password, age, email, firstName, lastName, isLoggedIn}) => {
+const Home = ({ dispatch, username, password, age, email, firstName, lastName, isLoggedIn }) => {
     const [success, setSuccess] = useState('');
     const [loginBox, setLoginBox] = useState(false);
     const [createBox, setCreateBox] = useState(false);
-    const [fadeIn, setFadeIn] = useState(true);   
+    const [fadeIn, setFadeIn] = useState(true);
 
     const bgGround = { backgroundImage: 'url(' + img2 + ')', };
     const goLogin = (e) => {
@@ -60,23 +62,23 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                     age,
                     email,
                 })
-                .then((res) => {
-                    if (res.data === 'Success') {
-                        Cookies.set("username", username);
-                        Cookies.set("password", md5(password));
-                        Cookies.set("isLoggedIn", true);
+                    .then((res) => {
+                        if (res.data === 'Success') {
+                            Cookies.set("username", username);
+                            Cookies.set("password", md5(password));
+                            Cookies.set("isLoggedIn", true);
 
-                        dispatch(setUsername(username));
-                        dispatch(setPassword(password));
-                        dispatch(setAge(age));
-                        dispatch(setEmail(email));
-                        dispatch(setFirstName(firstName));
-                        dispatch(setLastName(lastName));
-                        dispatch(setIsLoggedIn(true));
+                            dispatch(setUsername(username));
+                            dispatch(setPassword(password));
+                            dispatch(setAge(age));
+                            dispatch(setEmail(email));
+                            dispatch(setFirstName(firstName));
+                            dispatch(setLastName(lastName));
+                            dispatch(setIsLoggedIn(true));
 
-                        history.push("/adduserinfo");
-                    }
-                }).catch(err => console.log(err));
+                            history.push("/adduserinfo");
+                        }
+                    }).catch(err => console.log(err));
             } else { setSuccess('Missing \'@\' on email'); }
         } else { setSuccess('Invalid. Please type in something.'); }
     }
@@ -169,7 +171,8 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                 <Alert color='black' isOpen={createBox} id='login' > <br /><br />
                     <h4> Create Page</h4><br />
                     <Form>
-                        <Row form>
+
+                        <Row>
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Username</Label>
@@ -204,7 +207,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                         </Row>
 
                         <Row>
-                            <Col md={3}>
+                            <Col md={6}>
                                 <FormGroup>
                                     <Label >Age</Label>
                                     <Input bsSize='sm' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='age' />
@@ -220,14 +223,18 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                             </Col>
                         </Row>
 
+
                         <br />
                         <Row form>
                             <Col md={6}>
+
                                 <Button onClick={createUser} variant='warning' block>Continue</Button>
                             </Col>
+
+
                         </Row>
                         <br />
-                        <Row>
+                        <Row form>
                             <Col md={6}>
                                 <Button onClick={goHome} variant='warning' block>Back</Button>
                             </Col>
