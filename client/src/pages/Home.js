@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './css/Home.css';
 //import img from './img/bg.jpg';
-import img2 from './img/Snowglobe2.jpg';
+import img2 from './img/start.jpg';
 import SnowStorm from 'react-snowstorm';
-// import { Redirect } from 'react-router-dom'; //unusedK
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import Cookies from 'js-cookie'
@@ -61,18 +60,10 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                     email,
                 })
                 .then((res) => {
-                    setSuccess(res.data);
-                    if (success === 'Success') {
+                    if (res.data === 'Success') {
                         Cookies.set("username", username);
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
-                        
-                        
-                        // console.log('HOMEJS CREATE USER: '+res.data.username);
-                        // console.log(res.username);
-                        // console.log(firstName);
-
-
 
                         dispatch(setUsername(username));
                         dispatch(setPassword(password));
@@ -269,7 +260,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                     )}
 
                     <Fade in={fadeIn} id='greeting'>
-                        <h1>Gator.Dater</h1>
+                        <h1>gator.dater</h1>
                         <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br />
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 

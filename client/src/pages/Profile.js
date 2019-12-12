@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
 //import img from './img/bg.jpg';
-import img2 from './img/Snowglobe1.jpg';
+import img2 from './img/newBG.png';
 import Random from './Random';
 import Update from './Update';
 import NavBar from './NavBar';

@@ -19,7 +19,7 @@ import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import Fab from '@material-ui/core/Fab';
 import { connect } from 'react-redux';
 import Modal from './Modal';
-import axios from 'axios'
+import axios from 'axios';
 
 
 const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
