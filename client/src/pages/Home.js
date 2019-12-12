@@ -261,7 +261,7 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                     )}
 
                     <Fade in={fadeIn} id='greeting'>
-                        <h1>Gator.Dater</h1>
+                        <h1>gator.dater</h1>
                         <p>A dating app for SFSU students, in which students register and see people who match their dating interests. <br />
                             Our goal is to make our fellow SFSU students feel a little less cold this winter.</p>
 
