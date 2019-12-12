@@ -8,11 +8,25 @@
     color:white;
 }
 
+textarea{
+    resize:none;
+}
+
 h4{
     font-size: 2em; /* 40px/16=2.5em */
     color:white;
     font-weight: bold;
-    font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+    font-family: "Microsoft Yahei";
   }
+
+.ud{
+    font-size: 16px; /* 40px/16=2.5em */
+    color:white;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: "Microsoft Yahei";
+
+    /* font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif; */
+}
 
 

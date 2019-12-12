@@ -9,11 +9,12 @@ import SnowStorm from 'react-snowstorm';
 import './css/Update.css';
 import Upload from './Upload';
 import { Container, Row, Col, Label, Form, FormGroup, Input, Alert } from 'reactstrap';
-import img2 from './img/start.jpg';
+import img2 from './img/newBG.png';
 import axios from 'axios';
 import history from './history'
+import md5 from 'md5'
 
-const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
+const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
     email, major, info, firstName, lastName, preference, pronoun, listed, gender }) => {
 
     const [success, setSuccess] = useState('');
@@ -33,6 +34,13 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
         e.preventDefault()
         if (collegeYear !== '' && pronoun !== '' && gender !== '' && listed !== '' && preference !== '') {
             axios.post('/user/editProfile', {
+                username,
+                password: md5(password),
+                firstName,
+                lastName,
+                age,
+                email,
+
                 collegeYear,
                 gender,
                 pronoun,
@@ -40,41 +48,67 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
                 preference,
                 info,
             })
-            .then(()=>{
-                history.push("/profile")});
+            .then(history.push("/profile"))
         } else { setSuccess('Require field(s) left empty.'); }
     }
     return (
-      
-        <div style={bgGround} id='bg'>
 
+        <div style={bgGround} id='bg'>
             <SnowStorm />
             <br /><br />
             <Container className="con">
-                <h4>Tell us more about you.</h4><br />
+                <h4>Update Profile</h4><br />
                 <Upload />
                 <Form form>
                     <Row>
-                        
-                            <Label for="exampleAddress">College Year</Label>
-                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
-                                <option value="" selected disabled>(required)</option>
-                                <option value="Freshman">Freshman</option>
-                                <option value="Sophomore">Sophomore</option>
-                                <option value="Junior">Junior</option>
-                                <option value="Senior">Senior</option>
-                            </Input>
-                     
+                        <Col md={20}>
+                            <Label className="ud" for="exampleAddress">First Name</Label>
+                            <Input type='text' value={firstName} onChange={e => dispatch(setFirstName(e.target.value))} placeholder='...' />
+                        </Col>
                     </Row>
                     <Row>
                         <Col md={20}>
-                            <Label for="exampleAddress">I identify as.. </Label>
-                            <Input type='text' value={gender} onChange={e => dispatch(setGender(e.target.value))} placeholder='Woman, Cisgender, Genderfluid..' />
+                            <Label className="ud" for="exampleAddress">Last Name</Label>
+                            <Input type='text' value={lastName} onChange={e => dispatch(setLastName(e.target.value))} placeholder='...' />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={20}>
+                            <Label className="ud" for="exampleAddress">Password</Label>
+                            <Input type='text' value={password} onChange={e => dispatch(setPassword(e.target.value))} placeholder='...' />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={20}>
+                            <Label className="ud" for="exampleAddress">Age</Label>
+                            <Input type='text' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='(18 ~ 65)' />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={20}>
+                            <Label className="ud" for="exampleAddress">Email</Label>
+                            <Input type='text' value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder='brianparra@mail.sfsu.edu' />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Label className="ud" for="exampleAddress">College Year</Label>
+                        <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
+                            <option value="" selected disabled>(required)</option>
+                            <option value="Freshman">Freshman</option>
+                            <option value="Sophomore">Sophomore</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                        </Input>
+                    </Row>
+                    <Row>
+                        <Col md={20}>
+                            <Label className="ud" for="exampleAddress">I identify as.. </Label>
+                            <Input type='text' value={gender} onChange={e => dispatch(setGender(e.target.value))} placeholder='...' />
                         </Col>
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for='exampleAddress2'>What are your pronouns?</Label>
+                            <Label className="ud" for='exampleAddress2'>What are your pronouns?</Label>
                             <Input type="select" bsSize="sm" value={pronoun} onChange={e => dispatch(setPronoun(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="She/Her">She/Her</option>
@@ -85,7 +119,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">List me as.. </Label>
+                            <Label className="ud" for="exampleAddress">List me as.. </Label>
                             <Input type="select" bsSize="sm" value={listed} onChange={e => dispatch(setListed(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="W">Woman</option>
@@ -96,7 +130,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">Show me.. </Label>
+                            <Label className="ud" for="exampleAddress">Show me.. </Label>
                             <Input type="select" bsSize="sm" value={preference} onChange={e => dispatch(setPreference(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="W">Women</option>
@@ -107,8 +141,8 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for='exampleText'>Important details you'd like to share?</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder='Likes to sleep in Menchu Hall, troubled by the rampant consumerism of America..' />
+                            <Label className="ud" for='exampleText'>Important details you'd like to share?</Label>
+                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder='...' />
                         </FormGroup>
                     </Row>
                     <Row>
@@ -120,7 +154,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
                 </Form>
             </Container>
         </div>
-);
+    );
 }
 
 const mapStateToProps = state => ({

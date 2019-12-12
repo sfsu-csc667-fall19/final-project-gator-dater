@@ -192,7 +192,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >First Name</Label>
-                                    <Input bsSize='sm' value={firstName} onChange={e => dispatch(setFirstName(e.target.value))} placeholder='brian' />
+                                    <Input bsSize='sm' value={firstName} onChange={e => dispatch(setFirstName(e.target.value))} placeholder='Brian' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -200,7 +200,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Last Name</Label>
-                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => dispatch(setLastName(e.target.value))} placeholder='parra' />
+                                    <Input bsSize='sm' type='email' value={lastName} onChange={e => dispatch(setLastName(e.target.value))} placeholder='Parra' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -209,7 +209,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Age</Label>
-                                    <Input bsSize='sm' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='age' />
+                                    <Input bsSize='sm' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='(18 ~ 65)' />
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -217,7 +217,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
                             <Col md={6}>
                                 <FormGroup>
                                     <Label >Email</Label>
-                                    <Input bsSize='sm' type='email' value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder='email@mail.sfsu.edu' />
+                                    <Input bsSize='sm' type='email' value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder='brianparra@mail.sfsu.edu' />
                                 </FormGroup>
                             </Col>
                         </Row>

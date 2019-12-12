@@ -8,17 +8,18 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Icon from '@mdi/react';
-import { mdiFlowerTulipOutline } from '@mdi/js';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { setIsLoggedIn } from '../redux/actions/userActions';
 import { Switch, Route, Redirect}  from "react-router-dom";
 import Update from './Update';
+import ico from './img/ICON.png';
 
 
 // css
 const NavBar = ({ dispatch, username, isLoggedIn }) => {
   const [goEdit, setGoEdit] = useState(false);
+  const icon = 'url(' + ico + ')';
 
   const useStyles = makeStyles(theme => ({
     grow: {
@@ -84,15 +85,14 @@ const NavBar = ({ dispatch, username, isLoggedIn }) => {
         <Toolbar>
           {/* For the rotating icon and Gator Dater title */}
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
-            <Icon path={mdiFlowerTulipOutline}
+            <Icon path={icon}
               title="Nav Bar Icon"
               size={1}
               horizontal
               vertical
               rotate={90}
-              color="red"
               spin />
-            Gator Dater
+            gator.dater
             </Typography>
           {isLoggedIn && (
             <section className={classes.rightToolbar}>

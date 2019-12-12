@@ -123,22 +123,26 @@ class Upload extends Component {
   renderActions() {
     if (this.state.successfullUploaded) {
       return (
-        <button
-          onClick={() =>
-            this.setState({ files: [], successfullUploaded: false })
-          }
-        >
-          Clear
+        <div className="bw">
+          <button
+            onClick={() =>
+              this.setState({ files: [], successfullUploaded: false })
+            }
+          >
+            Clear
         </button>
+        </div>
       );
     } else {
       return (
-        <button
-          disabled={this.state.files.length < 0 || this.state.uploading}
-          onClick={this.uploadFiles}
-        >
-          Upload
+        <div className="bw">
+          <button
+            disabled={this.state.files.length < 0 || this.state.uploading}
+            onClick={this.uploadFiles}
+          >
+            Upload
         </button>
+        </div>
       );
     }
   }

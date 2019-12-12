@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/Random.css';
 import { Button } from 'react-bootstrap';
-import { Card, Row, Col, CardSubtitle, CardBody, CardTitle } from 'reactstrap';
+import { Card, Label, Row, Col, CardSubtitle, CardBody, CardTitle } from 'reactstrap';
 // Raymond's card imports
 import Jedi from './img/Jedi.jpg';
 import Grid from '@material-ui/core/Grid';
@@ -33,13 +33,12 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
-const [cardUsername, setCardUsername] = useState('')
+  const [cardUsername, setCardUsername] = useState('')
   let users = [];
 
   const toggleModal = () => {
     axios('/user/mutual', )
     setShowModal(!showModal);
-
   }
 
   const openMessage = () => {
@@ -54,7 +53,7 @@ const [cardUsername, setCardUsername] = useState('')
       marginLeft: 20,
     },
     media: {
-      height: 140,
+      height: 200,
     },
   });
 
@@ -125,12 +124,12 @@ const [cardUsername, setCardUsername] = useState('')
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
       {listUsers()}
-      <h4>This is Random.js &nbsp;&nbsp;&nbsp; active user: {activeUsers}</h4><br />
-      <Grid container spacing={24} justify="center">
+      <br />
+      <Label className="ud">&emsp;Active gators: {activeUsers}</Label><br />
+      <Grid container spacing={24} align-content="center" justify="center">
         {/* Card #1 */}
         <Grid item sm={4}>
           <Card className={classes.card}>
-            <CardActionArea>
               <CardMedia
                 className={classes.media}
                 image={Jedi}
@@ -147,7 +146,6 @@ const [cardUsername, setCardUsername] = useState('')
                   {cardInfo}
                 </Typography>
               </CardContent>
-            </CardActionArea>
             <CardActions> {/* Handler example for changing heart color */}
               {/* This is the heart button */}
               <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>

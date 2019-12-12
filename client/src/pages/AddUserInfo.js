@@ -46,7 +46,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                 <Form form>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">College Year</Label>
+                            <Label className="ud" for="exampleAddress">College Year</Label>
                             <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="Freshman">Freshman</option>
@@ -59,13 +59,13 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">I identify as.. </Label>
+                            <Label className="ud" for="exampleAddress">I identify as.. </Label>
                             <Input type='text' value={gender} onChange={e => dispatch(setGender(e.target.value))} placeholder='Woman, Cisgender, Genderfluid..' />
                         </FormGroup>
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for='exampleAddress2'>What are your pronouns?</Label>
+                            <Label className="ud" for='exampleAddress2'>What are your pronouns?</Label>
                             <Input type="select" bsSize="sm" value={pronoun} onChange={e => dispatch(setPronoun(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="She/Her">She/Her</option>
@@ -76,7 +76,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">List me as.. </Label>
+                            <Label className="ud" for="exampleAddress">List me as.. </Label>
                             <Input type="select" bsSize="sm" value={listed} onChange={e => dispatch(setListed(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="W">Woman</option>
@@ -87,7 +87,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for="exampleAddress">Show me.. </Label>
+                            <Label className="ud" for="exampleAddress">Show me.. </Label>
                             <Input type="select" bsSize="sm" value={preference} onChange={e => dispatch(setPreference(e.target.value))}>
                                 <option value="" selected disabled>(required)</option>
                                 <option value="W">Women</option>
@@ -98,7 +98,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Label for='exampleText'>Important details you'd like to share?</Label>
+                            <Label className="ud" for='exampleText'>Important details you'd like to share?</Label>
                             <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder='Likes to sleep in Menchu Hall, troubled by the rampant consumerism of America..' />
                         </FormGroup>
                     </Row>
