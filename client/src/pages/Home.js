@@ -31,7 +31,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
 
     const bgGround = {
         backgroundImage: 'url(' + img2 + ')',
-        height:'100vh',
+        height:'1080px',
  };
     const goLogin = (e) => {
         setLoginBox(true);
@@ -65,6 +65,7 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
                     email,
                 })
                     .then((res) => {
+                        setSuccess(res.data);
                         if (res.data === 'Success') {
                             Cookies.set("username", username);
                             Cookies.set("password", md5(password));
