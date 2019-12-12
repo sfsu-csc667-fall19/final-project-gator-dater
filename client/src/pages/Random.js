@@ -29,13 +29,13 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   // temporary states/handlers for the card info.
   const [cardFirstName, setCardFirstName] = useState('First Name');
   const [cardPronoun, setCardPronoun] = useState('Pronoun')
-  //const [cardLastName, setCardLastName] = useState('Last Name');
+  // const [cardLastName, setCardLastName] = useState('Last Name');
   const [cardAge, setCardAge] = useState('Age');
   const [cardGender, setCardGender] = useState('Gender');
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
-const [cardUsername, setCardUsername] = useState('')
+const [cardUsername, setCardUsername] = useState('MASTER')
   const [users, setUser] = useState([]);
   const toggleModal = () => {
     setShowModal(!showModal);
