@@ -62,13 +62,13 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                 })
                 .then((res) => {
                     setSuccess(res.data);
-                    if (success === 'Success') {
+                    if (res.data === 'Success') {
                         Cookies.set("username", username);
                         Cookies.set("password", md5(password));
                         Cookies.set("isLoggedIn", true);
                         
                         
-                        // console.log('HOMEJS CREATE USER: '+res.data.username);
+                        console.log('HOMEJS CREATE USER');
                         // console.log(res.username);
                         // console.log(firstName);
 
@@ -81,7 +81,6 @@ const Home = ({dispatch, username, password, age, email, firstName, lastName, is
                         dispatch(setFirstName(firstName));
                         dispatch(setLastName(lastName));
                         dispatch(setIsLoggedIn(true));
-
                         history.push("/adduserinfo");
                     }
                 }).catch(err => console.log(err));

@@ -38,6 +38,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
             <SnowStorm />
             <br /><br />
             <Container>
+              
                 <h4>Tell us more about you.</h4><br />
                 <Upload />
                 <Form form>
@@ -105,6 +106,7 @@ const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, inf
                     </Row>
                     <h4>{success}</h4>
                 </Form>
+               
             </Container>
         </div>
     );
