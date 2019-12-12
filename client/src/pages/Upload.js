@@ -3,6 +3,7 @@ import axios from "axios";
 import Dropzone from "./dropzone/Dropzone";
 import "./css/Upload.css";
 import Progress from "./progress/Progress";
+import Cookies from 'js-cookie'
 
 class Upload extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class Upload extends Component {
 
       const formData = new FormData();
       // Replace Pyae with Username pls!
-      formData.append("img", file, "jj");
+      formData.append("img", file, Cookies.get("username"));
 
       req.open("POST", "http://localhost:80/user/uploadPic/");
       req.send(formData);

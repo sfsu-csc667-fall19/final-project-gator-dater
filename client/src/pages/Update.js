@@ -9,7 +9,7 @@ import SnowStorm from 'react-snowstorm';
 import './css/Update.css';
 import Upload from './Upload';
 import { Container, Row, Col, Label, Form, FormGroup, Input, Alert } from 'reactstrap';
-import space from './img/bg.jpg';
+import img2 from './img/start.jpg';
 import axios from 'axios';
 import history from './history'
 
@@ -25,8 +25,7 @@ const Update = ({ dispatch, isUpdateOpen, collegeYear, password, age,
     }
 
     const bgGround = {
-        backgroundImage: 'url(' + space + ')',
-        height: '850px',
+        backgroundImage: 'url(' + img2 + ')',
     };
 
     function goProfile(e) {

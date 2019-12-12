@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './css/Home.css';
 //import img from './img/bg.jpg';
-import img2 from './img/Snowglobe2.jpg';
+import img2 from './img/start.jpg';
 import SnowStorm from 'react-snowstorm';
-// import { Redirect } from 'react-router-dom'; //unusedK
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import Cookies from 'js-cookie'

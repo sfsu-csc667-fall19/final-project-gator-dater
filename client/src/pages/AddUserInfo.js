@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/Profile.css';
 import { connect } from 'react-redux';
-import img2 from './img/Snowglobe1.jpg';
+import img2 from './img/start.jpg';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import SnowStorm from 'react-snowstorm';
