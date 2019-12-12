@@ -20,6 +20,7 @@ import Fab from '@material-ui/core/Fab';
 import { connect } from 'react-redux';
 import Modal from './Modal';
 import axios from 'axios';
+import { setPronoun } from '../redux/actions/userActions';
 
 
 const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
@@ -27,17 +28,16 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const [showModal, setShowModal] = useState(false);
   // temporary states/handlers for the card info.
   const [cardFirstName, setCardFirstName] = useState('First Name');
+  const [cardPronoun, setCardPronoun] = useState('Pronoun')
   //const [cardLastName, setCardLastName] = useState('Last Name');
   const [cardAge, setCardAge] = useState('Age');
   const [cardGender, setCardGender] = useState('Gender');
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
-  const [cardUsername, setCardUsername] = useState('')
-  let users = [];
-
+const [cardUsername, setCardUsername] = useState('')
+  const [users, setUser] = useState([]);
   const toggleModal = () => {
-    axios('/user/mutual', )
     setShowModal(!showModal);
   }
 
@@ -48,12 +48,12 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   // card css style imports for Raymond
   const useStyles = makeStyles({
     card: {
-      maxWidth: 345,
+      maxWidth: 700,
       marginTop: 20,
       marginLeft: 20,
     },
     media: {
-      height: 200,
+      height: 500,
     },
   });
 
@@ -68,28 +68,33 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
       preference,
     })
       .then((res) => {
-        users = res.data;
+        console.log("calling")
+      setUser(res.data);
       })
   }
-
+  React.useEffect(listUsers,[])
   const clickX = () => {
+    try{
+
     let query = users[Math.floor(Math.random() * users.length)];
     let username = query.username;
-    axios.post('/user/returnUser', {
-      username,
-    })
+
+    axios.post('/user/returnUser', {username})
       .then((res) => {
-        console.log("Loading Next Potential");
-        console.log(res);
         setCardUsername(res.data.username);
         setCardAge(res.data.age);
         setCardFirstName(res.data.firstName);
         setCardGender(res.data.gender);
+        setCardPronoun(res.data.pronoun);
         setCardCollegeYear(res.data.collegeYear);
         setCardInfo(res.data.info);
         setCardEmail(res.data.email);
         setHeart('default');
-      })
+      }).catch(console.log("NOTHING FOUND"));
+    }
+    catch(e){
+      console.log(e)
+    }
   }
 
 
@@ -123,21 +128,16 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
     <div>
       {/* <Row> */}
       {/* <h4>This is RandomUser.js   &nbsp;&nbsp;&nbsp; active users: {activeUsers}</h4><br/> */}
-      {listUsers()}
-      <br />
-      <Label className="ud">&emsp;Active gators: {activeUsers}</Label><br />
-      <Grid container 
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: '100vh'}}>
+      {/* {listUsers()} */}
+      <Label className="ud">Active gators: {activeUsers}</Label><br />
+      <Grid container spacing={24} justify="center">
         {/* Card #1 */}
         <Grid item sm={4}>
           <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
-                image={Jedi}
+                image={`http://localhost/user/profilePic/${cardUsername}`}
+
                 title="Friendly doge"
               />
               <CardContent> {/* This is where the user info is displayed */}
@@ -145,7 +145,7 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
                   {cardFirstName}, {cardAge}
                 </Typography>
                 <Typography variant="body" color="textSecondary" component="p">
-                  {cardGender}, {cardCollegeYear}
+                  {cardGender}, {cardPronoun}, {cardCollegeYear}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   {cardInfo}
@@ -170,7 +170,7 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
               </Modal>
               {/* This is the X button */}
               {/* onClick={() => setX(updateX)} ... is an example of setting an onClick for the X */}
-              <Fab active aria-label="like" style={{ marginLeft: 20 }} onClick={() => clickX()}>
+              <Fab active aria-label="like" style={{ marginLeft: 20 }} onClick={clickX}>
                 <CancelRoundedIcon />
               </Fab>
             </CardActions>

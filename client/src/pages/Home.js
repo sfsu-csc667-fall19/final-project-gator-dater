@@ -32,7 +32,6 @@ const Home = ({ dispatch, username, password, age, email, firstName, lastName, i
     const bgGround = {
         backgroundImage: 'url(' + img2 + ')',
         height:'100vh',
-        // width: '100vh',
  };
     const goLogin = (e) => {
         setLoginBox(true);
