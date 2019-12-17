@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
-// import fb from './img/fb.jpg';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
 import './css/Profile.css';
-//import img from './img/bg.jpg';
 import img2 from './img/newBG.png';
 import Random from './Random';
 import Update from './Update';
@@ -11,7 +9,7 @@ import NavBar from './NavBar';
 import Cookies from 'js-cookie'
 import { Switch, Route, Redirect}  from "react-router-dom";
 
-const Profile = ({dispatch, isUpdateOpen, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity}) => {
+const Profile = ({ dispatch, isUpdateOpen, username }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sideNav, setNav] = useState(false);
   const [isLoggedOut, setLogout] = useState(false);

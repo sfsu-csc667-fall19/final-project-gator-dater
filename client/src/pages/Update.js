@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-// importing update redux
-import { updateProfile } from '../redux/actions/updateActions';
 import { setIsUpdateOpen } from '../redux/actions/pageAction';
-import { setPassword, setAge, setEmail, setMajor, setInfo, setCollegeYear, setFirstName, setLastName, setPreference, setPronoun, setGender, setListed } from '../redux/actions/userActions';
+import { setPassword, setAge, setEmail, setInfo, setCollegeYear, setFirstName, setLastName, setPreference, setPronoun, setGender, setListed } from '../redux/actions/userActions';
 import { Button } from 'react-bootstrap';
 import SnowStorm from 'react-snowstorm';
 import './css/Update.css';
@@ -14,8 +12,9 @@ import axios from 'axios';
 import history from './history'
 import md5 from 'md5'
 
-const Update = ({ dispatch, isUpdateOpen, collegeYear, username, password, age,
-    email, major, info, firstName, lastName, preference, pronoun, listed, gender }) => {
+const Update = ({ dispatch, collegeYear, username, password, age,
+                  email, info, firstName, lastName, preference,
+                  pronoun, listed, gender }) => {
 
     const [success, setSuccess] = useState('');
     const [profileImg, setProfileImg] = useState('');

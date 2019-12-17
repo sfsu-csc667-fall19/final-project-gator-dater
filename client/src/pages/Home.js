@@ -10,13 +10,7 @@ import Cookies from 'js-cookie'
 import md5 from 'md5'
 import axios from 'axios'
 import NavBar from './NavBar'
-import {
-    setUsername, setPassword, setAge, setEmail, setMajor,
-    setCollegeYear, setInfo, setFirstName, setLastName,
-    setPreference, setIdentity, setListed, setIsLoggedIn
-}
-    from '../redux/actions/userActions';
-
+import { setUsername, setPassword, setAge, setEmail, setFirstName, setLastName, setIsLoggedIn, setPreference } from '../redux/actions/userActions';
 import history from './history'
 
 var validator = require('email-validator');

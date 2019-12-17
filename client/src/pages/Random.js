@@ -3,7 +3,6 @@ import './css/Random.css';
 import { Button } from 'react-bootstrap';
 import { Card, Label, Row, Col, CardSubtitle, CardBody, CardTitle } from 'reactstrap';
 // Raymond's card imports
-import Jedi from './img/Jedi.jpg';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 // Dont know why this isnt needed...maybe the reactstrap version of card is same
@@ -21,13 +20,11 @@ import { connect } from 'react-redux';
 import Modal from './Modal';
 import axios from 'axios';
 
-const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
+const Random = ({ username, preference, activeUsers }) => {
   const [messageBox, setMessageBox] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  // temporary states/handlers for the card info.
   const [cardFirstName, setCardFirstName] = useState('First Name');
   const [cardPronoun, setCardPronoun] = useState('Pronoun')
-  // const [cardLastName, setCardLastName] = useState('Last Name');
   const [cardAge, setCardAge] = useState('Age');
   const [cardGender, setCardGender] = useState('Gender');
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
