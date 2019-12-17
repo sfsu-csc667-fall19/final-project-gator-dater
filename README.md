@@ -18,13 +18,13 @@ to make our fellow SFSU students feel a little less cold this winter.
 - Logs the user in by using the user password and username
 - If success then the user will be redirected to their profile page
 ### Main Page
-![Profile Page- State 1](/screenshots/profile.png)
+![Profile Page- State 1](/screenshots/profile1.png)
 - A card with other user information is displayed
 - The user has the ability to like another user's profile as well as to randomly view others
 - If other users and the current user liked each other then a match will happen
 - A match will display a modal that contains each others emails to exchange
-### Main Page (no matches)
-![Edit Profile Page (no matches)- State 1](/screenshots/edit&signup_profile.png)
+### Additional User Information
+![Edit Profile Page- State 1](/screenshots/edit&signup_profile.png)
 - In case the user needs to change any information about them.
 # Architecture
 1. Express (Back End) - Back end with get/post endpoints
@@ -32,6 +32,6 @@ to make our fellow SFSU students feel a little less cold this winter.
 3. Amazon Web Service Elastic Compute Cloud (AWS EC2) - To serve our application
 4. Websocket - For real time chat interactions (front end)
 5. React + Redux - for building UI 
-5. Microserver architecture (Back End) - for some services to run multiple instances
-6. Gateway - All front end requests hit gateway first for authorization
-7. Redis - For caching values (such as the user login info, so they won't have to continually log back in)
+6. Microserver architecture (Back End) - for some services to run multiple instances
+7. Gateway - All front end requests hit gateway first for authorization
+8. Redis - For caching values (such as the user login info, so they won't have to continually log back in)
