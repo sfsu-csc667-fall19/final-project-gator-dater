@@ -10,16 +10,16 @@ exports.createUser = function (req, res) {
                     username: req.body.username,
                     password: req.body.password,
                     firstName: req.body.firstName,
-                    lastName: req.body.firstName,
-                    email: req.body.email,
-                    collegeyear: req.body.collegeyear,
-                    major: req.body.major,
-                    addition: req.body.addition,
+                    lastName: req.body.lastName,
                     age: req.body.age,
-                    race: req.body.race,
-                    gender: req.body.gender,
-                    collegeyear: req.body.collegeyear,
-                    interests: req.body.interests,
+                    email: req.body.email,
+                    
+                    collegeYear: '',
+                    gender: '',
+                    pronoun: '',
+                    listed: '',
+                    preference: '',
+                    info: '',
                 });
 
                 newUser.save(function (err) {
@@ -28,15 +28,13 @@ exports.createUser = function (req, res) {
                 });
             } else { res.send('Username already taken.'); }
         });
-    } catch (e) {
-        console.log(e);
-        res.send(e);
-    }
+    } catch (e) { res.send(e); }
 };
 
+
 exports.login = function (req, res) {
-  Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]}, function (err, user) {
-    if (user) { return res.send('Success'); }
-    else { return res.send('Failed. Wrong username and/or password'); }
-  })
+  Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]})
+  .then((document) => {
+      res.send(document);
+  }).catch((e) => {res.send("Unable to retrieve info")})
 }

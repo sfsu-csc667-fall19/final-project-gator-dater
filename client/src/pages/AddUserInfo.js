@@ -1,34 +1,23 @@
 import React, { useState } from 'react';
+import './css/Profile.css';
 import { connect } from 'react-redux';
-import { setIsUpdateOpen } from '../redux/actions/pageAction';
-import { setPassword, setAge, setEmail, setInfo, setCollegeYear, setFirstName, setLastName, setPreference, setPronoun, setGender, setListed } from '../redux/actions/userActions';
+import img2 from './img/start.jpg';
 import { Button } from 'react-bootstrap';
+import { Container, Row, Col, Label, Fade, ButtonToolbar, Form, FormGroup, Input, Alert } from 'reactstrap';
 import SnowStorm from 'react-snowstorm';
-import './css/Update.css';
-import Upload from './Upload';
-import { Container, Row, Col, Label, Form, FormGroup, Input, Alert } from 'reactstrap';
-import img2 from './img/newBG.png';
-import axios from 'axios';
 import history from './history'
-import md5 from 'md5'
+import axios from 'axios';
+import Upload from './Upload';
+import { setCollegeYear, setInfo, setGender, setListed, setPreference, setPronoun, setIsLoggedIn } from '../redux/actions/userActions';
 
-const Update = ({ dispatch, collegeYear, username, password, age,
-                  email, info, firstName, lastName, preference,
-                  pronoun, listed, gender }) => {
-
+const AddUserInfo = ({ dispatch, username, isLoggedIn, collegeYear, pronoun, info, gender, listed, preference }) => {
     const [success, setSuccess] = useState('');
-    const [profileImg, setProfileImg] = useState('');
-    const [errormessage, setErrorMessage] = useState('');
-
-    const closeUpdate = () => {
-        dispatch(setIsUpdateOpen(false));
-    }
 
     const bgGround = {
         backgroundImage: 'url(' + img2 + ')',
         width: '1920px',
         height:'1080px',
-    };
+};
 
     function goProfile(e) {
         console.log('CYEAR' + collegeYear);
@@ -36,12 +25,6 @@ const Update = ({ dispatch, collegeYear, username, password, age,
         if (collegeYear !== '' && pronoun !== '' && gender !== '' && listed !== '' && preference !== '') {
             axios.post('/user/editProfile', {
                 username,
-                password: md5(password),
-                firstName,
-                lastName,
-                age,
-                email,
-
                 collegeYear,
                 gender,
                 pronoun,
@@ -49,65 +32,40 @@ const Update = ({ dispatch, collegeYear, username, password, age,
                 preference,
                 info,
             })
-                .then(history.push("/profile"))
+                .then(() => {
+                    history.push("/profile")
+                });
         } else { setSuccess('Require field(s) left empty.'); }
     }
+
     return (
 
         <div style={bgGround} id='bg'>
+
             <SnowStorm />
             <br /><br />
             <Container className="con">
-
-                <h4>Update Profile</h4>
+                <h4>Tell us more about you.</h4><br />
                 <Upload />
-
                 <Form form>
                     <Row>
-                        <Col md={20}>
-                            <Label className="ud" for="exampleAddress">First Name</Label>
-                            <Input type='text' value={firstName} onChange={e => dispatch(setFirstName(e.target.value))} placeholder='...' />
-                        </Col>
+                        <FormGroup>
+                            <Label className="ud" for="exampleAddress">College Year</Label>
+                            <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
+                                <option value="" selected disabled>(required)</option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
+                            </Input>
+                        </FormGroup>
+
                     </Row>
                     <Row>
-                        <Col md={20}>
-                            <Label className="ud" for="exampleAddress">Last Name</Label>
-                            <Input type='text' value={lastName} onChange={e => dispatch(setLastName(e.target.value))} placeholder='...' />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={20}>
-                            <Label className="ud" for="exampleAddress">Password</Label>
-                            <Input type='password' value={password} onChange={e => dispatch(setPassword(e.target.value))} placeholder='...' />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={20}>
-                            <Label className="ud" for="exampleAddress">Age</Label>
-                            <Input type='text' value={age} onChange={e => dispatch(setAge(e.target.value))} placeholder='(18 ~ 65)' />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={20}>
-                            <Label className="ud" for="exampleAddress">Email</Label>
-                            <Input type='text' value={email} onChange={e => dispatch(setEmail(e.target.value))} placeholder='brianparra@mail.sfsu.edu' />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Label className="ud" for="exampleAddress">College Year</Label>
-                        <Input type="select" bsSize="sm" value={collegeYear} onChange={e => dispatch(setCollegeYear(e.target.value))}>
-                            <option value="" selected disabled>(required)</option>
-                            <option value="Freshman">Freshman</option>
-                            <option value="Sophomore">Sophomore</option>
-                            <option value="Junior">Junior</option>
-                            <option value="Senior">Senior</option>
-                        </Input>
-                    </Row>
-                    <Row>
-                        <Col md={20}>
+                        <FormGroup>
                             <Label className="ud" for="exampleAddress">I identify as.. </Label>
-                            <Input type='text' value={gender} onChange={e => dispatch(setGender(e.target.value))} placeholder='...' />
-                        </Col>
+                            <Input type='text' value={gender} onChange={e => dispatch(setGender(e.target.value))} placeholder='Woman, Cisgender, Genderfluid..' />
+                        </FormGroup>
                     </Row>
                     <Row>
                         <FormGroup>
@@ -145,7 +103,7 @@ const Update = ({ dispatch, collegeYear, username, password, age,
                     <Row>
                         <FormGroup>
                             <Label className="ud" for='exampleText'>Important details you'd like to share?</Label>
-                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder='...' />
+                            <Input type='textarea' name='text' id='exampleText' value={info} onChange={e => dispatch(setInfo(e.target.value))} placeholder='Likes to sleep in Menchu Hall, troubled by the rampant consumerism of America..' />
                         </FormGroup>
                     </Row>
                     <Row>
@@ -161,8 +119,6 @@ const Update = ({ dispatch, collegeYear, username, password, age,
 }
 
 const mapStateToProps = state => ({
-    isUpdateOpen: state.pageReducer.isUpdateOpen, //???
-
     username: state.userReducer.username,
     password: state.userReducer.password,
     age: state.userReducer.age,
@@ -177,4 +133,7 @@ const mapStateToProps = state => ({
     collegeYear: state.userReducer.collegeYear,
 });
 
-export default connect(mapStateToProps)(Update);
+export default connect(mapStateToProps)(AddUserInfo);
+
+//----------------------------------------------------------------------
+
