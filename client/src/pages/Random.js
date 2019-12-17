@@ -70,21 +70,6 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
       })
   }
 
-  function shuffleUsers(arr) {
-    let currentIndex = arr.length, tempVal, randomIndex
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1
-
-      tempVal = arr[currentIndex];
-      arr[currentIndex] = arr[randomIndex];
-      arr[randomIndex] = tempVal;
-    }
-
-    return arr;
-  }
-
   React.useEffect(listUsers, [])
 
   const clickX = () => {
@@ -121,24 +106,26 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   // handling to toggle heart appearance/color (when the heart is clicked)
   const [heart, setHeart] = React.useState('default');
   const updateHeart = () => {
+
     if (heart === 'default') {
       axios.post('/user/like', {
         userA: username,
         userB: cardUsername,
       }).then((res) => {
-        if (res.data === 'Success') { setHeart('secondary'); }
+        if (res.data === 'Success') { setHeart('secondary');
+
+        axios.post('/user/mutual', {
+          userA: username,
+          userB: cardUsername,
+        }).then((res) => { if (res.data) { toggleModal(); } })
+      }
       });
     } else {
       axios.post('/user/unlike', {
         userA: username,
         userB: cardUsername,
-      }).then((res) => { console.log(res.data); })
+      }).then((res) => { if (res.data === 'Success') { setHeart('default') } })
     }
-
-    axios.post('/user/mutual', {
-      userA: username,
-      userB: cardUsername,
-    }).then((res) => { if (res.data) { toggleModal(); } })
   };
 
   return (
