@@ -5,33 +5,26 @@ knowing basic information such as name, age, major (all of which is used to matc
 to make our fellow SFSU students feel a little less cold this winter.
 ### Welcome Page
 ![Welcome Screen- State 1](/screenshots/home.png)
-1. Leads to the the Register Page, where the user signs up for an account and provides basic dating information
-2. Leads to the Register Page, same as 1
-3. Leads to the Login Page for returning users
+- Leads to the the Sign Up Page, where the user signs up for an account and provides basic dating information
+- Leads to the Login Page for returning users
 ### Register Page
 ![Register- State 1](/screenshots/create.png)
-1. Register button that saves the users information for matching purposes, and also for when they login next time
-2. Leads to the same page they are currently on (Register Page)
-3. Leads to the Login Page for returning users
-4. This is where the user creates their account and provides basic dating information we will use to match them
+- Continue button saves the users information for matching purposes, and also for when they login next time
+- Leads to a second sign up page that can upload a picture of the user or put more additional information
+- This is where the user creates their account and provides basic dating information we will use to match them
 ### Login Page
 ![Log In- State 1](/screenshots/login.png)
-1. Logs the user in by using the user credentials provided in 4
-2. Leads to the Register Page
-3. Leads to the same page they are currently on (Login Page)
-4. Username and password used to log the user in
+- Logs the user in by using the user password and username
+- Leads to the profile page
 ### Main Page
 ![Profile Page- State 1](/screenshots/profile.png)
-1. Based on the preferential dating information provided by the user, we will show them a match. Shows their name, age, gender, and
-major. Might show more information depending on further implementation (perhaps an about me)
-2. Leads to the Register Page
-3. Logs the user out (if they want to log out, for some reason)
-4. A chat with their specified match. Currently supports mostly text, and maybe images.
+- Based on the preferential dating information provided by the user, we will show them a match. Shows their name, age, gender, and
+major.
+- Logs the user out (if they want to log out, for some reason)
+- Able to like another user and if a match happens then email will be revealed to contact them.
 ### Main Page (no matches)
 ![Edit Profile Page (no matches)- State 1](/screenshots/edit&signup_profile.png)
-1. Generic no matches in case none are found
-2. Leads to the Register Page
-3. Logs the user out (if they want to log out, for some reason)
+- In case the user needs to change any information.
 # Architecture
 1. Express (Back End) - Back end with get/post endpoints
 2. MongoDB (Storage) - For storing all the users information (other than their login information)
@@ -41,6 +34,3 @@ major. Might show more information depending on further implementation (perhaps 
 5. Microserver architecture (Back End) - for some services to run multiple instances
 6. Gateway - All front end requests hit gateway first for authorization
 7. Redis - For caching values (such as the user login info, so they won't have to continually log back in)
-8. Docker - Backend components dockerized and to run in Docker swarm mode
-9. Kafka - for at least 1 conveyer
-10. Distributed messaging with kafka or redis
