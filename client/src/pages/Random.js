@@ -20,8 +20,6 @@ import Fab from '@material-ui/core/Fab';
 import { connect } from 'react-redux';
 import Modal from './Modal';
 import axios from 'axios';
-import { setPronoun } from '../redux/actions/userActions';
-
 
 const Random = ({ dispatch, username, password, age, email, major, addtion, firstName, lastName, preference, listed, identity, activeUsers }) => {
   const [messageBox, setMessageBox] = useState(false);
@@ -35,7 +33,7 @@ const Random = ({ dispatch, username, password, age, email, major, addtion, firs
   const [cardCollegeYear, setCardCollegeYear] = useState('College Year');
   const [cardEmail, setCardEmail] = useState('mail@sfsu.edu');
   const [cardInfo, setCardInfo] = useState('This is temporary use Info.This is temporary use Info.This is temporary use Info.This is temporary use Info.');
-const [cardUsername, setCardUsername] = useState('MASTER')
+  const [cardUsername, setCardUsername] = useState('MASTER')
   const [users, setUser] = useState([]);
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -64,39 +62,57 @@ const [cardUsername, setCardUsername] = useState('MASTER')
   }
 
   const listUsers = () => {
-    axios.post('/user/listUsers', {
-      preference,
-    })
-      .then((res) => {
+    axios.post('/user/listUsers', { preference })
+    .then((res) => {
         console.log("calling")
-      setUser(res.data);
+        // Filter method removes self if it is there
+        setUser(res.data.filter(el => el.username !== username));
       })
   }
-  React.useEffect(listUsers,[])
-  const clickX = () => {
-    try{
 
-    let query = users[Math.floor(Math.random() * users.length)];
-    let username = query.username;
+  function shuffleUsers(arr) {
+    let currentIndex = arr.length, tempVal, randomIndex
 
-    axios.post('/user/returnUser', {username})
-      .then((res) => {
-        setCardUsername(res.data.username);
-        setCardAge(res.data.age);
-        setCardFirstName(res.data.firstName);
-        setCardGender(res.data.gender);
-        setCardPronoun(res.data.pronoun);
-        setCardCollegeYear(res.data.collegeYear);
-        setCardInfo(res.data.info);
-        setCardEmail(res.data.email);
-        setHeart('default');
-      }).catch(console.log("NOTHING FOUND"));
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1
+
+      tempVal = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex];
+      arr[randomIndex] = tempVal;
     }
-    catch(e){
-      console.log(e)
-    }
+
+    return arr;
   }
 
+  React.useEffect(listUsers, [])
+
+  const clickX = () => {
+    try {
+      setHeart('default');
+
+      let query = users[Math.floor(Math.random() * users.length)].username;
+
+      axios.post('/user/check', {
+        userA: username,
+        userB: query,
+      }).then((res) => { if (res.data) { setHeart('secondary'); } })
+
+      axios.post('/user/returnUser', { username: query })
+        .then((res) => {
+          setCardUsername(res.data.username);
+          setCardAge(res.data.age);
+          setCardFirstName(res.data.firstName);
+          setCardGender(res.data.gender);
+          setCardPronoun(res.data.pronoun);
+          setCardCollegeYear(res.data.collegeYear);
+          setCardInfo(res.data.info);
+          setCardEmail(res.data.email);
+
+        }).catch(console.log("NOTHING FOUND"));
+    }
+    catch (e) { console.log(e) }
+  }
 
   // styles for the card- Raymond
   //export default function MediaCard() {
@@ -106,22 +122,23 @@ const [cardUsername, setCardUsername] = useState('MASTER')
   const [heart, setHeart] = React.useState('default');
   const updateHeart = () => {
     if (heart === 'default') {
-      setHeart('secondary');
       axios.post('/user/like', {
-        cardUsername,
+        userA: username,
+        userB: cardUsername,
       }).then((res) => {
-        
-      })
-      toggleModal();
+        if (res.data === 'Success') { setHeart('secondary'); }
+      });
     } else {
-      setHeart('default');
+      axios.post('/user/unlike', {
+        userA: username,
+        userB: cardUsername,
+      }).then((res) => { console.log(res.data); })
     }
-  };
 
-  // handling for when the X is clicked. Currently no functionality
-  const [x, setX] = React.useState('');
-  const updateX = () => {
-
+    axios.post('/user/mutual', {
+      userA: username,
+      userB: cardUsername,
+    }).then((res) => { if (res.data) { toggleModal(); } })
   };
 
   return (
@@ -134,23 +151,23 @@ const [cardUsername, setCardUsername] = useState('MASTER')
         {/* Card #1 */}
         <Grid item sm={4}>
           <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={`http://localhost/user/profilePic/${cardUsername}`}
+            <CardMedia
+              className={classes.media}
+              image={`http://localhost/user/profilePic/${cardUsername}`}
 
-                title="Friendly doge"
-              />
-              <CardContent> {/* This is where the user info is displayed */}
-                <Typography gutterBottom variant="h5" component="h2">
-                  {cardFirstName}, {cardAge}
-                </Typography>
-                <Typography variant="body" color="textSecondary" component="p">
-                  {cardGender}, {cardPronoun}, {cardCollegeYear}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {cardInfo}
-                </Typography>
-              </CardContent>
+              title="Friendly doge"
+            />
+            <CardContent> {/* This is where the user info is displayed */}
+              <Typography gutterBottom variant="h5" component="h2">
+                {cardFirstName}, {cardAge}
+              </Typography>
+              <Typography variant="body" color="textSecondary" component="p">
+                {cardGender}, {cardPronoun}, {cardCollegeYear}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {cardInfo}
+              </Typography>
+            </CardContent>
             <CardActions> {/* Handler example for changing heart color */}
               {/* This is the heart button */}
               <Fab active aria-label="like" color={heart} onClick={() => setHeart(updateHeart)}>
@@ -163,9 +180,9 @@ const [cardUsername, setCardUsername] = useState('MASTER')
               >
                 <React.Fragment>
                   <h2>It's A Match!</h2>
-            
-                    {cardEmail}
-                
+
+                  {cardEmail}
+
                 </React.Fragment>
               </Modal>
               {/* This is the X button */}

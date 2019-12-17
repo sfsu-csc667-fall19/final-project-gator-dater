@@ -10,10 +10,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Icon from '@mdi/react';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import { setIsLoggedIn } from '../redux/actions/userActions';
+import { setIsLoggedIn, setUsername } from '../redux/actions/userActions';
 import { Switch, Route, Redirect}  from "react-router-dom";
 import Update from './Update';
 import ico from './img/ICON.png';
+import { setPassword, setAge, setEmail, setInfo,
+         setCollegeYear, setFirstName, setLastName, setPreference,
+         setPronoun, setGender, setListed }
+         from '../redux/actions/userActions';
 
 
 // css
@@ -62,6 +66,20 @@ const NavBar = ({ dispatch, username, isLoggedIn }) => {
   }));
 
   const logout = () => {
+
+    dispatch(setUsername(''))
+    dispatch(setPassword(''))
+    dispatch(setFirstName(''))
+    dispatch(setLastName(''))
+    dispatch(setAge(''))
+    dispatch(setEmail(''))
+    dispatch(setCollegeYear(''))
+    dispatch(setPreference(''))
+    dispatch(setPronoun(''))
+    dispatch(setListed(''))
+    dispatch(setInfo(''))
+    dispatch(setGender(''))
+
     Cookies.remove('username')
     Cookies.remove('password')
     Cookies.remove('isLoggedIn')

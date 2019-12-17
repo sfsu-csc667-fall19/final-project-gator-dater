@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // redis
-const redis = require("./controllers/redis");
-app.use(redis);
+// const redis = require("./controllers/redis");
+// app.use(redis);
 
 // Mongo setup
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";
@@ -122,6 +122,7 @@ app.post('/user/returnUser', userController.returnUser);
 app.post('/user/like', userController.likeUser);
 app.post('/user/unlike', userController.unlikeUser);
 app.post('/user/mutual', userController.mutual);
+app.post('/user/check', userController.checkLike);
 
 app.get('*', (req, res) => {
     res.send("hello from the backend")
