@@ -5,26 +5,27 @@ knowing basic information such as name, age, major (all of which is used to matc
 to make our fellow SFSU students feel a little less cold this winter.
 ### Welcome Page
 ![Welcome Screen- State 1](/screenshots/home.png)
-- Leads to the the Sign Up Page, where the user signs up for an account and provides basic dating information
-- Leads to the Login Page for returning users
+- This is the home screen which has two buttons
+    - One for login
+    - One to sign up
 ### Register Page
 ![Register- State 1](/screenshots/create.png)
-- Continue button saves the users information for matching purposes, and also for when they login next time
-- Leads to a second sign up page that can upload a picture of the user or put more additional information
-- This is where the user creates their account and provides basic dating information we will use to match them
+- Fill out all input boxes to create a user
+- Input Fields have restrictions and warnings in case something went wrong and is unable to sign up
+- If success then the user will be redirected to their profile page
 ### Login Page
 ![Log In- State 1](/screenshots/login.png)
 - Logs the user in by using the user password and username
-- Leads to the profile page
+- If success then the user will be redirected to their profile page
 ### Main Page
 ![Profile Page- State 1](/screenshots/profile.png)
-- Based on the preferential dating information provided by the user, we will show them a match. Shows their name, age, gender, and
-major.
-- Logs the user out (if they want to log out, for some reason)
-- Able to like another user and if a match happens then email will be revealed to contact them.
+- A card with other user information is displayed
+- The user has the ability to like another user's profile as well as to randomly view others
+- If other users and the current user liked each other then a match will happen
+- A match will display a modal that contains each others emails to exchange
 ### Main Page (no matches)
 ![Edit Profile Page (no matches)- State 1](/screenshots/edit&signup_profile.png)
-- In case the user needs to change any information.
+- In case the user needs to change any information about them.
 # Architecture
 1. Express (Back End) - Back end with get/post endpoints
 2. MongoDB (Storage) - For storing all the users information (other than their login information)
