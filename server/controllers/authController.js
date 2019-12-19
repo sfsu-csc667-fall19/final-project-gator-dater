@@ -1,9 +1,26 @@
 
 const Users = require("../models/users");
 
+const kafka = require('kafka-node'),
+    Producer = kafka.Producer,
+    KeyedMessage = kafka.KeyedMessage,
+    client = new kafka.KafkaClient("localhost:3002/"),
+    producer = new Producer(client);
+    
+producer.on('ready', function () {
+    console.log("Producer ready")
+});
+
+producer.on('login', function(msg) {
+    console.log("22");
+})
+ 
+producer.on('error', function (err) { console.log(err)})
 
 exports.createUser = function (req, res) {
     try {
+
+
         Users.findOne({ username: req.body.username }, function (err, user) {
             if (!user) {
                 let newUser = new Users({
@@ -33,8 +50,28 @@ exports.createUser = function (req, res) {
 
 
 exports.login = function (req, res) {
+    
   Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]})
   .then((document) => {
       res.send(document);
+      console.log("hi")
   }).catch((e) => {res.send("Unable to retrieve info")})
 }
+
+
+// exports.login = function (req, res) {
+//     console.log("1")
+//     payload = [
+//         {topic:"login", username: req.body.username, password: req.body.password}
+//     ];
+
+//     producer.send(payload, (err, data) => {
+//         console.log("2")
+
+//         // Users.findOne( {$and:[{username: req.body.username}, {password: req.body.password}]})
+//         // .then((document) => {
+//         //     res.send(document);
+//         // }).catch((e) => {res.send("Unable to retrieve info")})
+//     })
+
+// }

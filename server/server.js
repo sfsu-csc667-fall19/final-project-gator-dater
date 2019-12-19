@@ -21,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// redis
-// const redis = require("./controllers/redis");
-// app.use(redis);
+redis
+const redis = require("./controllers/redis");
+app.use(redis);
 
 // Mongo setup
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";

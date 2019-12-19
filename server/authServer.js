@@ -3,6 +3,7 @@ const authController = require('./controllers/authController');
 const app = express();
 const port = 3002;
 
+
 //Mongoose requirements
 const mongoose = require('mongoose');
 const mongoURI = "mongodb+srv://dbUser:dbPassword@cluster0-1ibtt.mongodb.net/test?retryWrites=true&w=majority";
