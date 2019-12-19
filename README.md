@@ -35,3 +35,4 @@ to make our fellow SFSU students feel a little less cold this winter.
 6. Microserver architecture (Back End) - for some services to run multiple instances
 7. Gateway - All front end requests hit gateway first for authorization
 8. Redis - For caching values (such as the user login info, so they won't have to continually log back in)
+9. Docker - Docker files are available in server folder.
