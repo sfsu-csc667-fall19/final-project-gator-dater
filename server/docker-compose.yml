@@ -1,0 +1,51 @@
+version: '3'  
+services:
+  file:
+    container_name: docker
+    image: file
+    ports:
+      - '3000:3000'
+    links:  
+      - mongo
+  gate:
+    container_name: gateway
+    image: gateway
+    ports:
+      - '80:80'
+  service:
+    container_name: server
+    image: server
+    ports:
+      - '4001:4001'
+    links:  
+      - mongo
+  auth:
+    container_name: auth
+    image: auth
+    ports:
+      - '3002:3002'
+    links:  
+      - mongo
+  websocket:
+    container_name: websocket
+    image: websocket
+    ports:
+      - '4000:4002'
+    links:  
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+    - '27017:27017'
+  redis:
+    image : redis:5.0.4
+    ports:
+      - "6379:6379"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:
