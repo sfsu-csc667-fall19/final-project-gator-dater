@@ -1,0 +1,39 @@
+#user{
+    height:200px;
+    width:400px;
+}
+
+#con{
+    position: absolute;
+    left:30px;
+}
+
+h4{
+    font-size: 2em; /* 40px/16=2.5em */
+    color:white;
+    font-weight: bold;
+    font-family: "Microsoft Yahei";
+  }
+
+  #ab{
+    position:absolute;
+    right:20px;
+  }
+
+ #message{
+     position: relative;
+     left:-300px; 
+ } 
+
+ #messageBox{
+    height :400px;
+    width:600px;
+ }
+
+ .ud{
+    font-size: 16px; /* 40px/16=2.5em */
+    color:white;
+    font-weight: bold;
+    /* text-decoration: underline; */
+    font-family: "Microsoft Yahei";
+}
